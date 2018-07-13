@@ -2,9 +2,11 @@
   font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
 }
 
-html {
+html,
+body {
   box-sizing: border-box;
   font-size: 15px;
+  margin: 0;
 }
 *,
 *:before,
