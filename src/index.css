@@ -1,5 +1,9 @@
 :root {
   font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  --main-color: rgb(97, 97, 97);
+  --other-color: rgb(179, 179, 179);
+  --background-hover-color: rgb(252, 252, 252);
+  --border-color: rgb(235, 235, 235);
 }
 
 html,
