@@ -26,8 +26,8 @@ export function geocode(coordinates) {
 
             return resolve({
               label: formatted_address,
-              lat: location.lat(),
-              lng: location.lng(),
+              lat: round(location.lat()),
+              lng: round(location.lng()),
               placeId: place_id,
             });
           }
