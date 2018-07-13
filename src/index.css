@@ -4,6 +4,7 @@
 
 html {
   box-sizing: border-box;
+  font-size: 15px;
 }
 *,
 *:before,
@@ -12,8 +13,6 @@ html {
 }
 
 #root {
-  margin: 0 auto;
-  max-width: 1200px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -21,4 +20,13 @@ html {
 
 a:any-link {
   text-decoration: none;
+}
+
+.layout-container {
+  height: 100%;
+  margin: 0 auto;
+  max-width: 85em;
+  width: 100%;
+  position: relative;
+  padding: 0 1.33333em;
 }
