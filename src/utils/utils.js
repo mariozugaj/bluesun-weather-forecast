@@ -44,3 +44,8 @@ export function geocode(coordinates) {
 export function coordinatesToString({ lat, lng }) {
   return `${round(lat)},${round(lng)}`;
 }
+
+export function extractCoordinates(coordinatesString) {
+  const params = coordinatesString.split(",").map(parseFloat);
+  return { lat: params[0], lng: params[1] };
+}
