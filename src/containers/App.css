@@ -1,0 +1,12 @@
+.temperature--warm {
+  color: #c60000;
+}
+
+.temperature--cold {
+  color: blue;
+}
+
+.latest-update-text {
+  text-align: center;
+  font-size: 0.85em;
+}
