@@ -15,6 +15,7 @@ export function fetchForecastSuccess(forecast) {
         daily,
         hourly,
         timezone,
+        fetchedAt: Date.now(),
       },
     },
   };
@@ -37,7 +38,19 @@ function fetchForecast(location) {
 }
 
 function shouldFetchForecast(state, location) {
-  return false;
+  const forecast = state.forecasts[location];
+  const lastFetchedWithinAnHour =
+    forecast && (new Date() - new Date(forecast.fetchedAt)) / 3600000 < 1;
+
+  if (!forecast) {
+    return true;
+  } else if (forecast.isFething) {
+    return false;
+  } else if (lastFetchedWithinAnHour) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 export function fetchForecastIfNeeded(location) {
@@ -51,7 +64,6 @@ export function fetchForecastIfNeeded(location) {
 const initialState = {
   isFething: false,
   error: null,
-  forecastsByLocation: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -64,9 +76,7 @@ export default function reducer(state = initialState, action) {
     case FETCH_FORECAST_SUCCESS:
       return {
         ...state,
-        forecastsByLocation: {
-          [action.payload.location]: { ...action.payload.forecast },
-        },
+        [action.payload.location]: { ...action.payload.forecast },
         isFething: false,
       };
     case FETCH_FORECAST_FAILURE:
