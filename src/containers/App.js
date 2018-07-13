@@ -1,9 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
 import routes from "../routes";
 
+export const browserHistory = createBrowserHistory();
+
 const App = props => {
-  return <Router>{routes}</Router>;
+  return <Router history={browserHistory}>{routes}</Router>;
 };
 
 export default App;
