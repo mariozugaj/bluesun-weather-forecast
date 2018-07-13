@@ -1,6 +1,6 @@
-// import * as API from "../../api";
 import { geocode, coordinatesToString } from "../../utils/utils";
 import { browserHistory } from "../../containers/App";
+import { visitLocationIfNeeded } from "./visitedLocations";
 
 const SET_LOCATION = "SET_LOCATION";
 const GET_CURRENT_POSITION_BEGIN = "GET_CURRENT_POSITION_BEGIN";
@@ -11,11 +11,14 @@ const START_SEARCHING = "START_SEARCHING";
 const STOP_SEARCHING = "STOP_SEARCHING";
 
 export function setLocation(location) {
-  return {
-    type: SET_LOCATION,
-    payload: {
-      ...location,
-    },
+  return dispatch => {
+    dispatch({
+      type: SET_LOCATION,
+      payload: {
+        ...location,
+      },
+    });
+    dispatch(visitLocationIfNeeded(location));
   };
 }
 
