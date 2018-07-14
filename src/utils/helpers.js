@@ -50,20 +50,17 @@ export function extractCoordinates(coordinatesString) {
   return { lat: params[0], lng: params[1] };
 }
 
-export function nextNDays(n) {
+export function nextDays(n) {
   return function() {
-    const days = [];
-    for (let i = 0; i < n; i++) {
-      let today = new Date();
-      days.push(today.setDate(today.getDate() + i));
+    const days = ["Today"];
+    const names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const today = new Date().toLocaleDateString("en-GB", { weekday: "long" });
+    let index = names.indexOf(today) + 1;
+
+    for (let i = 1; i < n; i++) {
+      days.push(names[index]);
+      index === names.length - 1 ? (index = 0) : index++;
     }
-
-    const todayDate = new Date().getDate();
-
-    return days.map(day => {
-      const dayDate = new Date(day);
-      if (todayDate === dayDate.getDate()) return "Today";
-      return dayDate.toLocaleDateString("en-GB", { weekday: "long" });
-    });
+    return days;
   };
 }

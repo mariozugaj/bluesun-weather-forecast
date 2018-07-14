@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Icon from "Icon";
-import { nextNDays, round } from "helpers";
+import { nextDays, round } from "helpers";
 
 const WeatherSymbol = props => {
   return (
@@ -33,7 +33,7 @@ const DataRow = props => {
 };
 
 const HeadingRow = props => {
-  const headingDayNames = nextNDays(5)().map(dayName => <span key={dayName}>{dayName}</span>);
+  const headingDayNames = nextDays(5)().map(dayName => <span key={dayName}>{dayName}</span>);
   return <header className="weather-location-list__heading-row">{headingDayNames}</header>;
 };
 
