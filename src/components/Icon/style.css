@@ -1,0 +1,7 @@
+.icon {
+  outline: none;
+}
+
+.icon--clickable {
+  cursor: pointer;
+}
