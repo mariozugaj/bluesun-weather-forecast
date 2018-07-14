@@ -18,10 +18,15 @@
   text-decoration: none;
   width: 3em;
   cursor: pointer;
+  z-index: 1;
 }
 
 .page-header__icon--onTop {
   z-index: 100;
+}
+
+.page-header__logo {
+  outline: none;
 }
 
 .page-header__icon--img {
@@ -43,6 +48,7 @@
   white-space: nowrap;
   cursor: pointer;
   outline: none;
+  z-index: 1;
 }
 
 .page-header__loader {

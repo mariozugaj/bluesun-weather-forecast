@@ -61,7 +61,6 @@ export function getCurrentPosition() {
 
 export function setLocationFromParams(coordinates) {
   return dispatch => {
-    dispatch({ type: GET_CURRENT_POSITION_BEGIN });
     return geocode(coordinates).then(locationData => dispatch(setLocation(locationData)));
   };
 }
@@ -104,12 +103,13 @@ export default function reducer(state = initialState, action) {
     case GET_CURRENT_POSITION_SUCCESS:
       return {
         ...state,
+        error: null,
         isLocating: false,
       };
     case GET_CURRENT_POSITION_FAILURE:
       return {
         ...state,
-        ...action.error,
+        error: action.error,
         isLocating: false,
       };
     case CLEAR_LOCATION:
