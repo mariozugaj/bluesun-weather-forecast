@@ -1,45 +1,37 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { round } from "helpers";
 import Icon from "Icon";
 import SearchInput from "./SearchInput";
 
-export class Search extends Component {
-  changeSearchMode = () => {
-    if (this.props.currentLocation.isSearching) return this.props.stopSearching();
-    this.props.startSearching();
+const Search = props => {
+  const changeSearchMode = () => {
+    if (props.currentLocation.isSearching) return props.stopSearching();
+    props.startSearching();
   };
 
-  onSuggestSelect = suggest => {
+  const onSuggestSelect = suggest => {
     if (suggest && suggest.label !== "") {
       const coordinates = `${round(suggest.location.lat)},${round(suggest.location.lng)}`;
-      this.props.history.push(`/forecast/daily/${coordinates}`);
-      this.props.stopSearching();
+      props.history.push(`/forecast/daily/${coordinates}`);
+      props.stopSearching();
     }
   };
 
-  render() {
-    const { isSearching } = this.props.currentLocation;
-
-    return (
-      <React.Fragment>
-        <span className="page-header__icon">
-          <Icon
-            name="search"
-            size="25px"
-            title="Seach for a location"
-            onClick={this.changeSearchMode}
-          />
-        </span>
-        {isSearching && (
-          <SearchInput
-            onSuggestSelect={this.onSuggestSelect}
-            changeSearchMode={this.changeSearchMode}
-          />
-        )}
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Icon
+        name="search"
+        className="page-header__item icon--clickable"
+        size="20px"
+        title="Seach for a location"
+        onClick={changeSearchMode}
+      />
+      {props.currentLocation.isSearching && (
+        <SearchInput onSuggestSelect={onSuggestSelect} changeSearchMode={changeSearchMode} />
+      )}
+    </React.Fragment>
+  );
+};
 
 export default Search;

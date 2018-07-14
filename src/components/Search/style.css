@@ -1,10 +1,9 @@
 .geosuggest {
   background-color: #fff;
   height: 3em;
-  padding: 0 2em 0 5em;
-  width: 100%;
+  width: calc(100% - 5em);
   position: absolute;
-  left: 0;
+  left: 5em;
   top: 1em;
   right: 0;
   z-index: 99;
@@ -21,8 +20,6 @@
   font-size: 16px;
   line-height: normal;
   padding: 0 0 0 0.9375em;
-  background-color: #f2f2f2;
-  border-radius: 4px;
   height: 3em;
   width: 100%;
 }
