@@ -78,11 +78,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         [action.payload.location]: { ...action.payload.forecast },
         isFething: false,
+        error: null,
       };
     case FETCH_FORECAST_FAILURE:
       return {
         ...state,
-        ...action.error,
+        error: action.error,
         isFething: false,
       };
     default:
