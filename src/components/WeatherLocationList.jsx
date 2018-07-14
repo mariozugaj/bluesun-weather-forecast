@@ -8,7 +8,7 @@ import { nextNDays, round } from "../utils/utils";
 const WeatherSymbol = props => {
   return (
     <figure className="weather-location-list__icon-wrapper">
-      <Icon name={props.condition} title="Clear day" size={50} />
+      <Icon name={props.condition} title={props.summary} size={50} />
       <span className="temperature--warm">{round(props.temperature, 0)}°</span>
     </figure>
   );
@@ -19,6 +19,7 @@ const DataRow = props => {
     return (
       <WeatherSymbol
         condition={day.icon}
+        summary={day.summary}
         temperature={day.apparentTemperatureHigh}
         key={day.time}
       />
@@ -49,23 +50,21 @@ const WeatherLocationList = ({ forecasts = {}, visitedLocations = {} }) => {
     );
   });
 
-  const latestUpdate = new Date(forecasts[Object.keys(visitedLocations)[0]].fetchedAt);
-  const latestUpdateTime = latestUpdate.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZoneName: "short",
-  });
-
   return (
     <React.Fragment>
-      <h2 className="weather-location-list__title">Recent locations</h2>
-      <section className="weather-location-list">
-        <HeadingRow />
-        {mappedDataRows}
-      </section>
-      <p className="latest-update-text">
-        Latest update at <time dateTime={latestUpdate}>{latestUpdateTime}</time>
-      </p>
+      {Object.keys(visitedLocations).length === 0 ? (
+        <div className="center-page-text-wrapper">
+          <h2>As it turns out, you haven't yet visited any locations.</h2>
+        </div>
+      ) : (
+        <React.Fragment>
+          <h2 className="weather-location-list__title">Recent locations</h2>
+          <section className="weather-location-list">
+            <HeadingRow />
+            {mappedDataRows}
+          </section>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
