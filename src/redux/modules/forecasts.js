@@ -1,5 +1,5 @@
-import { coordinatesToString } from "../../utils/utils";
-import * as API from "../../api";
+import { coordinatesToString } from "helpers";
+import * as API from "api";
 
 const FETCH_FORECAST_BEGIN = "FETCH_FORECAST_BEGIN";
 const FETCH_FORECAST_SUCCESS = "FETCH_FORECAST_SUCCESS";

@@ -1,4 +1,4 @@
-import { coordinatesToString } from "../../utils/utils";
+import { coordinatesToString } from "helpers";
 
 const VISIT_LOCATION = "VISIT_LOCATION";
 

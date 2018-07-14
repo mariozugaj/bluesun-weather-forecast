@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "./WeatherLocationList.css";
-import Icon from "./Icon";
-import { nextNDays, round } from "../utils/utils";
+import Icon from "Icon";
+import { nextNDays, round } from "helpers";
 
 const WeatherSymbol = props => {
   return (

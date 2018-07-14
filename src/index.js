@@ -3,10 +3,10 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
-import configureStore from "./redux/store";
-import "./index.css";
-import App from "./containers/App";
-import registerServiceWorker from "./utils/registerServiceWorker";
+import "index.css";
+import configureStore from "store";
+import App from "App";
+import registerServiceWorker from "registerServiceWorker";
 
 const { persistor, store } = configureStore();
 
