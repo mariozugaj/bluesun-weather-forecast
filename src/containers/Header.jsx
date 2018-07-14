@@ -25,7 +25,7 @@ export class Header extends Component {
           <Link to="/" className="page-header__icon page-header__icon--onTop">
             <Icon
               name="logo"
-              className="page-header__icon--img"
+              className="page-header__icon--img page-header__logo"
               title="Go to homepage"
               alt="BlueSun Weather Forecast"
             />
