@@ -1,8 +1,6 @@
 import React from "react";
 
-import "./Loader.css";
-
-const Loader = props => {
+const Loader = () => {
   return (
     <div
       className="loader-inner"

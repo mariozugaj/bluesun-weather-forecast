@@ -1,6 +1,6 @@
 import React from "react";
 
-import Icons from "../images/icons.svg";
+import Icons from "icons.svg";
 
 const Icon = ({ name, className = "", size = 100, title = "", alt = "", onClick }) => (
   <svg

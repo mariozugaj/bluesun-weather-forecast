@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import "./HomePage.css";
-import { clearLocation } from "../redux/modules/currentLocation";
-import { fetchForecastIfNeeded } from "../redux/modules/forecasts";
-import WeatherLocationList from "../components/WeatherLocationList";
+import { clearLocation } from "currentLocation";
+import { fetchForecastIfNeeded } from "forecasts";
+import WeatherLocationList from "WeatherLocationList";
 
 export class HomePage extends Component {
   componentDidMount() {

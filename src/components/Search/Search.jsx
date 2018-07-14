@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
-import "./Search.css";
-import { round } from "../utils/utils";
-import Icon from "./Icon";
+import { round } from "helpers";
+import Icon from "Icon";
 import SearchInput from "./SearchInput";
 
 export class Search extends Component {

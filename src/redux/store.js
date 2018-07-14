@@ -1,9 +1,9 @@
-import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { applyMiddleware, compose, createStore } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
 
-import rootReducer from "./modules";
+import rootReducer from "modules";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const persistConfig = {

@@ -1,7 +1,7 @@
 import React from "react";
 
-import Icon from "./Icon";
-import Loader from "./Loader";
+import Icon from "Icon";
+import Loader from "Loader";
 
 const CurrentPosition = props => {
   const handleClick = () => {

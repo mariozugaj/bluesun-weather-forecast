@@ -3,17 +3,11 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import "./Header.css";
-import Icon from "../components/Icon";
-import LocationInfo from "../components/LocationInfo";
-import Search from "../components/Search";
-import CurrentPosition from "../components/CurrentPosition";
-import {
-  setLocation,
-  getCurrentPosition,
-  startSearching,
-  stopSearching,
-} from "../redux/modules/currentLocation";
+import Icon from "Icon";
+import LocationInfo from "LocationInfo";
+import Search from "Search";
+import CurrentPosition from "CurrentPosition";
+import { setLocation, getCurrentPosition, startSearching, stopSearching } from "currentLocation";
 
 export class Header extends Component {
   componentDidMount() {}

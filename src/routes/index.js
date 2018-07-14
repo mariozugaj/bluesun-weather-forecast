@@ -1,12 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Header from "../containers/Header";
-import HomePage from "../pages/HomePage";
-import ForecastDailyPage from "../pages/ForecastDailyPage";
-import ForecastHourlyPage from "../pages/ForecastHourlyPage";
-import ForecastMapPage from "../pages/ForecastMapPage";
-import NotFound from "../components/NotFound";
+import Header from "Header";
+import HomePage from "HomePage";
+import ForecastDailyPage from "ForecastDailyPage";
+import ForecastHourlyPage from "ForecastHourlyPage";
+import ForecastMapPage from "ForecastMapPage";
+import NotFoundPage from "NotFoundPage";
 
 const routes = (
   <React.Fragment>
@@ -16,7 +16,7 @@ const routes = (
       <Route path="/forecast/daily/:coordinates" component={ForecastDailyPage} />
       <Route path="/forecast/hourly/:coordinates" component={ForecastHourlyPage} />
       <Route path="/forecast/map/:coordinates" component={ForecastMapPage} />
-      <Route component={NotFound} />
+      <Route component={NotFoundPage} />
     </Switch>
   </React.Fragment>
 );
