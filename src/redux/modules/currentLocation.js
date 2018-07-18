@@ -1,6 +1,6 @@
 import { geocode, coordinatesToString } from "helpers";
-import { visitLocationIfNeeded } from "visitedLocations";
 import { browserHistory } from "containers/App";
+import { visitLocation } from "modules/visitedLocations";
 
 const SET_LOCATION = "SET_LOCATION";
 const GET_CURRENT_POSITION_BEGIN = "GET_CURRENT_POSITION_BEGIN";
@@ -18,7 +18,7 @@ export function setLocation(location) {
         ...location,
       },
     });
-    dispatch(visitLocationIfNeeded(location));
+    dispatch(visitLocation(location));
   };
 }
 
@@ -84,7 +84,6 @@ const initialState = {
   lat: null,
   lng: null,
   label: null,
-  placeId: null,
 };
 
 export default function reducer(state = initialState, action) {
