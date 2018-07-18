@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Icon from "Icon";
+import Icon from "components/Icon";
 
 const Logo = props => {
   return (

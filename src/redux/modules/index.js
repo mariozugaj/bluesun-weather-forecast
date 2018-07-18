@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 
-import currentLocation from "currentLocation";
-import visitedLocations from "visitedLocations";
 import forecasts from "forecasts";
+import currentLocation from "modules/currentLocation";
+import visitedLocations from "modules/visitedLocations";
 
 export default combineReducers({
   currentLocation,

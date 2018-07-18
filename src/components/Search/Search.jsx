@@ -1,7 +1,7 @@
 import React from "react";
 
 import { round } from "helpers";
-import Icon from "Icon";
+import Icon from "components/Icon";
 import SearchInput from "./SearchInput";
 
 const Search = props => {
