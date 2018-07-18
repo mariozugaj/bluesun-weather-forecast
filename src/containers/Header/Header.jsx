@@ -12,9 +12,12 @@ import {
   startSearching,
   stopSearching,
 } from "modules/currentLocation";
+import HeaderNav from "./HeaderNav";
 
 export class Header extends Component {
   render() {
+    const isNotHome = this.props.location.pathname !== "/";
+
     return (
       <section className="layout-container">
         <header className="page-header">
@@ -23,6 +26,7 @@ export class Header extends Component {
           <CurrentPosition {...this.props} />
           <Search {...this.props} />
         </header>
+        {isNotHome && <HeaderNav id={this.props.currentLocation.id} />}
       </section>
     );
   }
