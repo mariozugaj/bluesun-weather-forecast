@@ -29,9 +29,25 @@ a:any-link {
 }
 
 .layout-container {
+  position: relative;
   height: 100%;
   margin: 0 auto;
   max-width: 85em;
   width: 100%;
   padding: 0 1.33333em;
+}
+
+.weather-symbol__wrapper {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.temperature--warm {
+  color: #c60000 !important;
+}
+
+.temperature--cold {
+  color: blue !important;
 }
