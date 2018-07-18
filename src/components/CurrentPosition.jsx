@@ -1,7 +1,7 @@
 import React from "react";
 
-import Icon from "Icon";
-import LoadingModal from "LoadingModal";
+import Icon from "components/Icon";
+import LoadingModal from "components/LoadingModal";
 
 const CurrentPosition = ({ getCurrentPosition, currentLocation }) => {
   return (

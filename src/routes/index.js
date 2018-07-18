@@ -1,12 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Header from "Header";
-import HomePage from "HomePage";
-import ForecastDailyPage from "ForecastDailyPage";
-import ForecastHourlyPage from "ForecastHourlyPage";
-import ForecastMapPage from "ForecastMapPage";
-import NotFoundPage from "NotFoundPage";
+import Header from "containers/Header";
+import HomePage from "pages/HomePage";
+import ForecastDailyPage from "pages/ForecastDailyPage";
+import ForecastHourlyPage from "pages/ForecastHourlyPage";
+import ForecastMapPage from "pages/ForecastMapPage";
+import NotFoundPage from "pages/NotFoundPage";
 
 const routes = (
   <React.Fragment>

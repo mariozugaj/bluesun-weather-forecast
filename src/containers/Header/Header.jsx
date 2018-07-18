@@ -2,11 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import Logo from "Logo";
-import LocationInfo from "LocationInfo";
-import Search from "Search";
-import CurrentPosition from "CurrentPosition";
-import { setLocation, getCurrentPosition, startSearching, stopSearching } from "currentLocation";
+import Logo from "components/Logo";
+import LocationInfo from "components/LocationInfo";
+import Search from "components/Search";
+import CurrentPosition from "components/CurrentPosition";
+import {
+  setLocation,
+  getCurrentPosition,
+  startSearching,
+  stopSearching,
+} from "modules/currentLocation";
 
 export class Header extends Component {
   render() {

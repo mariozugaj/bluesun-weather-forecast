@@ -1,6 +1,6 @@
 import { geocode, coordinatesToString } from "helpers";
-import { browserHistory } from "App";
 import { visitLocationIfNeeded } from "visitedLocations";
+import { browserHistory } from "containers/App";
 
 const SET_LOCATION = "SET_LOCATION";
 const GET_CURRENT_POSITION_BEGIN = "GET_CURRENT_POSITION_BEGIN";
