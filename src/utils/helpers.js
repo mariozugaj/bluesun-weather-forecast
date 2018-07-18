@@ -21,14 +21,15 @@ export function geocode(coordinates) {
             const {
               formatted_address,
               geometry: { location },
-              place_id,
             } = filtered[0];
+            const lat = round(location.lat());
+            const lng = round(location.lng());
 
             return resolve({
               label: formatted_address,
-              lat: round(location.lat()),
-              lng: round(location.lng()),
-              placeId: place_id,
+              lat,
+              lng,
+              id: `${lat},${lng}`,
             });
           }
         } else {
