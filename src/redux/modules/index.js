@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 
-import forecasts from "forecasts";
 import currentLocation from "modules/currentLocation";
 import visitedLocations from "modules/visitedLocations";
+import forecast from "modules/forecast";
 
 export default combineReducers({
   currentLocation,
   visitedLocations,
-  forecasts,
+  forecast,
 });

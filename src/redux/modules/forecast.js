@@ -38,7 +38,7 @@ function fetchForecast(location) {
 }
 
 function shouldFetchForecast(state, location) {
-  const forecast = state.forecasts[location];
+  const forecast = state.forecast.byLocation[location];
   const lastFetchedWithinAnHour =
     forecast && (new Date() - new Date(forecast.fetchedAt)) / 3600000 < 1;
 
@@ -64,6 +64,7 @@ export function fetchForecastIfNeeded(location) {
 const initialState = {
   isFething: false,
   error: null,
+  byLocation: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -75,8 +76,10 @@ export default function reducer(state = initialState, action) {
       };
     case FETCH_FORECAST_SUCCESS:
       return {
-        ...state,
-        [action.payload.location]: { ...action.payload.forecast },
+        byLocation: {
+          ...state.byLocation,
+          [action.payload.location]: { ...action.payload.forecast },
+        },
         isFething: false,
         error: null,
       };
