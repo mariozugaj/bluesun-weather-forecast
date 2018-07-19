@@ -22,6 +22,8 @@
   cursor: pointer;
   outline: none;
   z-index: 1;
+  display: flex;
+  align-items: center;
 }
 
 .page-header__item {
@@ -60,4 +62,9 @@
 .page-header__nav__anchor.active,
 .page-header__nav__anchor:hover {
   border-bottom: 2px solid #005bff;
+}
+
+.page-header__loader-wrapper {
+  width: 30%;
+  height: 60%;
 }
