@@ -34,12 +34,30 @@
   justify-self: flex-start;
   font-weight: 500;
   padding-left: 0.5em;
+  position: relative;
+  height: 1.2em;
+  overflow: hidden;
+  width: 100%;
 }
 
+.table__row h3:first-child:after {
+  content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30%;
+  height: 1.2em;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+}
 .table__row:last-of-type {
   border-bottom: 1px solid var(--border-color);
 }
 
 .table__row:hover {
   background-color: var(--background-hover-color);
+}
+
+.table__row:hover > h3:after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--background-hover-color) 50%);
 }
