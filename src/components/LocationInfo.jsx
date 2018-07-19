@@ -7,7 +7,7 @@ const LocationInfo = props => {
       onClick={props.startSearching}
       onKeyPress={props.startSearching}
       tabIndex="0">
-      {props.location.label}
+      {props.currentLocation.label}
     </h1>
   );
 };
