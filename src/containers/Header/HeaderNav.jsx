@@ -27,7 +27,7 @@ const HeaderNav = ({ id = "" }) => {
 };
 
 HeaderNav.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 };
 
 export default HeaderNav;

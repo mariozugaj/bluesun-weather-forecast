@@ -39,7 +39,7 @@ const VisitedLocations = ({ visitedLocations = [], forecast = {} }) => {
 
       return (
         <Row to={`/forecast/daily/${location.id}`} key={location.id} size={5}>
-          <h3>{location.label}</h3>
+          <h3 title={location.label}>{location.label}</h3>
           {rowContent}
         </Row>
       );
