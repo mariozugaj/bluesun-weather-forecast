@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 export function round(number, precision = 4) {
   const shift = (number, precision, reverseShift) => {
     if (reverseShift) {
@@ -69,5 +71,22 @@ export function nextDays(n) {
 export function titleize(string) {
   return string.replace(/^[a-z]|[A-Z]/g, (v, i) => {
     return i === 0 ? v.toUpperCase() : " " + v.toUpperCase();
+  });
+}
+
+export function uvClass(uvIndex) {
+  return classNames({
+    uv: true,
+    green: uvIndex < 3,
+    yellow: uvIndex >= 3 && uvIndex < 6,
+    orange: uvIndex >= 6 && uvIndex < 8,
+    red: uvIndex >= 8,
+  });
+}
+
+export function tempClass(temperature) {
+  return classNames({
+    "temperature--warm": temperature > 0,
+    "temperature--cold": temperature <= 0,
   });
 }
