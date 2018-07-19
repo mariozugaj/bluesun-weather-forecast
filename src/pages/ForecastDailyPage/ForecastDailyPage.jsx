@@ -6,6 +6,7 @@ import { setLocationFromParams, clearLocation } from "modules/currentLocation";
 import { fetchForecastIfNeeded } from "modules/forecast";
 import { extractCoordinates } from "helpers";
 import CurrentConditions from "components/CurrentConditions";
+import DailyConditions from "components/DailyConditions";
 import LoadingModal from "components/LoadingModal";
 
 export class ForecastDailyPage extends Component {
@@ -30,7 +31,10 @@ export class ForecastDailyPage extends Component {
 
     if (forecastLoaded) {
       return (
-          <CurrentConditions forecast={forecast} isFetching={isFetching} />
+        <React.Fragment>
+          <CurrentConditions forecast={forecast} />
+          <DailyConditions forecast={forecast} />
+        </React.Fragment>
       );
     } else {
       return <LoadingModal text="Fetching forecast..." />;
