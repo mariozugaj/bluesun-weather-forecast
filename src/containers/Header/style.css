@@ -57,6 +57,7 @@
   transition: all 0.15s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
-.page-header__nav__anchor.active {
+.page-header__nav__anchor.active,
+.page-header__nav__anchor:hover {
   border-bottom: 2px solid #005bff;
 }
