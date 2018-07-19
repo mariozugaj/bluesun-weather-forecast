@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { setLocationFromParams, clearLocation } from "modules/currentLocation";
+import { setLocationFromParams } from "modules/currentLocation";
 import { fetchForecastIfNeeded } from "modules/forecast";
 import { extractCoordinates } from "helpers";
 import CurrentConditions from "components/CurrentConditions";
@@ -56,7 +56,6 @@ const mapDispatch = (dispatch, ownProps) => {
     setLocationFromParams: () => {
       return dispatch(setLocationFromParams(coordinates));
     },
-    clearLocation: () => dispatch(clearLocation()),
     fetchForecastIfNeeded: () => dispatch(fetchForecastIfNeeded(ownProps.match.params.coordinates)),
   };
 };
