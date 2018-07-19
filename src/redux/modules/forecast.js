@@ -6,12 +6,13 @@ const FETCH_FORECAST_SUCCESS = "FETCH_FORECAST_SUCCESS";
 const FETCH_FORECAST_FAILURE = "FETCH_FORECAST_FAILURE";
 
 export function fetchForecastSuccess(forecast) {
-  const { latitude, longitude, daily, hourly, timezone } = forecast;
+  const { latitude, longitude, daily, hourly, currently, timezone } = forecast;
   return {
     type: FETCH_FORECAST_SUCCESS,
     payload: {
       location: coordinatesToString({ lat: latitude, lng: longitude }),
       forecast: {
+        currently,
         daily,
         hourly,
         timezone,
