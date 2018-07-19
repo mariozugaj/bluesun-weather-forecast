@@ -1,12 +1,12 @@
 import React from "react";
 
-import { titleize, round } from "helpers";
+import { titleize, round, uvClass } from "helpers";
 
-const Detail = ({ label = "", value = 0, unit = "", direction = null }) => (
+const Detail = ({ label = "", value = 0, unit = "", direction = null, className = "" }) => (
   <li className="current-details__item">
     <span className="current-details__label">{`${titleize(label)}:`}</span>
     <span className="current-details__value">
-      <span className="current-details__num">{value}</span>
+      <span className={`current-details__num ${className}`}>{value}</span>
       <span className="current-details__unit">{unit}</span>
       {direction && (
         <span
@@ -38,7 +38,8 @@ const CurrentDetails = forecast => {
       }
       unit={detail[1]}
       key={detail[0]}
-      direction={detail[0] === "windSpeed" ? forecast.currently.windBearing : null}
+      direction={detail[0] === "windSpeed" ? forecast.currently.windBearing - 180 : null}
+      className={detail[0] === "uvIndex" ? uvClass(forecast.currently[detail[0]]) : ""}
     />
   ));
 
