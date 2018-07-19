@@ -2,6 +2,7 @@ import { geocode, coordinatesToString } from "helpers";
 import { browserHistory } from "containers/App";
 import { visitLocation } from "modules/visitedLocations";
 
+const SET_LOCATION_BEGIN = "SET_LOCATION_BEGIN";
 const SET_LOCATION = "SET_LOCATION";
 const GET_CURRENT_POSITION_BEGIN = "GET_CURRENT_POSITION_BEGIN";
 const GET_CURRENT_POSITION_SUCCESS = "GET_CURRENT_POSITION_SUCCESS";
@@ -9,6 +10,12 @@ const GET_CURRENT_POSITION_FAILURE = "GET_CURRENT_POSITION_FAILURE";
 const CLEAR_LOCATION = "CLEAR_LOCATION";
 const START_SEARCHING = "START_SEARCHING";
 const STOP_SEARCHING = "STOP_SEARCHING";
+
+export function startSettingLocation() {
+  return {
+    type: SET_LOCATION_BEGIN,
+  };
+}
 
 export function setLocation(location) {
   return dispatch => {
@@ -80,6 +87,7 @@ export function stopSearching() {
 const initialState = {
   isLocating: false,
   isSearching: false,
+  isSettingLocation: false,
   error: null,
   lat: null,
   lng: null,
@@ -88,11 +96,17 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case SET_LOCATION_BEGIN:
+      return {
+        ...state,
+        isSettingLocation: true,
+      };
     case SET_LOCATION:
       return {
         ...state,
         ...action.payload,
         isLocating: false,
+        isSettingLocation: false,
       };
     case GET_CURRENT_POSITION_BEGIN:
       return {
