@@ -56,8 +56,8 @@ HomePage.propTypes = {
 
 const mostRecentFiveLocations = allLocations =>
   Object.values(allLocations)
-    .slice(0, 5)
-    .sort((a, b) => (a.visitedAt < b.visitedAt ? 1 : -1));
+    .sort((a, b) => (a.visitedAt < b.visitedAt ? 1 : -1))
+    .slice(0, 5);
 
 const mapState = state => {
   return {
