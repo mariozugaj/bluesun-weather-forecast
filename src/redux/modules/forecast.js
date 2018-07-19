@@ -73,7 +73,7 @@ export default function reducer(state = initialState, action) {
     case FETCH_FORECAST_BEGIN:
       return {
         ...state,
-        isFething: true,
+        isFetching: true,
       };
     case FETCH_FORECAST_SUCCESS:
       return {
@@ -81,14 +81,14 @@ export default function reducer(state = initialState, action) {
           ...state.byLocation,
           [action.payload.location]: { ...action.payload.forecast },
         },
-        isFething: false,
+        isFetching: false,
         error: null,
       };
     case FETCH_FORECAST_FAILURE:
       return {
         ...state,
         error: action.error,
-        isFething: false,
+        isFetching: false,
       };
     default:
       return state;

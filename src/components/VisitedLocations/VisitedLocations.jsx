@@ -69,7 +69,7 @@ VisitedLocations.propTypes = {
     })
   ).isRequired,
   forecast: PropTypes.shape({
-    isFething: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     byLocation: PropTypes.object.isRequired,
   }).isRequired,
 };
