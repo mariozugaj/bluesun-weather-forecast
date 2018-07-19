@@ -9,7 +9,8 @@ const Icon = ({ name, className = "", size = 100, title = "", alt = "", onClick 
     height={size}
     onClick={onClick}
     onKeyPress={onClick}
-    tabIndex="0">
+    tabIndex="0"
+    preserveAspectRatio="xMidYMid">
     <title>{title}</title>
     <alt>{alt}</alt>
     <use xlinkHref={`${Icons}#icon-${name}`} />
