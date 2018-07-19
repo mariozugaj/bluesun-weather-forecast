@@ -1,0 +1,4 @@
+.map-wrapper {
+  width: 100%;
+  height: calc(100vh - 51px - 1em - 3.86667em);
+}
