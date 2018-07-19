@@ -65,3 +65,9 @@ export function nextDays(n) {
     return days;
   };
 }
+
+export function titleize(string) {
+  return string.replace(/^[a-z]|[A-Z]/g, (v, i) => {
+    return i === 0 ? v.toUpperCase() : " " + v.toUpperCase();
+  });
+}
