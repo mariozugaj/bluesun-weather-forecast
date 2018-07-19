@@ -45,7 +45,7 @@ function shouldFetchForecast(state, location) {
 
   if (!forecast) {
     return true;
-  } else if (forecast.isFething) {
+  } else if (forecast.isFetching) {
     return false;
   } else if (lastFetchedWithinAnHour) {
     return false;
@@ -63,7 +63,7 @@ export function fetchForecastIfNeeded(location) {
 }
 
 const initialState = {
-  isFething: false,
+  isFetching: false,
   error: null,
   byLocation: {},
 };
@@ -77,12 +77,12 @@ export default function reducer(state = initialState, action) {
       };
     case FETCH_FORECAST_SUCCESS:
       return {
+        isFetching: false,
+        error: null,
         byLocation: {
           ...state.byLocation,
           [action.payload.location]: { ...action.payload.forecast },
         },
-        isFetching: false,
-        error: null,
       };
     case FETCH_FORECAST_FAILURE:
       return {
