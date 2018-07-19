@@ -13,8 +13,9 @@ const Search = props => {
   const onSuggestSelect = suggest => {
     if (suggest && suggest.label !== "") {
       const coordinates = `${round(suggest.location.lat)},${round(suggest.location.lng)}`;
-      props.history.push(`/forecast/daily/${coordinates}`);
       props.stopSearching();
+      props.startSettingLocation();
+      props.history.push(`/forecast/daily/${coordinates}`);
     }
   };
 

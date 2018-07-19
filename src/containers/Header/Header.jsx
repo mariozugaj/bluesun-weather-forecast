@@ -7,6 +7,7 @@ import LocationInfo from "components/LocationInfo";
 import Search from "components/Search";
 import CurrentPosition from "components/CurrentPosition";
 import {
+  startSettingLocation,
   setLocation,
   getCurrentPosition,
   startSearching,
@@ -38,6 +39,7 @@ const mapState = (state, ownProps) => {
   };
 };
 const mapDispatch = {
+  startSettingLocation,
   setLocation,
   getCurrentPosition,
   startSearching,
