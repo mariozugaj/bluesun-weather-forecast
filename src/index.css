@@ -48,6 +48,29 @@ a:any-link {
   color: #c60000 !important;
 }
 
-.temperature--cold {
+.temperature--cold,
+.precipitation {
   color: blue !important;
+}
+
+.uv {
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: rgb(0, 0, 0) !important;
+}
+
+.green {
+  background-color: rgba(64, 191, 61, 0.6);
+}
+
+.yellow {
+  background-color: rgba(255, 240, 0, 0.6);
+}
+
+.orange {
+  background-color: rgba(255, 127, 0, 0.6);
+}
+
+.red {
+  background-color: rgba(255, 0, 0, 0.6);
 }
