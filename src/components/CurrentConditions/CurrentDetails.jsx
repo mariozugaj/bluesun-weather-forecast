@@ -2,12 +2,19 @@ import React from "react";
 
 import { titleize, round } from "helpers";
 
-const Detail = ({ label, value, unit }) => (
+const Detail = ({ label = "", value = 0, unit = "", direction = null }) => (
   <li className="current-details__item">
     <span className="current-details__label">{`${titleize(label)}:`}</span>
     <span className="current-details__value">
       <span className="current-details__num">{value}</span>
       <span className="current-details__unit">{unit}</span>
+      {direction && (
+        <span
+          className="current-details__direction"
+          style={{ transform: `rotate(${direction}deg)` }}>
+          ↑
+        </span>
+      )}
     </span>
   </li>
 );
@@ -31,6 +38,7 @@ const CurrentDetails = forecast => {
       }
       unit={detail[1]}
       key={detail[0]}
+      direction={detail[0] === "windSpeed" ? forecast.currently.windBearing : null}
     />
   ));
 
