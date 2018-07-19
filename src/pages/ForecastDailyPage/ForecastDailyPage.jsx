@@ -6,6 +6,7 @@ import { setLocationFromParams, clearLocation } from "modules/currentLocation";
 import { fetchForecastIfNeeded } from "modules/forecast";
 import { extractCoordinates } from "helpers";
 import CurrentConditions from "components/CurrentConditions";
+import LoadingModal from "components/LoadingModal";
 
 export class ForecastDailyPage extends Component {
   componentDidMount() {
@@ -13,30 +14,34 @@ export class ForecastDailyPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    this.setLocationAndForecast();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      nextProps.isFetching !== this.props.isFetching ||
-      nextProps.location.pathname !== this.props.location.pathname
-    );
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.setLocationAndForecast();
+    }
   }
 
   setLocationAndForecast = () => {
-    this.props.setLocationFromParams();
     this.props.fetchForecastIfNeeded();
+    this.props.setLocationFromParams();
   };
 
   render() {
-    return <CurrentConditions forecast={this.props.forecast} isFetching={this.props.isFetching} />;
+    const { forecast, isFetching } = this.props;
+    const forecastLoaded = Object.keys(forecast).length !== 0 && !isFetching;
+
+    if (forecastLoaded) {
+      return (
+          <CurrentConditions forecast={forecast} isFetching={isFetching} />
+      );
+    } else {
+      return <LoadingModal text="Fetching forecast..." />;
+    }
   }
 }
 
 const mapState = (state, ownProps) => {
   return {
     currentLocation: state.currentLocation,
-    forecast: state.forecast.byLocation[ownProps.match.params.coordinates],
+    forecast: state.forecast.byLocation[ownProps.match.params.coordinates] || {},
     isFetching: state.forecast.isFetching,
   };
 };
