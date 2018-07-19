@@ -1,9 +1,9 @@
 .geosuggest {
   background-color: #fff;
   height: 3em;
-  width: calc(100% - 5em);
+  width: calc(100% - 4em);
   position: absolute;
-  left: 5em;
+  left: 4em;
   top: 1em;
   right: 0;
   z-index: 99;
