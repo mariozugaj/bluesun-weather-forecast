@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import { setLocationFromParams } from "modules/currentLocation";
 import { fetchForecastIfNeeded } from "modules/forecast";
-import { extractCoordinates } from "helpers";
+import { extractCoordinates, coordinatesToString } from "helpers";
 import LoadingModal from "components/LoadingModal";
 import HourlyGraphs from "components/HourlyGraphs";
 
@@ -41,19 +41,24 @@ export class ForecastHourlyPage extends Component {
 }
 
 const mapState = (state, ownProps) => {
+  const latLng = extractCoordinates(ownProps.match.params.coordinates);
+  const coordinates = coordinatesToString(latLng);
+
   return {
-    forecast: state.forecast.byLocation[ownProps.match.params.coordinates] || {},
+    forecast: state.forecast.byLocation[coordinates] || {},
     isFetching: state.forecast.isFetching,
   };
 };
 
 const mapDispatch = (dispatch, ownProps) => {
-  const coordinates = extractCoordinates(ownProps.match.params.coordinates);
+  const latLng = extractCoordinates(ownProps.match.params.coordinates);
+  const coordinates = coordinatesToString(latLng);
+
   return {
     setLocationFromParams: () => {
-      return dispatch(setLocationFromParams(coordinates));
+      return dispatch(setLocationFromParams(latLng));
     },
-    fetchForecastIfNeeded: () => dispatch(fetchForecastIfNeeded(ownProps.match.params.coordinates)),
+    fetchForecastIfNeeded: () => dispatch(fetchForecastIfNeeded(coordinates)),
   };
 };
 
