@@ -93,10 +93,11 @@ export function titleize(string) {
 export function uvClass(uvIndex) {
   return classNames({
     uv: true,
-    green: uvIndex < 3,
-    yellow: uvIndex >= 3 && uvIndex < 6,
-    orange: uvIndex >= 6 && uvIndex < 8,
-    red: uvIndex >= 8,
+    green: uvIndex <= 2.9,
+    yellow: uvIndex >= 3 && uvIndex <= 5.9,
+    orange: uvIndex >= 6 && uvIndex <= 7.9,
+    red: uvIndex >= 8 && uvIndex <= 10.9,
+    violet: uvIndex >= 11,
   });
 }
 
