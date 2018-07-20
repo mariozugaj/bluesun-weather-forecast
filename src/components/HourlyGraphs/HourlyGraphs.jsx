@@ -20,8 +20,9 @@ const HourlyGraphs = ({ forecast }) => {
   const tempDiff = diff(temperatureData, d => d.temperature);
   const tempHeight = tempDiff[1] - tempDiff[0] > 15 ? 300 : 250;
 
+  const anyPrecipitation = precipitationData.some(dataPoint => dataPoint.precipIntensity > 0);
   const precipDiff = diff(precipitationData, d => d.precipIntensity);
-  const precipHeight = precipDiff[1] - precipDiff[0] > 5 ? 200 : 100;
+  const precipHeight = precipDiff[1] - precipDiff[0] > 5 ? 250 : 100;
 
   return (
     <React.Fragment>
@@ -31,12 +32,14 @@ const HourlyGraphs = ({ forecast }) => {
         margin={{ left: 30, top: 40, right: 20, bottom: 30 }}
         data={temperatureData}
       />
-      <PrecipitationGraph
-        width={1235}
-        height={precipHeight}
-        margin={{ left: 30, top: 40, right: 20, bottom: 30 }}
-        data={precipitationData}
-      />
+      {anyPrecipitation && (
+        <PrecipitationGraph
+          width={1235}
+          height={precipHeight}
+          margin={{ left: 30, top: 40, right: 20, bottom: 20 }}
+          data={precipitationData}
+        />
+      )}
     </React.Fragment>
   );
 };
