@@ -17,7 +17,7 @@ import HeaderNav from "./HeaderNav";
 
 export class Header extends Component {
   render() {
-    const isNotHome = this.props.location.pathname !== "/";
+    const isNotHome = this.props.location.pathname !== "/" && this.props.currentLocation.label;
 
     return (
       <section className="layout-container">

@@ -28,13 +28,18 @@ a:any-link {
   text-decoration: none;
 }
 
-.layout-container {
+.layout-container,
+.layout-container--pad-top {
   position: relative;
   height: 100%;
   margin: 0 auto;
   max-width: 85em;
   width: 100%;
   padding: 0 1.33333em;
+}
+
+.layout-container--pad-top {
+  margin-top: 3em;
 }
 
 .weather-symbol__wrapper {
@@ -60,17 +65,21 @@ a:any-link {
 }
 
 .green {
-  background-color: rgba(64, 191, 61, 0.6);
+  background-color: rgba(64, 191, 61, 0.75);
 }
 
 .yellow {
-  background-color: rgba(255, 240, 0, 0.6);
+  background-color: rgba(255, 240, 0, 0.75);
 }
 
 .orange {
-  background-color: rgba(255, 127, 0, 0.6);
+  background-color: rgba(255, 127, 0, 0.75);
 }
 
 .red {
-  background-color: rgba(255, 0, 0, 0.6);
+  background-color: rgba(255, 0, 0, 0.75);
+}
+
+.violet {
+  background-color: rgba(166, 89, 255, 0.75);
 }
