@@ -15,12 +15,12 @@ export function visitLocation(location) {
 }
 
 const initialState = {
-  "45.815,15.9819": {
-    id: "45.815,15.9819",
+  "45.8149,15.9821": {
+    id: "45.8149,15.9821",
     visitedAt: 1531919115731,
-    label: "Zagreb, Croatia",
-    lat: 45.815,
-    lng: 15.9819,
+    label: "Trg Josipa Langa 2, 10000, Zagreb, Croatia",
+    lat: 45.8149,
+    lng: 15.9821,
   },
 };
 
