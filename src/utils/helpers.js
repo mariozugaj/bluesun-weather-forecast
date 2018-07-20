@@ -66,7 +66,7 @@ export function coordinatesToString({ lat, lng }) {
 
 export function extractCoordinates(coordinatesString) {
   const params = coordinatesString.split(",").map(parseFloat);
-  return { lat: params[0], lng: params[1] };
+  return { lat: round(params[0]), lng: round(params[1]) };
 }
 
 export function nextDays(n) {
