@@ -12,13 +12,27 @@ export function round(number, precision = 4) {
 }
 
 export function geocode(coordinates) {
+  const defaultResult = {
+    label: "Middle of nowhere",
+    lat: coordinates.lat,
+    lng: coordinates.lng,
+    id: `${coordinates.lat},${coordinates.lng}`,
+  };
+
   return new Promise((resolve, reject) => {
     const geocoder = new window.google.maps.Geocoder();
 
     geocoder.geocode({ location: coordinates }, (results, status) => {
       if (status === "OK") {
         if (results[0]) {
-          const filtered = results.filter(loc => loc.types.includes("locality"));
+          const filtered = results.filter(
+            loc =>
+              loc.types.includes("locality") ||
+              loc.types.includes("administrative_area_level_3") ||
+              loc.types.includes("administrative_area_level_2") ||
+              loc.types.includes("administrative_area_level_1") ||
+              loc.types.includes("street_address")
+          );
           if (filtered[0]) {
             const {
               formatted_address,
@@ -31,14 +45,16 @@ export function geocode(coordinates) {
               label: formatted_address,
               lat,
               lng,
-              id: `${lat},${lng}`,
+              id: `${coordinates.lat},${coordinates.lng}`,
             });
+          } else {
+            return resolve(defaultResult);
           }
         } else {
-          return reject(window.alert("No results found"));
+          return resolve(defaultResult);
         }
       } else {
-        return reject(window.alert("Geocoder failed due to: " + status));
+        return resolve(defaultResult);
       }
     });
   });
