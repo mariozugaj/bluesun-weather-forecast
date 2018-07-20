@@ -28,13 +28,18 @@ a:any-link {
   text-decoration: none;
 }
 
-.layout-container {
+.layout-container,
+.layout-container--pad-top {
   position: relative;
   height: 100%;
   margin: 0 auto;
   max-width: 85em;
   width: 100%;
   padding: 0 1.33333em;
+}
+
+.layout-container--pad-top {
+  margin-top: 3em;
 }
 
 .weather-symbol__wrapper {
