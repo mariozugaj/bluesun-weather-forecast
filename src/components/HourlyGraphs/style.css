@@ -1,0 +1,5 @@
+.grid-lines__line {
+  shape-rendering: crispEdges;
+  stroke-width: 1px;
+  stroke: #d6dadc;
+}
