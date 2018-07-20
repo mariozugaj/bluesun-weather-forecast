@@ -21,7 +21,7 @@ export const TemperatureGraph = ({ width, height, margin, data }) => {
 
   const yScale = scaleLinear({
     range: [yMax, 0],
-    domain: [min(data, y) - 2, max(data, y) + 2],
+    domain: [min(data, y) - 3, max(data, y) + 2],
     nice: true,
   });
 
@@ -29,6 +29,20 @@ export const TemperatureGraph = ({ width, height, margin, data }) => {
 
   return (
     <svg width={width} height={height}>
+      <defs>
+        <linearGradient
+          id="tempGradient"
+          x1={0}
+          y1={yScale(2)}
+          x2={0}
+          y2={yScale(-2)}
+          gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#c60000" />
+          <stop offset="50%" stopColor="#c60000" />
+          <stop offset="50%" stopColor="blue" />
+          <stop offset="100%" stopColor="blue" />
+        </linearGradient>
+      </defs>
       <Grid
         top={margin.top * 1.2}
         left={margin.left}
@@ -46,7 +60,7 @@ export const TemperatureGraph = ({ width, height, margin, data }) => {
           yScale={yScale}
           x={x}
           y={y}
-          stroke="red"
+          stroke="url(#tempGradient)"
           strokeWidth={2}
           curve={curveBasis}
         />
