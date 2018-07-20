@@ -5,15 +5,19 @@ import DarkskyMap from "react-darksky-map";
 
 import { setLocationFromParams } from "modules/currentLocation";
 import { extractCoordinates } from "helpers";
+import { startLoadingMap, mapLoaded } from "modules/map";
+import LoadingModal from "components/LoadingModal";
 
 export class ForecastMapPage extends Component {
   componentDidMount() {
     this.props.setLocationFromParams();
+    this.props.startLoadingMap();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.props.setLocationFromParams();
+      this.props.startLoadingMap();
     }
   }
 
@@ -21,7 +25,14 @@ export class ForecastMapPage extends Component {
     const { lat, lng } = this.props.currentLocation;
     return (
       <section className="map-wrapper">
-        <DarkskyMap lat={lat} lng={lng} zoom={7} height="100%" />
+        <DarkskyMap
+          lat={lat}
+          lng={lng}
+          zoom={7}
+          height="100%"
+          onLoad={() => this.props.mapLoaded()}
+        />
+        {this.props.isMapLoading && <LoadingModal text="Loading map... " />}
       </section>
     );
   }
@@ -30,6 +41,7 @@ export class ForecastMapPage extends Component {
 const mapState = (state, ownProps) => {
   return {
     currentLocation: state.currentLocation,
+    isMapLoading: state.map.isLoading,
   };
 };
 
@@ -39,6 +51,8 @@ const mapDispatch = (dispatch, ownProps) => {
     setLocationFromParams: () => {
       return dispatch(setLocationFromParams(coordinates));
     },
+    mapLoaded: () => dispatch(mapLoaded()),
+    startLoadingMap: () => dispatch(startLoadingMap()),
   };
 };
 
