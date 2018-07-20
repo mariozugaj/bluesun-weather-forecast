@@ -18,15 +18,7 @@ const LocationInfo = props => {
       </div>
     );
   } else {
-    return (
-      <h1
-        className="page-header__location-heading"
-        onClick={props.startSearching}
-        onKeyPress={props.startSearching}
-        tabIndex="0">
-        {props.currentLocation.label}
-      </h1>
-    );
+    return <h1 className="page-header__location-heading">{props.currentLocation.label}</h1>;
   }
 };
 

@@ -5,20 +5,24 @@ import Icon from "components/Icon";
 import { round, uvClass, tempClass } from "helpers";
 
 const DailyRowsTemplate = ({ forecast }) => {
-  return forecast.daily.data.slice(1).map(dataPoint => {
+  const notValidTimezone = /GMT/gm.test(forecast.timezone);
+  const timeZone = !notValidTimezone ? forecast.timezone : "Europe/Zagreb";
+
+  return forecast.daily.data.map(dataPoint => {
     const date = new Date(dataPoint.time * 1000).toLocaleDateString("en-GB", {
       weekday: "long",
       month: "long",
       day: "numeric",
-      timeZone: forecast.timezone,
+      timeZone: timeZone,
     });
 
-    const time = timeStamp =>
-      new Date(timeStamp).toLocaleTimeString("en-GB", {
+    const time = timeStamp => {
+      return new Date(timeStamp).toLocaleTimeString("en-GB", {
         hour: "2-digit",
         minute: "2-digit",
-        timeZone: forecast.timezone,
+        timeZone: timeZone,
       });
+    };
 
     return (
       <Row key={dataPoint.time} size={11}>
