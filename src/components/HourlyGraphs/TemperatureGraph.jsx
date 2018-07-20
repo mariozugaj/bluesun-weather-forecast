@@ -66,7 +66,7 @@ export const TemperatureGraph = ({ width, height, margin, data }) => {
           tickLabelProps={() => ({ fontSize: 12, textAnchor: "end" })}
         />
         <text x={0} y={height - 4} transform="" fontSize={12}>
-          Temperature (°C)
+          Temperature °C
         </text>
         <AxisTop
           top={margin.top}
