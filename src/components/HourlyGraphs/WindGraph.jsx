@@ -3,11 +3,13 @@ import { Grid } from "@vx/grid";
 import { Group } from "@vx/group";
 import { curveBasis } from "@vx/curve";
 import { AxisLeft } from "@vx/axis";
-import { LinePath } from "@vx/shape";
 import { scaleTime, scaleLinear } from "@vx/scale";
-import { extent, max, min } from "d3-array";
+import { extent, max } from "d3-array";
+import { LinePath } from "@vx/shape";
 
 export const WindGraph = ({ width, height, margin, data }) => {
+  if (width < 10) return null;
+
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
 
@@ -20,54 +22,52 @@ export const WindGraph = ({ width, height, margin, data }) => {
   });
 
   const yScale = scaleLinear({
-    range: [yMax, 0],
-    domain: [0, max(data, y) + 2],
+    rangeRound: [yMax, 0],
+    domain: [0, Math.ceil(max(data, y))],
     nice: true,
   });
 
+  const numTicksForHeight = height => (height > 150 ? 8 : 5);
+
   return (
-    <svg width={width} height={height}>
-      <Grid
-        top={margin.top}
-        left={margin.left}
-        xScale={xScale}
-        yScale={yScale}
-        width={xMax}
-        height={yMax}
-        className="grid-lines__line"
-        numTicksRows={height > 150 ? 6 : 3}
-      />
-      <Group top={margin.top} left={margin.left}>
-        <LinePath
-          data={data}
-          xScale={xScale}
-          yScale={yScale}
-          x={x}
-          y={y}
-          stroke="rgb(28, 42, 42)"
-          strokeWidth={2}
-          curve={curveBasis}
-        />
-      </Group>
-      <Group left={margin.left}>
+    <figure className="graph-wrapper">
+      <svg width={width} height={height}>
+        <Group top={margin.top} left={margin.left}>
+          <Grid
+            xScale={xScale}
+            yScale={yScale}
+            width={xMax}
+            height={yMax}
+            className="grid-lines__line"
+            numTicksRows={numTicksForHeight(height)}
+          />
+          <LinePath
+            data={data}
+            xScale={xScale}
+            yScale={yScale}
+            x={x}
+            y={y}
+            stroke="rgb(28, 42, 42)"
+            strokeWidth={2}
+            curve={curveBasis}
+          />
+        </Group>
         <AxisLeft
           top={margin.top}
-          left={0}
+          left={margin.left}
           scale={yScale}
-          stroke={"#1b1a1e"}
-          strokeWidth={0.5}
           tickTextFill={"#1b1a1e"}
-          numTicks={height > 150 ? 6 : 3}
+          numTicks={numTicksForHeight(height)}
           hideTicks={true}
           hideAxisLine={true}
           tickLabelProps={() => ({ fontSize: 12, textAnchor: "end" })}
         />
-        <text x={0} y={height - 4} transform="" fontSize={12}>
-          Wind speed m/s
-        </text>
+        <Group left={margin.left} top={height - 4}>
+          <text fontSize={12}>Wind speed m/s</text>
+        </Group>
         />
-      </Group>
-    </svg>
+      </svg>
+    </figure>
   );
 };
 
