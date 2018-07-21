@@ -30,7 +30,7 @@ export class ForecastHourlyPage extends Component {
 
     if (forecastLoaded) {
       return (
-        <section className="layout-container--pad-top">
+        <section className="layout-container--pad-top layout-container--scrollable">
           <HourlyGraphs forecast={forecast.hourly} />
         </section>
       );
