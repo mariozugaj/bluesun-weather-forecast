@@ -37,13 +37,13 @@ export const UVIndexGraph = ({ width, height, margin, data }) => {
           gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="green" />
           <stop offset="22.3%" stopColor="green" />
-          <stop offset="23.08%" stopColor="yellow" />
+          <stop offset="27.08%" stopColor="yellow" />
           <stop offset="45.4%" stopColor="yellow" />
-          <stop offset="46.15%" stopColor="orange" />
+          <stop offset="50.15%" stopColor="orange" />
           <stop offset="60.77%" stopColor="orange" />
-          <stop offset="61.54%" stopColor="red" />
+          <stop offset="65.54%" stopColor="red" />
           <stop offset="83.85%" stopColor="red" />
-          <stop offset="84.62%" stopColor="darkviolet" />
+          <stop offset="88.62%" stopColor="darkviolet" />
           <stop offset="100%" stopColor="darkviolet" />
         </linearGradient>
       </defs>
