@@ -12,7 +12,7 @@
 }
 
 .table__header-row * {
-  color: var(--other-color);
+  color: var(--text-color-secondary);
   margin: 0;
   font-weight: 200;
 }
@@ -26,7 +26,7 @@
 }
 
 .table__row * {
-  color: var(--main-color);
+  color: var(--text-color-primary);
   font-weight: 200;
 }
 
