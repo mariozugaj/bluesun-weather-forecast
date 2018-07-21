@@ -53,7 +53,7 @@ export const TemperatureGraph = ({
   const bisectDate = bisector(d => new Date(d.time * 1000)).left;
   const formatDate = timeFormat("%a %b %d, %H:%M");
 
-  const handleTooltip = ({ event }) => {
+  const handleTooltip = datum => event => {
     let { x } = localPoint(event);
     x -= margin.left;
     const x0 = xScale.invert(x);
@@ -138,20 +138,11 @@ export const TemperatureGraph = ({
             fill="transparent"
             rx={14}
             data={data}
-            onTouchStart={data => event =>
-              handleTooltip({
-                event,
-              })}
-            onTouchMove={data => event =>
-              handleTooltip({
-                event,
-              })}
-            onMouseMove={data => event =>
-              handleTooltip({
-                event,
-              })}
-            onTouchEnd={data => event => hideTooltip()}
-            onMouseLeave={data => event => hideTooltip()}
+            onTouchStart={handleTooltip}
+            onTouchMove={handleTooltip}
+            onMouseMove={handleTooltip}
+            onTouchEnd={() => () => hideTooltip()}
+            onMouseLeave={() => () => hideTooltip()}
           />
           {tooltipOpen && (
             <g>
@@ -209,7 +200,7 @@ export const TemperatureGraph = ({
             }}>
             {`${ySelector(tooltipData)}˚ C`}
           </Tooltip>
-          <Tooltip top={height - margin.bottom} left={tooltipLeft}>
+          <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
             {formatDate(xSelector(tooltipData))}
           </Tooltip>
         </span>
