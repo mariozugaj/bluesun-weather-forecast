@@ -5,7 +5,8 @@ import { curveNatural } from "@vx/curve";
 import { AxisLeft, AxisTop } from "@vx/axis";
 import { scaleTime, scaleLinear } from "@vx/scale";
 import { extent, max, min } from "d3-array";
-import { LinePath } from "@vx/shape";
+import { LinePath, Line } from "@vx/shape";
+import { Point } from "@vx/point";
 
 export const TemperatureGraph = ({ width, height, margin, data }) => {
   if (width < 10) return null;
@@ -76,8 +77,16 @@ export const TemperatureGraph = ({ width, height, margin, data }) => {
             y={z}
             stroke="url(#tempGradient)"
             strokeWidth={1}
-            strokeDasharray="2,2"
+            strokeDasharray="4,3"
             curve={curveNatural}
+          />
+          <Line
+            from={new Point({ x: 0, y: yScale(0) })}
+            to={new Point({ x: xMax, y: yScale(0) })}
+            strokeDasharray="4,3"
+            strokeWidth="1px"
+            stroke="#a1a1a1"
+            shape-rendering="crispEdges"
           />
         </Group>
         <AxisLeft
