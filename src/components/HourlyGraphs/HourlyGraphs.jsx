@@ -37,13 +37,18 @@ const HourlyGraphs = ({ forecast }) => {
     }
   };
 
+  const tempData = forecast.data.map(data => {
+    const { temperature, apparentTemperature, time } = data;
+    return { temperature, apparentTemperature, time };
+  });
+
   return (
     <React.Fragment>
       <TemperatureGraph
         width={WIDTH}
         height={height("temperature", "large")}
         margin={{ left: 35, top: 40, right: 20, bottom: 30 }}
-        data={dataFor("temperature")}
+        data={tempData}
       />
       {anyPrecipitation && (
         <PrecipitationGraph
