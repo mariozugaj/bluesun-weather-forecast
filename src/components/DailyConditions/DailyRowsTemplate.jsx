@@ -63,11 +63,11 @@ const DailyRowsTemplate = ({ forecast }) => {
         </RowItem>
 
         <RowItem>
-          <span>{time(dataPoint.sunriseTime * 1000)}</span>
+          <span>{dataPoint.sunriseTime ? time(dataPoint.sunriseTime * 1000) : "N/A"}</span>
         </RowItem>
 
         <RowItem>
-          <span>{time(dataPoint.sunsetTime * 1000)}</span>
+          <span>{dataPoint.sunsetTime ? time(dataPoint.sunsetTime * 1000) : "N/A"}</span>
         </RowItem>
 
         <RowItem>
