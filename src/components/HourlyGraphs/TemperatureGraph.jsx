@@ -192,8 +192,8 @@ export const TemperatureGraph = ({
       {tooltipOpen && (
         <span>
           <Tooltip
-            top={tooltipTop + margin.top + 8}
-            left={tooltipLeft + 50}
+            top={margin.top}
+            left={tooltipLeft + 4}
             style={{
               backgroundColor: "#005bff",
               color: "white",
