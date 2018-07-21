@@ -5,6 +5,7 @@ import TemperatureGraph from "./TemperatureGraph";
 import PrecipitationGraph from "./PrecipitationGraph";
 import WindGraph from "./WindGraph";
 import UVIndexGraph from "./UVIndexGraph";
+import CloudCoverGraph from "./CloudCoverGraph";
 
 const HourlyGraphs = ({ forecast }) => {
   const WIDTH = 1235;
@@ -69,6 +70,12 @@ const HourlyGraphs = ({ forecast }) => {
         height={height("uvIndex", "medium")}
         margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
         data={dataFor("uvIndex")}
+      />
+      <CloudCoverGraph
+        width={WIDTH}
+        height={height("cloudCover", "medium")}
+        margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
+        data={dataFor("cloudCover")}
       />
     </React.Fragment>
   );
