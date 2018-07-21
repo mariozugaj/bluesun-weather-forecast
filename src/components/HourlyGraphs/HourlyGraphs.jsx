@@ -7,6 +7,8 @@ import WindGraph from "./WindGraph";
 import UVIndexGraph from "./UVIndexGraph";
 
 const HourlyGraphs = ({ forecast }) => {
+  const WIDTH = 1235;
+
   const dataFor = key => {
     return forecast.data.map(data => {
       return { [key]: data[key], time: data.time };
@@ -38,29 +40,29 @@ const HourlyGraphs = ({ forecast }) => {
   return (
     <React.Fragment>
       <TemperatureGraph
-        width={1235}
+        width={WIDTH}
         height={height("temperature", "large")}
         margin={{ left: 35, top: 40, right: 20, bottom: 30 }}
         data={dataFor("temperature")}
       />
       {anyPrecipitation && (
         <PrecipitationGraph
-          width={1235}
+          width={WIDTH}
           height={height("precipIntensity", "small")}
-          margin={{ left: 30, top: 40, right: 20, bottom: 20 }}
+          margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
           data={dataFor("precipIntensity")}
         />
       )}
       <WindGraph
-        width={1235}
+        width={WIDTH}
         height={height("windSpeed", "medium")}
-        margin={{ left: 30, top: 40, right: 20, bottom: 20 }}
+        margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
         data={dataFor("windSpeed")}
       />
       <UVIndexGraph
-        width={1235}
+        width={WIDTH}
         height={height("uvIndex", "medium")}
-        margin={{ left: 30, top: 40, right: 20, bottom: 20 }}
+        margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
         data={dataFor("uvIndex")}
       />
     </React.Fragment>
