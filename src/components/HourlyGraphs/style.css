@@ -3,3 +3,13 @@
   stroke-width: 1px;
   stroke: #d6dadc;
 }
+
+.graph-wrapper {
+  margin: 0;
+}
+
+@media all and (max-width: 1275px) {
+  .layout-container--scrollable {
+    overflow-x: scroll;
+  }
+}
