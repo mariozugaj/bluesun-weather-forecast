@@ -1,20 +1,30 @@
 import React from "react";
 
-import { round } from "helpers";
+import { round, coordinatesToString } from "helpers";
 import Icon from "components/Icon";
 import SearchInput from "./SearchInput";
 
-const Search = props => {
+const Search = ({ startSearching, stopSearching, currentLocation, visitLocation, ...props }) => {
   const changeSearchMode = () => {
-    if (props.currentLocation.isSearching) return props.stopSearching();
-    props.startSearching();
+    if (currentLocation.isSearching) return stopSearching();
+    startSearching();
   };
 
   const onSuggestSelect = suggest => {
     if (suggest && suggest.label !== "") {
-      const coordinates = `${round(suggest.location.lat)},${round(suggest.location.lng)}`;
-      props.stopSearching();
-      props.startSettingLocation();
+      const {
+        location: { lat, lng },
+        label,
+      } = suggest;
+      const coordinates = coordinatesToString({ lat, lng });
+      const locationData = {
+        label,
+        lat: round(lat),
+        lng: round(lng),
+        id: coordinates,
+      };
+      stopSearching();
+      visitLocation(locationData);
       props.history.push(`/forecast/daily/${coordinates}`);
     }
   };
@@ -28,7 +38,7 @@ const Search = props => {
         title="Seach for a location"
         onClick={changeSearchMode}
       />
-      {props.currentLocation.isSearching && (
+      {currentLocation.isSearching && (
         <SearchInput onSuggestSelect={onSuggestSelect} changeSearchMode={changeSearchMode} />
       )}
     </React.Fragment>

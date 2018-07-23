@@ -29,7 +29,6 @@ export class ForecastMapPage extends Component {
         <Helmet>
           <title>{`BlueSun Forecast | ${label}`}</title>
         </Helmet>
-        )
         <DarkskyMap
           lat={lat}
           lng={lng}

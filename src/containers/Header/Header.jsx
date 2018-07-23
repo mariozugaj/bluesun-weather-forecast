@@ -6,13 +6,8 @@ import Logo from "components/Logo";
 import LocationInfo from "components/LocationInfo";
 import Search from "components/Search";
 import CurrentPosition from "components/CurrentPosition";
-import {
-  startSettingLocation,
-  setLocation,
-  getCurrentPosition,
-  startSearching,
-  stopSearching,
-} from "modules/currentLocation";
+import { getCurrentPosition, startSearching, stopSearching } from "modules/currentLocation";
+import { visitLocation } from "modules/visitedLocations";
 import HeaderNav from "./HeaderNav";
 
 export class Header extends Component {
@@ -39,8 +34,7 @@ const mapState = (state, ownProps) => {
   };
 };
 const mapDispatch = {
-  startSettingLocation,
-  setLocation,
+  visitLocation,
   getCurrentPosition,
   startSearching,
   stopSearching,

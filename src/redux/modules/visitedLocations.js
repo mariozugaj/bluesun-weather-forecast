@@ -1,13 +1,9 @@
-import { coordinatesToString } from "helpers";
-
 const VISIT_LOCATION = "VISIT_LOCATION";
 
 export function visitLocation(location) {
-  const coordinates = coordinatesToString({ lat: location.lat, lng: location.lng });
   return {
     type: VISIT_LOCATION,
     payload: {
-      coordinates,
       location: { ...location },
       visitedAt: Date.now(),
     },
@@ -29,8 +25,7 @@ export default function reducer(state = initialState, action) {
     case VISIT_LOCATION:
       return {
         ...state,
-        [action.payload.coordinates]: {
-          id: `${action.payload.coordinates}`,
+        [action.payload.location.id]: {
           visitedAt: action.payload.visitedAt,
           ...action.payload.location,
         },

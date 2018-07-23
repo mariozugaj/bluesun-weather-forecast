@@ -11,12 +11,6 @@ const CLEAR_LOCATION = "CLEAR_LOCATION";
 const START_SEARCHING = "START_SEARCHING";
 const STOP_SEARCHING = "STOP_SEARCHING";
 
-export function startSettingLocation() {
-  return {
-    type: SET_LOCATION_BEGIN,
-  };
-}
-
 export function setLocation(location) {
   return dispatch => {
     dispatch({
@@ -68,6 +62,7 @@ export function getCurrentPosition() {
 
 export function setLocationFromParams(coordinates) {
   return (dispatch, getState) => {
+    dispatch({ type: SET_LOCATION_BEGIN });
     const locationVisited = getState().visitedLocations[coordinatesToString(coordinates)];
     if (locationVisited) {
       return dispatch(setLocation(locationVisited));
