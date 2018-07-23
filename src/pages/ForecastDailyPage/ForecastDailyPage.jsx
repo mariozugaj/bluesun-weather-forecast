@@ -26,29 +26,28 @@ export class ForecastDailyPage extends Component {
   };
 
   render() {
-    const { forecast, isFetching } = this.props;
-    const forecastLoaded = Object.keys(forecast).length !== 0 && !isFetching;
+    const { forecast, isLoading } = this.props;
 
-    if (forecastLoaded) {
-      return (
-        <React.Fragment>
-          <CurrentConditions forecast={forecast} />
-          <DailyConditions forecast={forecast} />
-        </React.Fragment>
-      );
-    } else {
+    if (isLoading) {
       return <LoadingModal text="Fetching forecast..." />;
     }
+    return (
+      <React.Fragment>
+        <CurrentConditions forecast={forecast} />
+        <DailyConditions forecast={forecast} />
+      </React.Fragment>
+    );
   }
 }
 
 const mapState = (state, ownProps) => {
   const latLng = extractCoordinates(ownProps.match.params.coordinates);
   const coordinates = coordinatesToString(latLng);
+  const forecast = state.forecast.byLocation[coordinates] || {};
 
   return {
-    forecast: state.forecast.byLocation[coordinates] || {},
-    isFetching: state.forecast.isFetching,
+    forecast,
+    isLoading: Object.keys(forecast).length === 0 || state.forecast.isFetching,
   };
 };
 
