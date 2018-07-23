@@ -141,7 +141,7 @@ export const WindGraph = ({
         <span>
           <Tooltip
             top={0}
-            left={tooltipLeft - 12}
+            left={tooltipLeft}
             style={{
               backgroundColor: "#005bff",
               color: "white",

@@ -11,6 +11,8 @@ import { withTooltip, Tooltip } from "@vx/tooltip";
 import { localPoint } from "@vx/event";
 import { timeFormat } from "d3-time-format";
 
+import { round } from "helpers";
+
 export const PrecipitationGraph = ({
   width,
   height,
@@ -148,12 +150,12 @@ export const PrecipitationGraph = ({
         <span>
           <Tooltip
             top={0}
-            left={tooltipLeft - 12}
+            left={tooltipLeft}
             style={{
               backgroundColor: "#005bff",
               color: "white",
             }}>
-            {`${y(tooltipData)} mm`}
+            {`${round(y(tooltipData), 2)} mm`}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
             {formatDate(x(tooltipData))}
