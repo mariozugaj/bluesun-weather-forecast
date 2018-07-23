@@ -39,7 +39,7 @@ export const UVIndexGraph = ({
 
   const yScale = scaleLinear({
     rangeRound: [yMax, 0],
-    domain: [0, max(data, y)],
+    domain: [0, 14],
     nice: true,
   });
 
