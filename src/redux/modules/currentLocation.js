@@ -67,7 +67,11 @@ export function getCurrentPosition() {
 }
 
 export function setLocationFromParams(coordinates) {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const locationVisited = getState().visitedLocations[coordinatesToString(coordinates)];
+    if (locationVisited) {
+      return dispatch(setLocation(locationVisited));
+    }
     return geocode(coordinates).then(locationData => dispatch(setLocation(locationData)));
   };
 }
