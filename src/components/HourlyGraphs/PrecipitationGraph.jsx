@@ -93,7 +93,7 @@ export const PrecipitationGraph = ({
             x={x}
             y={y}
             strokeWidth={0}
-            fill={"url(#precipGradient)"}
+            fill="url(#precipGradient)"
             curve={curveBasis}
           />
           <Bar
