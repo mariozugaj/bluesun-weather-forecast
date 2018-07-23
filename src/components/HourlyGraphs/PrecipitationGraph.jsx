@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@vx/grid";
 import { Group } from "@vx/group";
-import { curveBasis } from "@vx/curve";
+import { curveNatural } from "@vx/curve";
 import { AxisLeft } from "@vx/axis";
 import { scaleLinear, scaleTime } from "@vx/scale";
 import { max, extent, bisector } from "d3-array";
@@ -94,7 +94,7 @@ export const PrecipitationGraph = ({
             y={y}
             strokeWidth={0}
             fill="url(#precipGradient)"
-            curve={curveBasis}
+            curve={curveNatural}
           />
           <Bar
             x={0}

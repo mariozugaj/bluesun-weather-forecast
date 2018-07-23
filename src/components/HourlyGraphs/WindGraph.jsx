@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@vx/grid";
 import { Group } from "@vx/group";
-import { curveBasis } from "@vx/curve";
+import { curveNatural } from "@vx/curve";
 import { AxisLeft } from "@vx/axis";
 import { scaleTime, scaleLinear } from "@vx/scale";
 import { extent, max, bisector } from "d3-array";
@@ -84,7 +84,7 @@ export const WindGraph = ({
             y={y}
             stroke="rgb(28, 42, 42)"
             strokeWidth={2}
-            curve={curveBasis}
+            curve={curveNatural}
           />
           <Bar
             x={0}
