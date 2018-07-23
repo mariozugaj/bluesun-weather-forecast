@@ -166,4 +166,4 @@ export const PrecipitationGraph = ({
   );
 };
 
-export default withTooltip(PrecipitationGraph);
+export default withTooltip(PrecipitationGraph, { style: { position: "relative" } });

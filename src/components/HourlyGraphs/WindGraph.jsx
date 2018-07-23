@@ -157,4 +157,4 @@ export const WindGraph = ({
   );
 };
 
-export default withTooltip(WindGraph);
+export default withTooltip(WindGraph, { style: { position: "relative" } });
