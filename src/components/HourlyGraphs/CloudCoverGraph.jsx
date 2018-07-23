@@ -4,7 +4,7 @@ import { Group } from "@vx/group";
 import { curveNatural } from "@vx/curve";
 import { AxisLeft } from "@vx/axis";
 import { scaleTime, scaleLinear } from "@vx/scale";
-import { extent, max, bisector } from "d3-array";
+import { extent, bisector } from "d3-array";
 import { LinePath, Line, Bar } from "@vx/shape";
 import { Point } from "@vx/point";
 import { withTooltip, Tooltip } from "@vx/tooltip";
