@@ -67,7 +67,7 @@ export const TemperatureGraph = ({
     return showTooltip({
       tooltipData: d,
       tooltipLeft: x,
-      tooltipTop: yScale(d.temperature),
+      tooltipTop: [yScale(d.temperature), yScale(d.apparentTemperature)],
     });
   };
 
@@ -156,12 +156,22 @@ export const TemperatureGraph = ({
               />
               <circle
                 cx={tooltipLeft}
-                cy={tooltipTop}
+                cy={tooltipTop[0]}
                 r={6}
-                fill="#0341b6"
-                stroke="white"
+                fill="rgb(235, 235, 235)"
+                stroke="black"
                 strokeWidth={2}
                 style={{ pointerEvents: "none" }}
+              />
+              <circle
+                cx={tooltipLeft}
+                cy={tooltipTop[1]}
+                r={6}
+                fill="rgb(235, 235, 235)"
+                stroke="black"
+                strokeWidth={2}
+                style={{ pointerEvents: "none" }}
+                strokeDasharray="2,2"
               />
             </g>
           )}
@@ -193,12 +203,12 @@ export const TemperatureGraph = ({
         <span>
           <Tooltip
             top={margin.top}
-            left={tooltipLeft + 4}
+            left={tooltipLeft - 25}
             style={{
               backgroundColor: "#005bff",
               color: "white",
             }}>
-            {`${ySelector(tooltipData)}˚ C`}
+            {`${ySelector(tooltipData)}˚ C | ${zSelector(tooltipData)}˚ C`}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
             {formatDate(xSelector(tooltipData))}
