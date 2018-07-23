@@ -39,7 +39,7 @@ export const CloudCoverGraph = ({
 
   const yScale = scaleLinear({
     rangeRound: [yMax, 0],
-    domain: [0, max(data, y)],
+    domain: [0, 100],
     nice: true,
   });
 
