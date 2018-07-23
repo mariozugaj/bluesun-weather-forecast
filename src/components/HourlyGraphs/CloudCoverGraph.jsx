@@ -69,10 +69,16 @@ export const CloudCoverGraph = ({
     <figure className="graph-wrapper">
       <svg width={width} height={height}>
         <defs>
-          <linearGradient id="cloudCoverGradient" x1={"0%"} y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#514f51" />
+          <linearGradient
+            id="cloudCoverGradient"
+            x1={0}
+            y1={yScale(0)}
+            x2={0}
+            y2={yScale(100)}
+            gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#77B5FE" />
             <stop offset="50%" stopColor="#a29fa3" />
-            <stop offset="100%" stopColor="#95c8f4" />
+            <stop offset="100%" stopColor="#514f51" />
           </linearGradient>
         </defs>
         <Group top={margin.top} left={margin.left}>
@@ -90,7 +96,6 @@ export const CloudCoverGraph = ({
             yScale={yScale}
             x={x}
             y={y}
-            stroke="url(#cloudCoverGradient)"
             strokeWidth={2}
             curve={curveBasis}
           />
