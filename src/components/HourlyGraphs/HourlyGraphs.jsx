@@ -9,6 +9,7 @@ import CloudCoverGraph from "./CloudCoverGraph";
 
 const HourlyGraphs = ({ forecast }) => {
   const WIDTH = 1235;
+  const DEFAULT_MARGINS = { left: 30, top: 20, right: 20, bottom: 20 };
 
   const dataFor = key => {
     return forecast.data.map(data => {
@@ -19,10 +20,6 @@ const HourlyGraphs = ({ forecast }) => {
   const largeHeight = diff => (diff[1] - diff[0] > 15 ? 300 : 250);
   const mediumHeight = diff => (diff[1] - diff[0] > 5 ? 250 : 150);
   const smallHeight = diff => (diff[1] - diff[0] > 5 ? 250 : 100);
-
-  const anyPrecipitation = dataFor("precipIntensity").some(
-    dataPoint => dataPoint.precipIntensity > 0.05
-  );
 
   const height = (key, size) => {
     const diff = minMax(dataFor(key), d => d[key]);
@@ -38,6 +35,9 @@ const HourlyGraphs = ({ forecast }) => {
     }
   };
 
+  const anyCondition = (condition, amount) =>
+    dataFor(condition).some(dataPoint => dataPoint[condition] > amount);
+
   const tempData = forecast.data.map(data => {
     const { temperature, apparentTemperature, time } = data;
     return { temperature, apparentTemperature, time };
@@ -47,36 +47,33 @@ const HourlyGraphs = ({ forecast }) => {
     <React.Fragment>
       <TemperatureGraph
         width={WIDTH}
-        height={height("temperature", "large")}
+        height={300}
         margin={{ left: 35, top: 40, right: 20, bottom: 30 }}
         data={tempData}
       />
-      {anyPrecipitation && (
+      {anyCondition("precipIntensity", 0.05) && (
         <PrecipitationGraph
           width={WIDTH}
           height={height("precipIntensity", "small")}
-          margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
+          margin={DEFAULT_MARGINS}
           data={dataFor("precipIntensity")}
+        />
+      )}
+      {anyCondition("cloudCover", 0) && (
+        <CloudCoverGraph
+          width={WIDTH}
+          height={250}
+          margin={DEFAULT_MARGINS}
+          data={dataFor("cloudCover")}
         />
       )}
       <WindGraph
         width={WIDTH}
         height={height("windSpeed", "medium")}
-        margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
+        margin={DEFAULT_MARGINS}
         data={dataFor("windSpeed")}
       />
-      <UVIndexGraph
-        width={WIDTH}
-        height={height("uvIndex", "medium")}
-        margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
-        data={dataFor("uvIndex")}
-      />
-      <CloudCoverGraph
-        width={WIDTH}
-        height={height("cloudCover", "medium")}
-        margin={{ left: 30, top: 20, right: 20, bottom: 20 }}
-        data={dataFor("cloudCover")}
-      />
+      <UVIndexGraph width={WIDTH} height={200} margin={DEFAULT_MARGINS} data={dataFor("uvIndex")} />
     </React.Fragment>
   );
 };
