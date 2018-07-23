@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import DarkskyMap from "react-darksky-map";
+import { Helmet } from "react-helmet";
 
 import { setLocationFromParams } from "modules/currentLocation";
 import { extractCoordinates } from "helpers";
@@ -22,9 +23,13 @@ export class ForecastMapPage extends Component {
   }
 
   render() {
-    const { lat, lng } = this.props.currentLocation;
+    const { lat, lng, label } = this.props.currentLocation;
     return (
       <section className="map-wrapper">
+        <Helmet>
+          <title>{`BlueSun Forecast | ${label}`}</title>
+        </Helmet>
+        )
         <DarkskyMap
           lat={lat}
           lng={lng}

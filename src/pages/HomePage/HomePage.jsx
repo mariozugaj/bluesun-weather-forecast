@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 
 import { clearLocation } from "modules/currentLocation";
 import { fetchForecastIfNeeded } from "modules/forecast";
@@ -28,6 +29,9 @@ export class HomePage extends Component {
 
     return (
       <main className="layout-container">
+        <Helmet>
+          <title>BlueSun Forecast</title>
+        </Helmet>
         {anyVisited ? (
           <VisitedLocations forecast={forecast} visitedLocations={visitedLocations} />
         ) : (
