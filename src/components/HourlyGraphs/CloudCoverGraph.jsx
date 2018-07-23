@@ -97,6 +97,7 @@ export const CloudCoverGraph = ({
             x={x}
             y={y}
             strokeWidth={2}
+            stroke="url(#cloudCoverGradient)"
             curve={curveBasis}
           />
           <Bar

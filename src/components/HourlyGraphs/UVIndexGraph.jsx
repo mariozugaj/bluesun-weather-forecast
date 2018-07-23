@@ -103,7 +103,7 @@ export const UVIndexGraph = ({
             yScale={yScale}
             x={x}
             y={y}
-            stroke={"url(#uvGradient)"}
+            stroke="url(#uvGradient)"
             strokeWidth={2}
             curve={curveMonotoneX}
           />
