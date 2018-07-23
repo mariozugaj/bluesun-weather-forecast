@@ -12,11 +12,12 @@ export function round(number, precision = 4) {
 }
 
 export function geocode(coordinates) {
+  const { lat, lng } = coordinates;
   const defaultResult = {
     label: "Middle of nowhere",
-    lat: coordinates.lat,
-    lng: coordinates.lng,
-    id: `${coordinates.lat},${coordinates.lng}`,
+    lat,
+    lng,
+    id: `${lat},${lng}`,
   };
 
   return new Promise((resolve, reject) => {
@@ -25,31 +26,14 @@ export function geocode(coordinates) {
     geocoder.geocode({ location: coordinates }, (results, status) => {
       if (status === "OK") {
         if (results[0]) {
-          const filtered = results.filter(
-            loc =>
-              loc.types.includes("locality") ||
-              loc.types.includes("administrative_area_level_3") ||
-              loc.types.includes("administrative_area_level_2") ||
-              loc.types.includes("administrative_area_level_1") ||
-              loc.types.includes("street_address")
-          );
-          if (filtered[0]) {
-            const {
-              formatted_address,
-              geometry: { location },
-            } = filtered[0];
-            const lat = round(location.lat());
-            const lng = round(location.lng());
+          const { formatted_address } = results[0];
 
-            return resolve({
-              label: formatted_address,
-              lat,
-              lng,
-              id: `${coordinates.lat},${coordinates.lng}`,
-            });
-          } else {
-            return resolve(defaultResult);
-          }
+          return resolve({
+            label: formatted_address,
+            lat,
+            lng,
+            id: `${lat},${lng}`,
+          });
         } else {
           return resolve(defaultResult);
         }
