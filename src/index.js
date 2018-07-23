@@ -7,12 +7,13 @@ import "index.css";
 import configureStore from "store";
 import App from "containers/App";
 import registerServiceWorker from "registerServiceWorker";
+import LoadingModal from "components/LoadingModal";
 
 const { persistor, store } = configureStore();
 
 render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={<LoadingModal />} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>,
