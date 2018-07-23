@@ -178,4 +178,4 @@ export const UVIndexGraph = ({
   );
 };
 
-export default withTooltip(UVIndexGraph);
+export default withTooltip(UVIndexGraph, { style: { position: "relative" } });

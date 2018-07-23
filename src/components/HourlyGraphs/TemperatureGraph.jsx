@@ -219,4 +219,4 @@ export const TemperatureGraph = ({
   );
 };
 
-export default withTooltip(TemperatureGraph);
+export default withTooltip(TemperatureGraph, { style: { position: "relative" } });

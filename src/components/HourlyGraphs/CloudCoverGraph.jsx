@@ -155,7 +155,7 @@ export const CloudCoverGraph = ({
         <span>
           <Tooltip
             top={0}
-            left={tooltipLeft - 12}
+            left={tooltipLeft + 10}
             style={{
               backgroundColor: "#005bff",
               color: "white",
@@ -171,4 +171,4 @@ export const CloudCoverGraph = ({
   );
 };
 
-export default withTooltip(CloudCoverGraph);
+export default withTooltip(CloudCoverGraph, { style: { position: "relative" } });
