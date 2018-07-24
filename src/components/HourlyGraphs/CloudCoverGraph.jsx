@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@vx/grid";
 import { Group } from "@vx/group";
-import { curveNatural } from "@vx/curve";
+import { curveBasis } from "@vx/curve";
 import { AxisLeft } from "@vx/axis";
 import { scaleTime, scaleLinear } from "@vx/scale";
 import { extent, bisector } from "d3-array";
@@ -98,7 +98,7 @@ export const CloudCoverGraph = ({
             y={y}
             strokeWidth={2}
             stroke="url(#cloudCoverGradient)"
-            curve={curveNatural}
+            curve={curveBasis}
           />
           <Bar
             x={0}
