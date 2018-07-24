@@ -49,7 +49,6 @@ export const TemperatureGraph = ({
 
   const anySubZeroTicks = yScale.ticks()[0] <= 0;
 
-  const numTicksForHeight = height => (height > 299 ? 10 : 7);
   const bisectDate = bisector(d => new Date(d.time * 1000)).left;
   const formatDate = timeFormat("%a %b %d, %H:%M");
 
@@ -97,7 +96,7 @@ export const TemperatureGraph = ({
             width={xMax}
             height={yMax}
             className="grid-lines__line"
-            numTicksRows={numTicksForHeight(height)}
+            numTicksRows={9}
           />
           <LinePath
             data={data}
@@ -181,7 +180,7 @@ export const TemperatureGraph = ({
           left={margin.left}
           scale={yScale}
           tickTextFill={"#1b1a1e"}
-          numTicks={numTicksForHeight(height)}
+          numTicks={9}
           tickFormat={val => `${val}˚`}
           hideTicks={true}
           hideAxisLine={true}
