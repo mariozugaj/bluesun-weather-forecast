@@ -50,10 +50,10 @@ const mapState = (state, ownProps) => {
 };
 
 const mapDispatch = (dispatch, ownProps) => {
-  const coordinates = extractCoordinates(ownProps.match.params.coordinates);
+  const { locationLatLng } = extractCoordinates(ownProps.match.params.coordinates);
   return {
     setLocationFromParams: () => {
-      return dispatch(setLocationFromParams(coordinates));
+      return dispatch(setLocationFromParams(locationLatLng));
     },
     mapLoaded: () => dispatch(mapLoaded()),
     startLoadingMap: () => dispatch(startLoadingMap()),

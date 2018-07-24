@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 
 import { setLocationFromParams } from "modules/currentLocation";
 import { fetchForecastIfNeeded } from "modules/forecast";
-import { extractCoordinates, coordinatesToString } from "helpers";
+import { extractCoordinates } from "helpers";
 import CurrentConditions from "components/CurrentConditions";
 import DailyConditions from "components/DailyConditions";
 import LoadingModal from "components/LoadingModal";
@@ -45,9 +45,8 @@ export class ForecastDailyPage extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  const latLng = extractCoordinates(ownProps.match.params.coordinates);
-  const coordinates = coordinatesToString(latLng);
-  const forecast = state.forecast.byLocation[coordinates] || {};
+  const { locationString } = extractCoordinates(ownProps.match.params.coordinates);
+  const forecast = state.forecast.byLocation[locationString] || {};
 
   return {
     forecast,
@@ -57,14 +56,13 @@ const mapState = (state, ownProps) => {
 };
 
 const mapDispatch = (dispatch, ownProps) => {
-  const latLng = extractCoordinates(ownProps.match.params.coordinates);
-  const coordinates = coordinatesToString(latLng);
+  const { locationLatLng, locationString } = extractCoordinates(ownProps.match.params.coordinates);
 
   return {
     setLocationFromParams: () => {
-      return dispatch(setLocationFromParams(latLng));
+      return dispatch(setLocationFromParams(locationLatLng));
     },
-    fetchForecastIfNeeded: () => dispatch(fetchForecastIfNeeded(coordinates)),
+    fetchForecastIfNeeded: () => dispatch(fetchForecastIfNeeded(locationString)),
   };
 };
 
