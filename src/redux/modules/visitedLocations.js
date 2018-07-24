@@ -11,12 +11,12 @@ export function visitLocation(location) {
 }
 
 const initialState = {
-  "45.8149,15.9821": {
-    id: "45.8149,15.9821",
-    visitedAt: 1531919115731,
-    label: "Trg Josipa Langa 2, 10000, Zagreb, Croatia",
-    lat: 45.8149,
-    lng: 15.9821,
+  "28.763204,-17.893081": {
+    id: "28.763204,-17.893081",
+    visitedAt: 1532440211059,
+    label: "Observatorio del Roque de los Muchachos",
+    lat: 28.763204,
+    lng: -17.893081,
   },
 };
 
