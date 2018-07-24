@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-export function round(number, precision = 4) {
+export function round(number, precision = 6) {
   const shift = (number, precision, reverseShift) => {
     if (reverseShift) {
       precision = -precision;
