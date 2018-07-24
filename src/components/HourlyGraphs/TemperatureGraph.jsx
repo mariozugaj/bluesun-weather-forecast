@@ -41,8 +41,8 @@ export const TemperatureGraph = ({
   const yScale = scaleLinear({
     range: [yMax, 0],
     domain: [
-      min(data, d => min([ySelector(d), zSelector(d)])) - 2,
-      max(data, d => max([ySelector(d), zSelector(d)])) + 2,
+      min(data, d => Math.floor(min([ySelector(d), zSelector(d)]))),
+      max(data, d => Math.ceil(max([ySelector(d), zSelector(d)]))),
     ],
     nice: true,
   });
