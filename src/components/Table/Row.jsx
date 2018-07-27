@@ -3,21 +3,21 @@ import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
 
-export const Row = props => {
+export const Row = ({ size = 5, to = null, children, extra = false, ...props }) => {
   const styles = {
-    gridTemplateColumns: `3fr repeat(${props.size}, 1fr)`,
+    gridTemplateColumns: `3fr repeat(${size}, 1fr) ${extra ? "40px" : ""}`,
   };
 
-  if (props.to) {
+  if (to) {
     return (
-      <Link to={props.to} className="table__row" style={styles}>
-        {props.children}
+      <Link to={to} className="table__row" style={styles}>
+        {children}
       </Link>
     );
   } else {
     return (
       <div {...props} className="table__row" style={styles}>
-        {props.children}
+        {children}
       </div>
     );
   }

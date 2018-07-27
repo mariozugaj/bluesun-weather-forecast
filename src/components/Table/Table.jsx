@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const Table = ({ size = 5, ...props }) => {
+export const Table = ({ size = 5, extra = false, ...props }) => {
   const styles = {
-    gridTemplateColumns: `3fr repeat(${size}, 1fr)`,
+    gridTemplateColumns: `3fr repeat(${size}, 1fr) ${extra ? "40px" : ""}`,
   };
 
   return (
