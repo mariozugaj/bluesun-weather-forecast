@@ -14,33 +14,29 @@ export function round(number, precision = 6) {
 }
 
 export function geocode(coordinates) {
-  const { lat, lng } = coordinates;
-  const defaultResult = {
-    label: "Middle of nowhere",
-    lat,
-    lng,
-    id: `${lat},${lng}`,
-  };
-
   return new Promise((resolve, reject) => {
+    let extracted;
+    try {
+      extracted = extractCoordinates(coordinates);
+    } catch (error) {
+      reject(error);
+    }
+
+    const defaultResult = {
+      label: "Middle of nowhere",
+      coordinates: extracted.join(","),
+    };
     const geocoder = new window.google.maps.Geocoder();
+    const latLng = { lat: extracted[0], lng: extracted[1] };
 
-    geocoder.geocode({ location: coordinates }, (results, status) => {
-      if (status === "OK") {
-        if (results[0]) {
-          const { formatted_address } = results[0];
-
-          return resolve({
-            label: formatted_address,
-            lat,
-            lng,
-            id: `${lat},${lng}`,
-          });
-        } else {
-          return resolve(defaultResult);
-        }
+    geocoder.geocode({ location: latLng }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        resolve({
+          label: results[0].formatted_address,
+          coordinates: extracted.join(","),
+        });
       } else {
-        return resolve(defaultResult);
+        resolve(defaultResult);
       }
     });
   });
