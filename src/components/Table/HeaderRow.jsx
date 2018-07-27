@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const HeaderRow = ({ size = 5, content = [] }) => {
+export const HeaderRow = ({ size = 5, content = [], extra = false }) => {
   const styles = {
-    gridTemplateColumns: `repeat(${size}, 1fr)`,
+    gridTemplateColumns: `repeat(${size}, 1fr) ${extra ? "40px" : ""}`,
   };
   return (
     <header className="table__header-row" style={styles}>
