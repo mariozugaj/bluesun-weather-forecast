@@ -3,38 +3,62 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { setLocationFromParams } from "modules/currentLocation";
+import { getLocation } from "modules/locations";
 import { fetchForecastIfNeeded } from "modules/forecast";
-import { extractCoordinates } from "helpers";
 import LoadingModal from "components/LoadingModal";
 import HourlyGraphs from "components/HourlyGraphs";
 
 export class ForecastHourlyPage extends Component {
   componentDidMount() {
-    this.setLocationAndForecast();
+    const { currentLocation, getLocation, fetchForecastIfNeeded } = this.props;
+    getLocation();
+    if (currentLocation) {
+      fetchForecastIfNeeded(currentLocation.coordinates);
+    }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.setLocationAndForecast();
+    const { currentLocation, getLocation, fetchForecastIfNeeded, location } = this.props;
+    if (prevProps.location.pathname !== location.pathname) {
+      getLocation();
+    }
+    if (currentLocation) {
+      fetchForecastIfNeeded(currentLocation.coordinates);
     }
   }
 
-  setLocationAndForecast = () => {
-    this.props.fetchForecastIfNeeded();
-    this.props.setLocationFromParams();
-  };
-
   render() {
-    const { forecast, isLoading, currentLocation } = this.props;
+    const { locationError, isLoading, currentLocation, forecast, forecastError } = this.props;
 
-    if (isLoading) {
-      return <LoadingModal text="Fetching forecast..." />;
+    if (locationError || forecastError) {
+      return (
+        <div className="center-page-text-wrapper">
+          {locationError && (
+            <h2>{`There has been an error in determining desired location: ${
+              locationError.message
+            }`}</h2>
+          )}
+          {forecastError && (
+            <h2>{`There has been an error in fetching forecast: ${forecastError.message}`}</h2>
+          )}
+        </div>
+      );
     }
+
+    if (isLoading || !currentLocation) {
+      return (
+        <LoadingModal text="Loading location parameters..." className="center-page-text-wrapper" />
+      );
+    }
+
+    if (!forecast) {
+      return <LoadingModal text="Fetching forecast..." className="center-page-text-wrapper" />;
+    }
+
     return (
       <section className="layout-container--pad-top layout-container--scrollable">
         <Helmet>
-          <title>{`BlueSun Forecast | ${currentLocation.label}`}</title>
+          <title>{`BlueSun Weather Forecast | ${currentLocation.label}`}</title>
         </Helmet>
         <HourlyGraphs forecast={forecast.hourly} />
       </section>
@@ -43,24 +67,21 @@ export class ForecastHourlyPage extends Component {
 }
 
 const mapState = (state, ownProps) => {
-  const { locationString } = extractCoordinates(ownProps.match.params.coordinates);
-  const forecast = state.forecast.byLocation[locationString] || {};
-
+  const { coordinates } = ownProps.match.params;
   return {
-    forecast,
-    isLoading: Object.keys(forecast).length === 0 || state.forecast.isFetching,
-    currentLocation: state.currentLocation,
+    currentLocation: state.locations.visited[coordinates],
+    locationError: state.locations.error,
+    isLoading: state.locations.isLoading,
+    forecast: state.forecast.byLocation[coordinates],
+    forecastError: state.forecast.error,
   };
 };
 
 const mapDispatch = (dispatch, ownProps) => {
-  const { locationLatLng, locationString } = extractCoordinates(ownProps.match.params.coordinates);
-
+  const { coordinates } = ownProps.match.params;
   return {
-    setLocationFromParams: () => {
-      return dispatch(setLocationFromParams(locationLatLng));
-    },
-    fetchForecastIfNeeded: () => dispatch(fetchForecastIfNeeded(locationString)),
+    getLocation: () => dispatch(getLocation(coordinates)),
+    fetchForecastIfNeeded: location => dispatch(fetchForecastIfNeeded(location)),
   };
 };
 
