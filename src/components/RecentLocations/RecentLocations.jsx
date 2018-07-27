@@ -20,10 +20,20 @@ WeatherSymbol.propTypes = {
   temperature: PropTypes.number.isRequired,
 };
 
-const VisitedLocations = ({ visitedLocations = [], forecast = {} }) => {
+const RecentLocations = ({ recentLocations, forecast, ...props }) => {
+  const handleStarClick = (coordinates, event) => {
+    event.preventDefault();
+    props.addFavoriteLocation(coordinates);
+  };
+
+  const handleDeleteClick = (coordinates, event) => {
+    event.preventDefault();
+    props.deleteRecentLocation(coordinates);
+  };
+
   const renderRows = () => {
-    return visitedLocations.map(location => {
-      const forecastForLocation = forecast.byLocation[location.id];
+    return recentLocations.map(location => {
+      const forecastForLocation = forecast.byLocation[location.coordinates];
       const rowContent =
         forecastForLocation &&
         forecastForLocation.daily.data
@@ -38,9 +48,28 @@ const VisitedLocations = ({ visitedLocations = [], forecast = {} }) => {
           ));
 
       return (
-        <Row to={`/forecast/daily/${location.id}`} key={location.id} size={5}>
+        <Row
+          to={`/forecast/daily/${location.coordinates}`}
+          key={location.coordinates}
+          size={5}
+          extra={true}
+        >
           <h3 title={location.label}>{location.label}</h3>
           {rowContent}
+          <span className="visited-locations__actions">
+            <Icon
+              size={15}
+              name="star"
+              onClick={event => handleStarClick(location.coordinates, event)}
+              title="Add location to favorites"
+            />
+            <Icon
+              size={15}
+              name="delete"
+              onClick={event => handleDeleteClick(location.coordinates, event)}
+              title="Remove location from recent"
+            />
+          </span>
         </Row>
       );
     });
@@ -50,18 +79,18 @@ const VisitedLocations = ({ visitedLocations = [], forecast = {} }) => {
   return (
     <React.Fragment>
       <h2 className="visited-locations__title">Recent locations</h2>
-      <Table size={5}>
-        <HeaderRow content={headerRowContent} size={5} />
+      <Table size={5} extra={true}>
+        <HeaderRow content={headerRowContent} size={5} extra={true} />
         {renderRows()}
       </Table>
     </React.Fragment>
   );
 };
 
-VisitedLocations.propTypes = {
-  visitedLocations: PropTypes.arrayOf(
+RecentLocations.propTypes = {
+  recentLocations: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      coordinates: PropTypes.string.isRequired,
       visitedAt: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired,
       lat: PropTypes.number,
@@ -74,4 +103,4 @@ VisitedLocations.propTypes = {
   }).isRequired,
 };
 
-export default VisitedLocations;
+export default RecentLocations;

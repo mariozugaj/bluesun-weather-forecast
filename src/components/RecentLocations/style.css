@@ -1,0 +1,17 @@
+.visited-locations__title {
+  font-size: 1.4em;
+  letter-spacing: 0.7px;
+  margin: 0;
+  padding-top: 2.7em;
+  font-weight: 400;
+}
+.visited-locations__actions {
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+.table__row:hover .visited-locations__actions {
+  display: flex;
+}

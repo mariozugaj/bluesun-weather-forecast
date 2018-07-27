@@ -3,9 +3,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 
-import { clearLocation } from "modules/currentLocation";
+import { clearLocation } from "modules/locations";
 import { fetchForecastIfNeeded } from "modules/forecast";
-import VisitedLocations from "components/VisitedLocations";
+import { addFavoriteLocation, deleteFavoriteLocation } from "modules/favoriteLocations";
+import { deleteRecentLocation } from "modules/recentLocations";
+import RecentLocations from "components/RecentLocations";
+import FavoriteLocations from "components/FavoriteLocations";
+import { getFavoriteLocations, getRecentLocations } from "selectors";
 
 const EmptyHomeStatus = () => (
   <div className="center-page-text-wrapper">
@@ -15,57 +19,38 @@ const EmptyHomeStatus = () => (
 
 export class HomePage extends Component {
   componentDidMount() {
-    const { clearLocation, visitedLocations, fetchForecastIfNeeded } = this.props;
+    const { clearLocation, recentLocations, favoriteLocations, fetchForecastIfNeeded } = this.props;
 
     clearLocation();
-    visitedLocations.forEach(location => {
-      return fetchForecastIfNeeded(location.id);
+    recentLocations.forEach(location => {
+      return fetchForecastIfNeeded(location.coordinates);
+    });
+    favoriteLocations.forEach(location => {
+      return fetchForecastIfNeeded(location.coordinates);
     });
   }
 
   render() {
-    const { forecast, visitedLocations } = this.props;
-    const anyVisited = visitedLocations.length !== 0;
+    const anyRecent = this.props.recentLocations.length !== 0;
+    const anyFavorite = this.props.favoriteLocations.length !== 0;
 
     return (
       <main className="layout-container">
         <Helmet>
-          <title>BlueSun Forecast</title>
+          <title>BlueSun Weather Forecast</title>
         </Helmet>
-        {anyVisited ? (
-          <VisitedLocations forecast={forecast} visitedLocations={visitedLocations} />
-        ) : (
-          <EmptyHomeStatus />
-        )}
+        {anyFavorite && <FavoriteLocations {...this.props} />}
+        {anyRecent && <RecentLocations {...this.props} />}
+        {!anyRecent && !anyFavorite && <EmptyHomeStatus />}
       </main>
     );
   }
 }
 
-HomePage.propTypes = {
-  visitedLocations: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      visitedAt: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-      lat: PropTypes.number,
-      lng: PropTypes.number,
-    })
-  ).isRequired,
-  forecast: PropTypes.shape({
-    isFetching: PropTypes.bool.isRequired,
-    byLocation: PropTypes.object.isRequired,
-  }).isRequired,
-};
-
-const mostRecentFiveLocations = allLocations =>
-  Object.values(allLocations)
-    .sort((a, b) => (a.visitedAt < b.visitedAt ? 1 : -1))
-    .slice(0, 5);
-
 const mapState = state => {
   return {
-    visitedLocations: mostRecentFiveLocations(state.visitedLocations),
+    recentLocations: getRecentLocations(state),
+    favoriteLocations: getFavoriteLocations(state),
     forecast: state.forecast,
   };
 };
@@ -73,6 +58,9 @@ const mapState = state => {
 const mapDispatch = {
   clearLocation,
   fetchForecastIfNeeded,
+  deleteRecentLocation,
+  addFavoriteLocation,
+  deleteFavoriteLocation,
 };
 
 export default connect(
