@@ -4,57 +4,75 @@ import { withRouter } from "react-router-dom";
 import DarkskyMap from "react-darksky-map";
 import { Helmet } from "react-helmet";
 
-import { setLocationFromParams } from "modules/currentLocation";
-import { extractCoordinates } from "helpers";
+import { trimCoordinates } from "helpers";
+import { getLocation } from "modules/locations";
 import { startLoadingMap, mapLoaded } from "modules/map";
 import LoadingModal from "components/LoadingModal";
 
 export class ForecastMapPage extends Component {
   componentDidMount() {
-    this.props.setLocationFromParams();
+    this.props.getLocation();
     this.props.startLoadingMap();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.props.setLocationFromParams();
-      this.props.startLoadingMap();
+      this.props.getLocation();
     }
   }
 
   render() {
-    const { lat, lng, label } = this.props.currentLocation;
+    const { locationError, isLoading, currentLocation, isMapLoading, mapLoaded } = this.props;
+
+    if (locationError) {
+      return (
+        <div className="center-page-text-wrapper">
+          {locationError && (
+            <h2>{`There has been an error in determining desired location: ${
+              locationError.message
+            }`}</h2>
+          )}
+        </div>
+      );
+    }
+
+    if (isLoading || !currentLocation) {
+      return (
+        <LoadingModal text="Loading location parameters..." className="center-page-text-wrapper" />
+      );
+    }
+    const coordinates = trimCoordinates(currentLocation.coordinates);
     return (
       <section className="map-wrapper">
+        {isMapLoading && (
+          <LoadingModal text="Loading map... " className="center-page-text-wrapper" />
+        )}
         <Helmet>
-          <title>{`BlueSun Forecast | ${label}`}</title>
+          <title>{`BlueSun Weather Forecast | ${currentLocation.label}`}</title>
         </Helmet>
         <DarkskyMap
-          lat={lat}
-          lng={lng}
-          zoom={7}
+          lat={coordinates[0]}
+          lng={coordinates[1]}
+          zoom={8}
           height="100%"
-          onLoad={() => this.props.mapLoaded()}
+          onLoad={() => mapLoaded()}
         />
-        {this.props.isMapLoading && <LoadingModal text="Loading map... " />}
       </section>
     );
   }
 }
 
-const mapState = (state, ownProps) => {
-  return {
-    currentLocation: state.currentLocation,
-    isMapLoading: state.map.isLoading,
-  };
-};
+const mapState = (state, ownProps) => ({
+  currentLocation: state.locations.visited[ownProps.match.params.coordinates],
+  locationError: state.locations.error,
+  isLoading: state.locations.isLoading,
+  isMapLoading: state.map.isLoading,
+});
 
 const mapDispatch = (dispatch, ownProps) => {
-  const { locationLatLng } = extractCoordinates(ownProps.match.params.coordinates);
+  const { coordinates } = ownProps.match.params;
   return {
-    setLocationFromParams: () => {
-      return dispatch(setLocationFromParams(locationLatLng));
-    },
+    getLocation: () => dispatch(getLocation(coordinates)),
     mapLoaded: () => dispatch(mapLoaded()),
     startLoadingMap: () => dispatch(startLoadingMap()),
   };
