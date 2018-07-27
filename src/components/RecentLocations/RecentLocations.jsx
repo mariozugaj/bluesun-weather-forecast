@@ -59,7 +59,7 @@ const RecentLocations = ({ recentLocations, forecast, ...props }) => {
           <span className="visited-locations__actions">
             <Icon
               size={15}
-              name="star"
+              name="star-empty"
               onClick={event => handleStarClick(location.coordinates, event)}
               title="Add location to favorites"
             />

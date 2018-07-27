@@ -19,11 +19,16 @@ export class ForecastDailyPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { currentLocation, getLocation, fetchForecastIfNeeded, location } = this.props;
+    const { currentLocation, getLocation, fetchForecastIfNeeded, location, isLoading } = this.props;
 
     if (prevProps.location.pathname !== location.pathname) {
       getLocation();
     }
+
+    if (!currentLocation && !isLoading) {
+      getLocation();
+    }
+
     if (currentLocation) {
       fetchForecastIfNeeded(currentLocation.coordinates);
     }
