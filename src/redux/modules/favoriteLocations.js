@@ -1,7 +1,5 @@
 import * as actionTypes from "redux/actionTypes";
 import { moveRecentToFavorite } from "modules/recentLocations";
-import { deleteVisitedLocation } from "modules/locations";
-import { deleteForecastForLocation } from "modules/forecast";
 
 export function addFavoriteLocation(coordinates) {
   return dispatch => {
