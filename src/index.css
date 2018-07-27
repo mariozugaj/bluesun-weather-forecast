@@ -99,3 +99,46 @@ a:any-link {
 .center-page-text-wrapper * {
   margin: 0;
 }
+
+.powered-by {
+  right: 0;
+  bottom: 0;
+  background-color: #ff4742;
+  background: linear-gradient(to left, #f85032, #ff4742);
+  color: #fff;
+  position: fixed;
+  font-weight: 500;
+  z-index: 8;
+  border-top-left-radius: 5px;
+  padding: 0.5em;
+  border-top: 1px solid #efefef;
+  font-weight: 800;
+  border-left: 1px solid #efefef;
+  background: #fff;
+  color: #6f6f6f;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.powered-by:hover {
+  background: #fff !important;
+  color: var(--primary-color);
+}
+
+.powered-by p {
+  text-align: center;
+  margin: 0;
+  vertical-align: middle;
+  display: inline;
+  margin-left: 0.5em;
+  font-weight: 400;
+}
+
+
+.powered-by img {
+  border: none;
+  border-radius: 2em;
+  width: 1.5em;
+  vertical-align: middle;
+  background-color: #333;
+}

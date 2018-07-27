@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 
+import RecentLocations from "components/RecentLocations";
+import FavoriteLocations from "components/FavoriteLocations";
+import PoweredBy from "components/PoweredBy";
+
 import { clearLocation, deleteVisitedLocation } from "modules/locations";
 import { fetchForecastIfNeeded, deleteForecastForLocation } from "modules/forecast";
 import { addFavoriteLocation, deleteFavoriteLocation } from "modules/favoriteLocations";
 import { deleteRecentLocation } from "modules/recentLocations";
-import RecentLocations from "components/RecentLocations";
-import FavoriteLocations from "components/FavoriteLocations";
 import { getFavoriteLocations, getRecentLocations } from "selectors";
 
 const EmptyHomeStatus = () => (
@@ -53,14 +55,17 @@ export class HomePage extends Component {
     const anyFavorite = this.props.favoriteLocations.length !== 0;
 
     return (
-      <main className="layout-container">
-        <Helmet>
-          <title>BlueSun Weather Forecast</title>
-        </Helmet>
-        {anyFavorite && <FavoriteLocations {...this.props} />}
-        {anyRecent && <RecentLocations {...this.props} />}
-        {!anyRecent && !anyFavorite && <EmptyHomeStatus />}
-      </main>
+      <React.Fragment>
+        <main className="layout-container">
+          <Helmet>
+            <title>BlueSun Weather Forecast</title>
+          </Helmet>
+          {anyFavorite && <FavoriteLocations {...this.props} />}
+          {anyRecent && <RecentLocations {...this.props} />}
+          {!anyRecent && !anyFavorite && <EmptyHomeStatus />}
+        </main>
+        <PoweredBy />
+      </React.Fragment>
     );
   }
 }
