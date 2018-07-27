@@ -23,7 +23,7 @@ function checkLocationCount() {
   return (dispatch, getState) => {
     const visitedLocations = getState().locations.visited;
     const recentLocations = getState().recentLocations;
-    console.log("check");
+
     if (recentLocations.length > 5) {
       const leastRecentLocation = Object.values(visitedLocations)
         .filter(location => recentLocations.includes(location.coordinates))
@@ -43,8 +43,8 @@ export function addNewVisitedSuccess(locationData) {
         visitedAt: Date.now(),
       },
     });
-    dispatch(checkLocationCount());
     dispatch(addRecentLocation(locationData.coordinates));
+    dispatch(checkLocationCount());
   };
 }
 
