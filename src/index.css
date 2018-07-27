@@ -1,5 +1,6 @@
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial,
+    sans-serif;
   --primary-color: #0341b6;
   --secondary-color: #005bff;
   --text-color-primary: rgb(97, 97, 97);
@@ -103,26 +104,23 @@ a:any-link {
 .powered-by {
   right: 0;
   bottom: 0;
-  background-color: #ff4742;
-  background: linear-gradient(to left, #f85032, #ff4742);
-  color: #fff;
   position: fixed;
-  font-weight: 500;
   z-index: 8;
   border-top-left-radius: 5px;
   padding: 0.5em;
   border-top: 1px solid #efefef;
-  font-weight: 800;
   border-left: 1px solid #efefef;
-  background: #fff;
-  color: #6f6f6f;
+  color: var(--text-color-primary);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+  transform: translateX(calc(100% - 2.4em));
+  transition: 0.2s transform cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
 .powered-by:hover {
   background: #fff !important;
   color: var(--primary-color);
+  transform: translateX(0);
 }
 
 .powered-by p {
@@ -131,9 +129,8 @@ a:any-link {
   vertical-align: middle;
   display: inline;
   margin-left: 0.5em;
-  font-weight: 400;
+  font-weight: 300;
 }
-
 
 .powered-by img {
   border: none;
