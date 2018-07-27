@@ -26,23 +26,23 @@ export const TemperatureGraph = ({
 }) => {
   if (width < 10) return null;
 
-  const xSelector = d => new Date(d.time * 1000);
-  const ySelector = d => d.temperature;
-  const zSelector = d => d.apparentTemperature;
+  const x = d => new Date(d.time * 1000);
+  const y = d => d.temperature;
+  const z = d => d.apparentTemperature;
 
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top * 1.5 - margin.bottom;
 
   const xScale = scaleTime({
     range: [0, xMax],
-    domain: extent(data, xSelector),
+    domain: extent(data, x),
   });
 
   const yScale = scaleLinear({
     range: [yMax, 0],
     domain: [
-      min(data, d => Math.floor(min([ySelector(d), zSelector(d)]))),
-      max(data, d => Math.ceil(max([ySelector(d), zSelector(d)]))),
+      min(data, d => Math.floor(min([y(d), z(d)]))),
+      max(data, d => Math.ceil(max([y(d), z(d)]))),
     ],
     nice: true,
   });
@@ -53,19 +53,19 @@ export const TemperatureGraph = ({
   const formatDate = timeFormat("%a %b %d, %H:%M");
 
   const handleTooltip = datum => event => {
-    let { x } = localPoint(event);
-    x -= margin.left;
-    const x0 = xScale.invert(x);
+    let xLoc = localPoint(event).x;
+    xLoc -= margin.left;
+    const x0 = xScale.invert(xLoc);
     const index = bisectDate(data, x0, 1);
     const d0 = data[index - 1];
     const d1 = data[index];
     let d = d0;
     if (d1 && d1.time) {
-      d = x0 - xSelector(d0.time) > xSelector(d1.time) - x0 ? d1 : d0;
+      d = x0 - x(d0.time) > x(d1.time) - x0 ? d1 : d0;
     }
     return showTooltip({
       tooltipData: d,
-      tooltipLeft: x,
+      tooltipLeft: xLoc,
       tooltipTop: [yScale(d.temperature), yScale(d.apparentTemperature)],
     });
   };
@@ -80,7 +80,8 @@ export const TemperatureGraph = ({
             y1={yScale(1)}
             x2={0}
             y2={yScale(-1)}
-            gradientUnits="userSpaceOnUse">
+            gradientUnits="userSpaceOnUse"
+          >
             <stop offset="0%" stopColor="#c60000" />
             <stop offset="50%" stopColor="#c60000" />
             <stop offset="50%" stopColor="blue" />
@@ -102,8 +103,8 @@ export const TemperatureGraph = ({
             data={data}
             xScale={xScale}
             yScale={yScale}
-            x={xSelector}
-            y={ySelector}
+            x={x}
+            y={y}
             stroke="url(#tempGradient)"
             strokeWidth={2}
             curve={curveNatural}
@@ -112,8 +113,8 @@ export const TemperatureGraph = ({
             data={data}
             xScale={xScale}
             yScale={yScale}
-            x={xSelector}
-            y={zSelector}
+            x={x}
+            y={z}
             stroke="url(#tempGradient)"
             strokeWidth={1}
             strokeDasharray="4,3"
@@ -206,11 +207,12 @@ export const TemperatureGraph = ({
             style={{
               backgroundColor: "#005bff",
               color: "white",
-            }}>
-            {`${ySelector(tooltipData)}˚ C | ${zSelector(tooltipData)}˚ C`}
+            }}
+          >
+            {`${y(tooltipData)}˚ C | ${z(tooltipData)}˚ C`}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
-            {formatDate(xSelector(tooltipData))}
+            {formatDate(x(tooltipData))}
           </Tooltip>
         </span>
       )}
