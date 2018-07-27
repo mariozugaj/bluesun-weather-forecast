@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@vx/grid";
 import { Group } from "@vx/group";
-import { curveNatural } from "@vx/curve";
+import { curveMonotoneX } from "@vx/curve";
 import { AxisLeft } from "@vx/axis";
 import { scaleLinear, scaleTime } from "@vx/scale";
 import { max, extent, bisector } from "d3-array";
@@ -94,7 +94,7 @@ export const PrecipitationGraph = ({
             y={y}
             strokeWidth={0}
             fill="url(#precipGradient)"
-            curve={curveNatural}
+            curve={curveMonotoneX}
           />
           <Bar
             x={0}
@@ -154,7 +154,8 @@ export const PrecipitationGraph = ({
             style={{
               backgroundColor: "#005bff",
               color: "white",
-            }}>
+            }}
+          >
             {`${round(y(tooltipData), 2)} mm`}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
