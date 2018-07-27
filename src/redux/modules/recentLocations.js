@@ -1,6 +1,4 @@
 import * as actionTypes from "redux/actionTypes";
-import { deleteVisitedLocation } from "modules/locations";
-import { deleteForecastForLocation } from "modules/forecast";
 
 export function addRecentLocation(coordinates) {
   return {
