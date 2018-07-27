@@ -1,0 +1,23 @@
+.redirect-button {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  color: #fff;
+  font-weight: 400;
+  opacity: 1;
+  padding: 0 1.3em;
+  text-decoration: none;
+  transition: all 0.15s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  white-space: nowrap;
+  height: 2.8em;
+  line-height: 1;
+  font-size: inherit;
+  border-radius: 5px;
+  margin: 1em;
+}
+
+.redirect-button:hover {
+  background-color: #fff;
+  border: 1px solid var(--secondary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+}
