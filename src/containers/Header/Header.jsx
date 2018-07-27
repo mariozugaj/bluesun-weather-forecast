@@ -6,13 +6,16 @@ import Logo from "components/Logo";
 import LocationInfo from "components/LocationInfo";
 import Search from "components/Search";
 import CurrentPosition from "components/CurrentPosition";
-import { getCurrentPosition, startSearching, stopSearching } from "modules/currentLocation";
-import { visitLocation } from "modules/visitedLocations";
+import { startSearching, stopSearching } from "modules/search";
+import { getCurrentPosition } from "modules/currentPosition";
 import HeaderNav from "./HeaderNav";
+import { getCurrentLocation } from "redux/selectors";
+import { addNewVisitedSuccess } from "modules/locations";
 
 export class Header extends Component {
   render() {
-    const isNotHome = this.props.location.pathname !== "/" && this.props.currentLocation.label;
+    const { currentLocation, locationError } = this.props;
+    const isNotHome = currentLocation ? true : false;
 
     return (
       <section className="layout-container">
@@ -20,9 +23,9 @@ export class Header extends Component {
           <Logo />
           <LocationInfo {...this.props} />
           <CurrentPosition {...this.props} />
-          <Search {...this.props} />
+          {<Search {...this.props} />}
         </header>
-        {isNotHome && <HeaderNav id={this.props.currentLocation.id} />}
+        {isNotHome && !locationError && <HeaderNav coordinates={currentLocation.coordinates} />}
       </section>
     );
   }
@@ -30,14 +33,18 @@ export class Header extends Component {
 
 const mapState = (state, ownProps) => {
   return {
-    currentLocation: state.currentLocation,
+    currentLocation: getCurrentLocation(state),
+    locations: state.locations,
+    currentPosition: state.currentPosition,
+    isSearching: state.search.isSearching,
+    locationError: state.locations.error,
   };
 };
 const mapDispatch = {
-  visitLocation,
   getCurrentPosition,
   startSearching,
   stopSearching,
+  addNewVisitedSuccess,
 };
 
 export default withRouter(

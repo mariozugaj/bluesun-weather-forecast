@@ -1,12 +1,12 @@
 import React from "react";
 
-import { round, coordinatesToString } from "helpers";
 import Icon from "components/Icon";
 import SearchInput from "./SearchInput";
+import { coordinatesToString } from "helpers";
 
-const Search = ({ startSearching, stopSearching, currentLocation, visitLocation, ...props }) => {
+const Search = ({ startSearching, stopSearching, isSearching, ...props }) => {
   const changeSearchMode = () => {
-    if (currentLocation.isSearching) return stopSearching();
+    if (isSearching) return stopSearching();
     startSearching();
   };
 
@@ -17,14 +17,8 @@ const Search = ({ startSearching, stopSearching, currentLocation, visitLocation,
         label,
       } = suggest;
       const coordinates = coordinatesToString({ lat, lng });
-      const locationData = {
-        label,
-        lat: round(lat),
-        lng: round(lng),
-        id: coordinates,
-      };
       stopSearching();
-      visitLocation(locationData);
+      props.addNewVisitedSuccess({ label, coordinates });
       props.history.push(`/forecast/daily/${coordinates}`);
     }
   };
@@ -35,10 +29,10 @@ const Search = ({ startSearching, stopSearching, currentLocation, visitLocation,
         name="search"
         className="page-header__item icon--clickable"
         size="20px"
-        title="Seach for a location"
+        title="Search for a location"
         onClick={changeSearchMode}
       />
-      {currentLocation.isSearching && (
+      {isSearching && (
         <SearchInput onSuggestSelect={onSuggestSelect} changeSearchMode={changeSearchMode} />
       )}
     </React.Fragment>
