@@ -4,7 +4,7 @@ import { Group } from "@vx/group";
 import { curveMonotoneX } from "@vx/curve";
 import { AxisLeft } from "@vx/axis";
 import { scaleTime, scaleLinear } from "@vx/scale";
-import { extent, bisector } from "d3-array";
+import { extent, bisector, max } from "d3-array";
 import { LinePath, Line, Bar } from "@vx/shape";
 import { Point } from "@vx/point";
 import { withTooltip, Tooltip } from "@vx/tooltip";
@@ -39,7 +39,7 @@ export const UVIndexGraph = ({
 
   const yScale = scaleLinear({
     rangeRound: [yMax, 0],
-    domain: [0, 14],
+    domain: [0, Math.ceil(max(data, y))],
     nice: true,
   });
 
@@ -75,7 +75,8 @@ export const UVIndexGraph = ({
             y1={yScale(0)}
             x2={0}
             y2={yScale(13)}
-            gradientUnits="userSpaceOnUse">
+            gradientUnits="userSpaceOnUse"
+          >
             <stop offset="0%" stopColor="green" />
             <stop offset="22.3%" stopColor="green" />
             <stop offset="27.08%" stopColor="yellow" />
@@ -166,7 +167,8 @@ export const UVIndexGraph = ({
             style={{
               backgroundColor: "#005bff",
               color: "white",
-            }}>
+            }}
+          >
             {`${y(tooltipData)}`}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
