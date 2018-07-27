@@ -6,11 +6,14 @@ import Logo from "components/Logo";
 import LocationInfo from "components/LocationInfo";
 import Search from "components/Search";
 import CurrentPosition from "components/CurrentPosition";
+import HeaderNav from "./HeaderNav";
+import Favorite from "components/Favorite";
+
 import { startSearching, stopSearching } from "modules/search";
 import { getCurrentPosition } from "modules/currentPosition";
-import HeaderNav from "./HeaderNav";
-import { getCurrentLocation } from "redux/selectors";
 import { addNewVisitedSuccess } from "modules/locations";
+import { addFavoriteLocation, deleteFavoriteLocation } from "modules/favoriteLocations";
+import { getCurrentLocation } from "redux/selectors";
 
 export class Header extends Component {
   render() {
@@ -22,6 +25,7 @@ export class Header extends Component {
         <header className="page-header">
           <Logo />
           <LocationInfo {...this.props} />
+          {isNotHome && <Favorite {...this.props} />}
           <CurrentPosition {...this.props} />
           {<Search {...this.props} />}
         </header>
@@ -38,6 +42,7 @@ const mapState = (state, ownProps) => {
     currentPosition: state.currentPosition,
     isSearching: state.search.isSearching,
     locationError: state.locations.error,
+    favoriteLocations: state.favoriteLocations,
   };
 };
 const mapDispatch = {
@@ -45,6 +50,8 @@ const mapDispatch = {
   startSearching,
   stopSearching,
   addNewVisitedSuccess,
+  addFavoriteLocation,
+  deleteFavoriteLocation,
 };
 
 export default withRouter(
