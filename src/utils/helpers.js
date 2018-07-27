@@ -1,5 +1,7 @@
 import classNames from "classnames";
 
+const coordinatesRegexp = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
+
 export function round(number, precision = 6) {
   const shift = (number, precision, reverseShift) => {
     if (reverseShift) {
@@ -48,10 +50,22 @@ export function coordinatesToString({ lat, lng }) {
   return `${round(lat)},${round(lng)}`;
 }
 
-export function extractCoordinates(coordinatesString) {
-  const params = coordinatesString.split(",").map(parseFloat);
-  const locationLatLng = { lat: round(params[0]), lng: round(params[1]) };
-  return { locationLatLng, locationString: coordinatesToString(locationLatLng) };
+function validCoordinates(coordinates) {
+  return coordinatesRegexp.test(coordinates);
+}
+
+export function trimCoordinates(coordinates) {
+  return coordinates.split(",").map(coordinate => {
+    parseFloat(coordinate);
+    return round(coordinate);
+  });
+}
+
+export function extractCoordinates(coordinates) {
+  if (!validCoordinates(coordinates)) {
+    throw new Error("Not valid coordinates");
+  }
+  return trimCoordinates(coordinates);
 }
 
 export function nextDays(n) {
