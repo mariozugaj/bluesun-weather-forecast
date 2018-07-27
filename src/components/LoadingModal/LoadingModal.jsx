@@ -2,9 +2,9 @@ import React from "react";
 
 import Loader from "components/Loader";
 
-const LoadingModal = ({ text = "" }) => {
+const LoadingModal = ({ text = "", className = "loading-modal-wrapper" }) => {
   return (
-    <div className="loading-modal-wrapper">
+    <div className={className}>
       {text !== "" && <h2>{text}</h2>}
       <Loader />
     </div>
