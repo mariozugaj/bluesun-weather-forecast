@@ -19,8 +19,6 @@ export function deleteRecentLocation(coordinates) {
         coordinates,
       },
     });
-    dispatch(deleteVisitedLocation(coordinates));
-    dispatch(deleteForecastForLocation(coordinates));
   };
 }
 

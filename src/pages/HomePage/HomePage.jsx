@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 
-import { clearLocation } from "modules/locations";
-import { fetchForecastIfNeeded } from "modules/forecast";
+import { clearLocation, deleteVisitedLocation } from "modules/locations";
+import { fetchForecastIfNeeded, deleteForecastForLocation } from "modules/forecast";
 import { addFavoriteLocation, deleteFavoriteLocation } from "modules/favoriteLocations";
 import { deleteRecentLocation } from "modules/recentLocations";
 import RecentLocations from "components/RecentLocations";
@@ -28,7 +28,25 @@ export class HomePage extends Component {
     favoriteLocations.forEach(location => {
       return fetchForecastIfNeeded(location.coordinates);
     });
+    this.tidyUp();
   }
+
+  tidyUp = () => {
+    const {
+      visited,
+      recentListing,
+      favoriteListing,
+      deleteVisitedLocation,
+      deleteForecastForLocation,
+    } = this.props;
+    Object.keys(visited).forEach(location => {
+      const isRedundant = !recentListing.includes(location) && !favoriteListing.includes(location);
+      if (isRedundant) {
+        deleteVisitedLocation(location);
+        deleteForecastForLocation(location);
+      }
+    });
+  };
 
   render() {
     const anyRecent = this.props.recentLocations.length !== 0;
@@ -52,6 +70,9 @@ const mapState = state => {
     recentLocations: getRecentLocations(state),
     favoriteLocations: getFavoriteLocations(state),
     forecast: state.forecast,
+    visited: state.locations.visited,
+    recentListing: state.recentLocations,
+    favoriteListing: state.favoriteLocations,
   };
 };
 
@@ -61,6 +82,8 @@ const mapDispatch = {
   deleteRecentLocation,
   addFavoriteLocation,
   deleteFavoriteLocation,
+  deleteVisitedLocation,
+  deleteForecastForLocation,
 };
 
 export default connect(

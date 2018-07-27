@@ -23,8 +23,6 @@ export function deleteFavoriteLocation(coordinates) {
         coordinates,
       },
     });
-    dispatch(deleteVisitedLocation(coordinates));
-    dispatch(deleteForecastForLocation(coordinates));
   };
 }
 
