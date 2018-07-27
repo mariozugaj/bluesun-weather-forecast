@@ -1,14 +1,11 @@
 import { coordinatesToString } from "helpers";
 import * as API from "api";
-
-const FETCH_FORECAST_BEGIN = "FETCH_FORECAST_BEGIN";
-const FETCH_FORECAST_SUCCESS = "FETCH_FORECAST_SUCCESS";
-const FETCH_FORECAST_FAILURE = "FETCH_FORECAST_FAILURE";
+import * as actionTypes from "redux/actionTypes";
 
 export function fetchForecastSuccess(forecast) {
   const { latitude, longitude, daily, hourly, currently, timezone } = forecast;
   return {
-    type: FETCH_FORECAST_SUCCESS,
+    type: actionTypes.FETCH_FORECAST_SUCCESS,
     payload: {
       location: coordinatesToString({ lat: latitude, lng: longitude }),
       forecast: {
@@ -24,29 +21,29 @@ export function fetchForecastSuccess(forecast) {
 
 export function fetchForecastFailure(error) {
   return {
-    type: FETCH_FORECAST_FAILURE,
+    type: actionTypes.FETCH_FORECAST_FAILURE,
     error,
   };
 }
 
 function fetchForecast(location) {
   return dispatch => {
-    dispatch({ type: FETCH_FORECAST_BEGIN });
+    dispatch({ type: actionTypes.FETCH_FORECAST_BEGIN });
     API.getForecast(location)
       .then(response => dispatch(fetchForecastSuccess(response)))
-      .catch(error => dispatch(fetchForecastFailure(error)));
+      .catch(error => dispatch(fetchForecastFailure(error.response.data.error)));
   };
 }
 
-function shouldFetchForecast(state, location) {
-  const forecast = state.forecast.byLocation[location];
+function shouldFetchForecast(state, coordinates) {
+  const forecast = state.forecast.byLocation[coordinates];
   const lastFetchedWithinAnHour =
     forecast && (new Date() - new Date(forecast.fetchedAt)) / 3600000 < 1;
 
-  if (!forecast) {
-    return true;
-  } else if (forecast.isFetching) {
+  if (state.forecast.isFetching) {
     return false;
+  } else if (!forecast) {
+    return true;
   } else if (lastFetchedWithinAnHour) {
     return false;
   } else {
@@ -54,11 +51,20 @@ function shouldFetchForecast(state, location) {
   }
 }
 
-export function fetchForecastIfNeeded(location) {
+export function fetchForecastIfNeeded(coordinates) {
   return (dispatch, getState) => {
-    if (shouldFetchForecast(getState(), location)) {
-      return dispatch(fetchForecast(location));
+    if (shouldFetchForecast(getState(), coordinates)) {
+      return dispatch(fetchForecast(coordinates));
     }
+  };
+}
+
+export function deleteForecastForLocation(coordinates) {
+  return {
+    type: actionTypes.DELETE_FORECAST_FOR_LOCATION,
+    payload: {
+      coordinates,
+    },
   };
 }
 
@@ -70,12 +76,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_FORECAST_BEGIN:
+    case actionTypes.FETCH_FORECAST_BEGIN:
       return {
         ...state,
         isFetching: true,
       };
-    case FETCH_FORECAST_SUCCESS:
+    case actionTypes.FETCH_FORECAST_SUCCESS:
       return {
         isFetching: false,
         error: null,
@@ -84,12 +90,16 @@ export default function reducer(state = initialState, action) {
           [action.payload.location]: { ...action.payload.forecast },
         },
       };
-    case FETCH_FORECAST_FAILURE:
+    case actionTypes.FETCH_FORECAST_FAILURE:
       return {
         ...state,
         error: action.error,
         isFetching: false,
       };
+    case actionTypes.DELETE_FORECAST_FOR_LOCATION:
+      const newState = { ...state };
+      delete newState.byLocation[action.payload.coordinates];
+      return newState;
     default:
       return state;
   }
