@@ -1,8 +1,8 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const LocationInfo = props => {
-  if (props.currentLocation.isSettingLocation) {
+const LocationInfo = ({ currentLocation, locations, locationError }) => {
+  if (locations.isLoading) {
     return (
       <div className="page-header__location-heading">
         <span className="page-header__loader-wrapper">
@@ -17,9 +17,11 @@ const LocationInfo = props => {
         </span>
       </div>
     );
-  } else {
-    return <h1 className="page-header__location-heading">{props.currentLocation.label}</h1>;
   }
+
+  if (!currentLocation || locationError) return null;
+
+  return <h1 className="page-header__location-heading">{currentLocation.label}</h1>;
 };
 
 export default LocationInfo;

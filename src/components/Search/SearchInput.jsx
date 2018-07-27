@@ -28,6 +28,7 @@ export class SearchInput extends Component {
         placeholder="Search for a location..."
         types={["geocode"]}
         ignoreTab
+        ignoreEnter
       />
     );
   }
