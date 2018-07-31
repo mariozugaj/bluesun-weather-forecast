@@ -35,7 +35,11 @@ function checkLocationCount() {
 }
 
 export function addNewVisitedSuccess(locationData) {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const locationAlreadyVisited = Object.keys(getState().locations.visited).includes(
+      locationData.coordinates
+    );
+    if (locationAlreadyVisited) return null;
     dispatch({
       type: actionTypes.ADD_NEW_VISITED_SUCCESS,
       payload: {
