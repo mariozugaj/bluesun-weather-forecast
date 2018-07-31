@@ -55,6 +55,8 @@ export function fetchForecastIfNeeded(coordinates) {
   return (dispatch, getState) => {
     if (shouldFetchForecast(getState(), coordinates)) {
       return dispatch(fetchForecast(coordinates));
+    } else {
+      return Promise.resolve();
     }
   };
 }
