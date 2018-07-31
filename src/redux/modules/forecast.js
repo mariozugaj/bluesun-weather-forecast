@@ -31,7 +31,7 @@ function fetchForecast(location) {
     dispatch({ type: actionTypes.FETCH_FORECAST_BEGIN });
     API.getForecast(location)
       .then(response => dispatch(fetchForecastSuccess(response)))
-      .catch(error => dispatch(fetchForecastFailure(error.response.data.error)));
+      .catch(error => dispatch(fetchForecastFailure(error)));
   };
 }
 
