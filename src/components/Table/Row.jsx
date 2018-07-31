@@ -26,4 +26,5 @@ export const Row = ({ size = 5, to = null, children, extra = false, ...props }) 
 Row.propTypes = {
   size: PropTypes.number,
   to: PropTypes.string,
+  extra: PropTypes.bool,
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { extent } from "d3-array";
+import PropTypes from "prop-types";
 
 import TemperatureGraph from "./TemperatureGraph";
 import PrecipitationGraph from "./PrecipitationGraph";
@@ -76,6 +77,22 @@ const HourlyGraphs = ({ forecast }) => {
       <UVIndexGraph width={WIDTH} height={200} margin={DEFAULT_MARGINS} data={dataFor("uvIndex")} />
     </React.Fragment>
   );
+};
+
+HourlyGraphs.propTypes = {
+  forecast: PropTypes.shape({
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        temperature: PropTypes.number,
+        apparentTemperature: PropTypes.number,
+        time: PropTypes.number,
+        windSpeed: PropTypes.number,
+        precipIntensity: PropTypes.number,
+        cloudCover: PropTypes.number,
+        uvIndex: PropTypes.number,
+      })
+    ),
+  }),
 };
 
 export default HourlyGraphs;

@@ -14,5 +14,6 @@ export const HeaderRow = ({ size = 5, content = [], extra = false }) => {
 
 HeaderRow.propTypes = {
   size: PropTypes.number,
-  content: PropTypes.array.isRequired,
+  content: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  extra: PropTypes.bool,
 };

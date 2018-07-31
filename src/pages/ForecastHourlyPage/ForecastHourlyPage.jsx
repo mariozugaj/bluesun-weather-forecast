@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 
 import { getLocation } from "modules/locations";
 import { fetchForecastIfNeeded } from "modules/forecast";
@@ -9,6 +10,20 @@ import LoadingModal from "components/LoadingModal";
 import HourlyGraphs from "components/HourlyGraphs";
 
 export class ForecastHourlyPage extends Component {
+  static propTypes = {
+    currentLocation: PropTypes.shape({
+      coordinates: PropTypes.string,
+      label: PropTypes.string,
+      visitedAt: PropTypes.number,
+    }),
+    isLoading: PropTypes.bool.isRequired,
+    forecast: PropTypes.object,
+    locationError: PropTypes.object,
+    forecastError: PropTypes.object,
+    fetchForecastIfNeeded: PropTypes.func.isRequired,
+    getLocation: PropTypes.func.isRequired,
+  };
+
   componentDidMount() {
     const { currentLocation, getLocation, fetchForecastIfNeeded } = this.props;
     getLocation();

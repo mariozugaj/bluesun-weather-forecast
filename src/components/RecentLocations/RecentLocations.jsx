@@ -3,22 +3,8 @@ import PropTypes from "prop-types";
 
 import { Table, HeaderRow, Row } from "components/Table";
 import Icon from "components/Icon";
-import { nextDays, round } from "helpers";
-
-const WeatherSymbol = ({ summary = "", condition = "", temperature = 0 }) => {
-  return (
-    <figure className="weather-symbol__wrapper">
-      <Icon name={condition} title={summary} size={50} />
-      <span className="temperature--warm">{round(temperature, 0)}°</span>
-    </figure>
-  );
-};
-
-WeatherSymbol.propTypes = {
-  summary: PropTypes.string.isRequired,
-  condition: PropTypes.string.isRequired,
-  temperature: PropTypes.number.isRequired,
-};
+import { nextDays } from "helpers";
+import WeatherSymbol from "components/WeatherSymbol";
 
 const RecentLocations = ({ recentLocations, forecast, ...props }) => {
   const handleStarClick = (coordinates, event) => {
@@ -62,12 +48,14 @@ const RecentLocations = ({ recentLocations, forecast, ...props }) => {
               name="star-empty"
               onClick={event => handleStarClick(location.coordinates, event)}
               title="Add location to favorites"
+              alt="Add location to favorites"
             />
             <Icon
               size={15}
               name="delete"
               onClick={event => handleDeleteClick(location.coordinates, event)}
               title="Remove location from recent"
+              alt="Remove location from recent"
             />
           </span>
         </Row>
@@ -88,19 +76,20 @@ const RecentLocations = ({ recentLocations, forecast, ...props }) => {
 };
 
 RecentLocations.propTypes = {
-  recentLocations: PropTypes.arrayOf(
+  favoriteLocations: PropTypes.arrayOf(
     PropTypes.shape({
-      coordinates: PropTypes.string.isRequired,
-      visitedAt: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-      lat: PropTypes.number,
-      lng: PropTypes.number,
+      coordinates: PropTypes.string,
+      label: PropTypes.string,
+      visitedAt: PropTypes.number,
     })
   ).isRequired,
   forecast: PropTypes.shape({
-    isFetching: PropTypes.bool.isRequired,
-    byLocation: PropTypes.object.isRequired,
+    isFetching: PropTypes.bool,
+    error: PropTypes.object,
+    byLocation: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
+  deleteRecentLocation: PropTypes.func.isRequired,
+  addFavoriteLocation: PropTypes.func.isRequired,
 };
 
 export default RecentLocations;

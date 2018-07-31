@@ -27,7 +27,7 @@ const HeaderNav = ({ coordinates = "" }) => {
 };
 
 HeaderNav.propTypes = {
-  id: PropTypes.string,
+  coordinates: PropTypes.string.isRequired,
 };
 
 export default HeaderNav;

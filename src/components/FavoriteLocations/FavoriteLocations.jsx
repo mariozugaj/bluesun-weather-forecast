@@ -3,27 +3,13 @@ import PropTypes from "prop-types";
 
 import { Table, HeaderRow, Row } from "components/Table";
 import Icon from "components/Icon";
-import { nextDays, round } from "helpers";
+import { nextDays } from "helpers";
+import WeatherSymbol from "components/WeatherSymbol";
 
-const WeatherSymbol = ({ summary = "", condition = "", temperature = 0 }) => {
-  return (
-    <figure className="weather-symbol__wrapper">
-      <Icon name={condition} title={summary} size={50} />
-      <span className="temperature--warm">{round(temperature, 0)}°</span>
-    </figure>
-  );
-};
-
-WeatherSymbol.propTypes = {
-  summary: PropTypes.string.isRequired,
-  condition: PropTypes.string.isRequired,
-  temperature: PropTypes.number.isRequired,
-};
-
-const FavoriteLocations = ({ favoriteLocations, forecast, ...props }) => {
+const FavoriteLocations = ({ favoriteLocations, forecast, deleteFavoriteLocation }) => {
   const handleDeleteClick = (coordinates, event) => {
     event.preventDefault();
-    props.deleteFavoriteLocation(coordinates);
+    deleteFavoriteLocation(coordinates);
   };
 
   const renderRows = () => {
@@ -43,7 +29,12 @@ const FavoriteLocations = ({ favoriteLocations, forecast, ...props }) => {
           ));
 
       return (
-        <Row to={`/forecast/daily/${location.coordinates}`} key={location.coordinates} size={5} extra={true}>
+        <Row
+          to={`/forecast/daily/${location.coordinates}`}
+          key={location.coordinates}
+          size={5}
+          extra={true}
+        >
           <h3 title={location.label}>{location.label}</h3>
           {rowContent}
           <span className="visited-locations__actions">
@@ -52,6 +43,7 @@ const FavoriteLocations = ({ favoriteLocations, forecast, ...props }) => {
               name="delete"
               onClick={event => handleDeleteClick(location.coordinates, event)}
               title="Remove location from favorites"
+              alt="Remove location from favorites"
             />
           </span>
         </Row>
@@ -74,17 +66,17 @@ const FavoriteLocations = ({ favoriteLocations, forecast, ...props }) => {
 FavoriteLocations.propTypes = {
   favoriteLocations: PropTypes.arrayOf(
     PropTypes.shape({
-      coordinates: PropTypes.string.isRequired,
-      visitedAt: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-      lat: PropTypes.number,
-      lng: PropTypes.number,
+      coordinates: PropTypes.string,
+      label: PropTypes.string,
+      visitedAt: PropTypes.number,
     })
   ).isRequired,
   forecast: PropTypes.shape({
-    isFetching: PropTypes.bool.isRequired,
-    byLocation: PropTypes.object.isRequired,
+    isFetching: PropTypes.bool,
+    error: PropTypes.object,
+    byLocation: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
+  deleteFavoriteLocation: PropTypes.func.isRequired,
 };
 
 export default FavoriteLocations;

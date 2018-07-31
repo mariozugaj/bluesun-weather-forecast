@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import Geosuggest from "react-geosuggest";
+import PropTypes from "prop-types";
 
 export class SearchInput extends Component {
+  static propTypes = {
+    changeSearchMode: PropTypes.func.isRequired,
+    onSuggestSelect: PropTypes.func.isRequired,
+  };
+
   geosuggestRef = React.createRef();
 
   componentDidMount() {

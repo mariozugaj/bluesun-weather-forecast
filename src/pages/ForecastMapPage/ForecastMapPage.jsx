@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import DarkskyMap from "react-darksky-map";
 import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 
 import { trimCoordinates } from "helpers";
 import { getLocation } from "modules/locations";
@@ -10,6 +11,20 @@ import { startLoadingMap, mapLoaded } from "modules/map";
 import LoadingModal from "components/LoadingModal";
 
 export class ForecastMapPage extends Component {
+  static propTypes = {
+    currentLocation: PropTypes.shape({
+      coordinates: PropTypes.string,
+      label: PropTypes.string,
+      visitedAt: PropTypes.number,
+    }),
+    isLoading: PropTypes.bool.isRequired,
+    isMapLoading: PropTypes.bool.isRequired,
+    locationError: PropTypes.object,
+    getLocation: PropTypes.func.isRequired,
+    mapLoaded: PropTypes.func.isRequired,
+    startLoadingMap: PropTypes.func.isRequired,
+  };
+
   componentDidMount() {
     this.props.getLocation();
     this.props.startLoadingMap();
