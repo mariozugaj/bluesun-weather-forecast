@@ -37,6 +37,7 @@ export default function reducer(state = initialState, action) {
       return [...state, action.payload.coordinates];
     case actionTypes.DELETE_RECENT_LOCATION:
       const index = state.findIndex(location => location === action.payload.coordinates);
+      if (index === -1) return state;
       return [...state.slice(0, index), ...state.slice(index + 1)];
     default:
       return state;
