@@ -20,6 +20,38 @@ const EmptyHomeStatus = () => (
 );
 
 export class HomePage extends Component {
+  static propTypes = {
+    recentLocations: PropTypes.arrayOf(
+      PropTypes.shape({
+        coordinates: PropTypes.string,
+        label: PropTypes.string,
+        visitedAt: PropTypes.number,
+      })
+    ),
+    recentListing: PropTypes.arrayOf(PropTypes.string),
+    favoriteLocations: PropTypes.arrayOf(
+      PropTypes.shape({
+        coordinates: PropTypes.string,
+        label: PropTypes.string,
+        visitedAt: PropTypes.number,
+      })
+    ),
+    favoriteListing: PropTypes.arrayOf(PropTypes.string),
+    forecast: PropTypes.shape({
+      isFetching: PropTypes.bool,
+      error: PropTypes.object,
+      byLocation: PropTypes.objectOf(PropTypes.object),
+    }),
+    visited: PropTypes.objectOf(PropTypes.object),
+    clearLocation: PropTypes.func.isRequired,
+    fetchForecastIfNeeded: PropTypes.func.isRequired,
+    deleteRecentLocation: PropTypes.func.isRequired,
+    addFavoriteLocation: PropTypes.func.isRequired,
+    deleteFavoriteLocation: PropTypes.func.isRequired,
+    deleteVisitedLocation: PropTypes.func.isRequired,
+    deleteForecastForLocation: PropTypes.func.isRequired,
+  };
+
   componentDidMount() {
     const { clearLocation, recentLocations, favoriteLocations, fetchForecastIfNeeded } = this.props;
 

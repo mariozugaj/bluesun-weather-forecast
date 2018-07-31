@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Icon from "components/Icon";
 import { round } from "helpers";
@@ -49,5 +50,25 @@ const CurrentHero = props => (
     <h2 className="current-hero__title">{props.hourly.summary}</h2>
   </article>
 );
+
+CurrentHero.propTypes = {
+  currently: PropTypes.shape({
+    icon: PropTypes.string.isRequired,
+    summary: PropTypes.string.isRequired,
+    temperature: PropTypes.number.isRequired,
+    apparentTemperature: PropTypes.number.isRequired,
+  }).isRequired,
+  daily: PropTypes.shape({
+    daily: PropTypes.arrayOf(
+      PropTypes.shape({
+        temperatureMax: PropTypes.number.isRequired,
+        temperatureMin: PropTypes.number.isRequired,
+      })
+    ),
+  }).isRequired,
+  hourly: PropTypes.shape({
+    summary: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default CurrentHero;

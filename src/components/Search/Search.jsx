@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Icon from "components/Icon";
 import SearchInput from "./SearchInput";
@@ -28,8 +29,9 @@ const Search = ({ startSearching, stopSearching, isSearching, ...props }) => {
       <Icon
         name="search"
         className="page-header__item icon--clickable"
-        size="20px"
+        size={20}
         title="Search for a location"
+        alt="Search for a location"
         onClick={changeSearchMode}
       />
       {isSearching && (
@@ -37,6 +39,13 @@ const Search = ({ startSearching, stopSearching, isSearching, ...props }) => {
       )}
     </React.Fragment>
   );
+};
+
+Search.propTypes = {
+  isSearching: PropTypes.bool.isRequired,
+  startSearching: PropTypes.func.isRequired,
+  stopSearching: PropTypes.func.isRequired,
+  addNewVisitedSuccess: PropTypes.func.isRequired,
 };
 
 export default Search;

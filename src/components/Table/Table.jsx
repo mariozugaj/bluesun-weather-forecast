@@ -14,5 +14,6 @@ export const Table = ({ size = 5, extra = false, ...props }) => {
 };
 
 Table.propTypes = {
-  size: PropTypes.number.isRequired,
+  size: PropTypes.number,
+  extra: PropTypes.bool,
 };

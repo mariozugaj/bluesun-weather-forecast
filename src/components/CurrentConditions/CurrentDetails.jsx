@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { titleize, round, uvClass } from "helpers";
 
@@ -11,7 +12,8 @@ const Detail = ({ label = "", value = 0, unit = "", direction = null, className 
       {direction && (
         <span
           className="current-details__direction"
-          style={{ transform: `rotate(${direction}deg)` }}>
+          style={{ transform: `rotate(${direction}deg)` }}
+        >
           ↑
         </span>
       )}
@@ -44,6 +46,28 @@ const CurrentDetails = forecast => {
   ));
 
   return <ul className="current-details-wrapper">{currentlyData}</ul>;
+};
+
+CurrentDetails.propTypes = {
+  forecast: PropTypes.shape({
+    currently: PropTypes.shape({
+      humidity: PropTypes.number,
+      windSpeed: PropTypes.number,
+      windBearing: PropTypes.number,
+      uvIndex: PropTypes.number,
+      visibility: PropTypes.number,
+      pressure: PropTypes.number,
+      dewPoint: PropTypes.number,
+    }).isRequired,
+  }),
+};
+
+Detail.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  unit: PropTypes.string.isRequired,
+  direction: PropTypes.number,
+  className: PropTypes.string,
 };
 
 export default CurrentDetails;

@@ -10,6 +10,7 @@ import { Point } from "@vx/point";
 import { withTooltip, Tooltip } from "@vx/tooltip";
 import { localPoint } from "@vx/event";
 import { timeFormat } from "d3-time-format";
+import PropTypes from "prop-types";
 
 export const TemperatureGraph = ({
   width,
@@ -218,6 +219,35 @@ export const TemperatureGraph = ({
       )}
     </figure>
   );
+};
+
+TemperatureGraph.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  margin: PropTypes.shape({
+    left: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired,
+    top: PropTypes.number.isRequired,
+    bottom: PropTypes.number.isRequired,
+  }),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      time: PropTypes.number.isRequired,
+      temperature: PropTypes.number.isRequired,
+      apparentTemperature: PropTypes.number.isRequired,
+    })
+  ),
+  showTooltip: PropTypes.func.isRequired,
+  tooltipData: PropTypes.shape({
+    time: PropTypes.number.isRequired,
+    temperature: PropTypes.number.isRequired,
+    apparentTemperature: PropTypes.number.isRequired,
+  }),
+  tooltipLeft: PropTypes.number,
+  tooltipTop: PropTypes.arrayOf(PropTypes.number),
+  tooltipOpen: PropTypes.bool.isRequired,
+  hideTooltip: PropTypes.func.isRequired,
+  events: PropTypes.func,
 };
 
 export default withTooltip(TemperatureGraph, { style: { position: "relative" } });

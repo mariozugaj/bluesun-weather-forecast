@@ -6,7 +6,7 @@ import routes from "routes";
 
 export const browserHistory = createBrowserHistory();
 
-const App = props => {
+const App = () => {
   return <Router history={browserHistory}>{routes}</Router>;
 };
 

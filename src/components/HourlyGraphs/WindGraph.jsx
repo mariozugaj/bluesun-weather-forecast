@@ -10,6 +10,7 @@ import { Point } from "@vx/point";
 import { withTooltip, Tooltip } from "@vx/tooltip";
 import { localPoint } from "@vx/event";
 import { timeFormat } from "d3-time-format";
+import PropTypes from "prop-types";
 
 export const WindGraph = ({
   width,
@@ -145,7 +146,8 @@ export const WindGraph = ({
             style={{
               backgroundColor: "#005bff",
               color: "white",
-            }}>
+            }}
+          >
             {`${y(tooltipData)} m/s`}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
@@ -155,6 +157,33 @@ export const WindGraph = ({
       )}
     </figure>
   );
+};
+
+WindGraph.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  margin: PropTypes.shape({
+    left: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired,
+    top: PropTypes.number.isRequired,
+    bottom: PropTypes.number.isRequired,
+  }),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      time: PropTypes.number.isRequired,
+      windSpeed: PropTypes.number.isRequired,
+    })
+  ),
+  showTooltip: PropTypes.func.isRequired,
+  tooltipData: PropTypes.shape({
+    time: PropTypes.number.isRequired,
+    windSpeed: PropTypes.number.isRequired,
+  }),
+  tooltipLeft: PropTypes.number,
+  tooltipTop: PropTypes.number,
+  tooltipOpen: PropTypes.bool.isRequired,
+  hideTooltip: PropTypes.func.isRequired,
+  events: PropTypes.func,
 };
 
 export default withTooltip(WindGraph, { style: { position: "relative" } });

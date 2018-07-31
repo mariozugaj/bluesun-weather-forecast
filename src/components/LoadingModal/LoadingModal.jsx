@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Loader from "components/Loader";
 
@@ -9,6 +10,11 @@ const LoadingModal = ({ text = "", className = "loading-modal-wrapper" }) => {
       <Loader />
     </div>
   );
+};
+
+LoadingModal.propTypes = {
+  text: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default LoadingModal;

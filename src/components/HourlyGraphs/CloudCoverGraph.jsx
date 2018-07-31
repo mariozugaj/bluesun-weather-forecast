@@ -10,6 +10,7 @@ import { Point } from "@vx/point";
 import { withTooltip, Tooltip } from "@vx/tooltip";
 import { localPoint } from "@vx/event";
 import { timeFormat } from "d3-time-format";
+import PropTypes from "prop-types";
 
 export const CloudCoverGraph = ({
   width,
@@ -75,7 +76,8 @@ export const CloudCoverGraph = ({
             y1={yScale(0)}
             x2={0}
             y2={yScale(100)}
-            gradientUnits="userSpaceOnUse">
+            gradientUnits="userSpaceOnUse"
+          >
             <stop offset="0%" stopColor="#77B5FE" />
             <stop offset="50%" stopColor="#a29fa3" />
             <stop offset="100%" stopColor="#514f51" />
@@ -159,7 +161,8 @@ export const CloudCoverGraph = ({
             style={{
               backgroundColor: "#005bff",
               color: "white",
-            }}>
+            }}
+          >
             {`${Math.round(y(tooltipData))}%`}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
@@ -169,6 +172,33 @@ export const CloudCoverGraph = ({
       )}
     </figure>
   );
+};
+
+CloudCoverGraph.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  margin: PropTypes.shape({
+    left: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired,
+    top: PropTypes.number.isRequired,
+    bottom: PropTypes.number.isRequired,
+  }),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      time: PropTypes.number.isRequired,
+      cloudCover: PropTypes.number.isRequired,
+    })
+  ),
+  showTooltip: PropTypes.func.isRequired,
+  tooltipData: PropTypes.shape({
+    time: PropTypes.number.isRequired,
+    cloudCover: PropTypes.number.isRequired,
+  }),
+  tooltipLeft: PropTypes.number,
+  tooltipTop: PropTypes.number,
+  tooltipOpen: PropTypes.bool.isRequired,
+  hideTooltip: PropTypes.func.isRequired,
+  events: PropTypes.func,
 };
 
 export default withTooltip(CloudCoverGraph, { style: { position: "relative" } });

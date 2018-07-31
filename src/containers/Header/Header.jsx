@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { PropTypes } from "prop-types";
 
 import Logo from "components/Logo";
 import LocationInfo from "components/LocationInfo";
@@ -16,6 +17,33 @@ import { addFavoriteLocation, deleteFavoriteLocation } from "modules/favoriteLoc
 import { getCurrentLocation } from "redux/selectors";
 
 export class Header extends Component {
+  static propTypes = {
+    currentLocation: PropTypes.shape({
+      coordinates: PropTypes.string,
+      label: PropTypes.string,
+      visitedAt: PropTypes.number,
+    }),
+    locations: PropTypes.shape({
+      currentLocation: PropTypes.string,
+      error: PropTypes.object,
+      isLoading: PropTypes.bool.isRequired,
+      visited: PropTypes.objectOf(PropTypes.object),
+    }),
+    currentPosition: PropTypes.shape({
+      error: PropTypes.object,
+      isLocating: PropTypes.bool.isRequired,
+    }),
+    isSearching: PropTypes.bool.isRequired,
+    locationError: PropTypes.object,
+    favoriteLocations: PropTypes.arrayOf(PropTypes.string).isRequired,
+    getCurrentPosition: PropTypes.func.isRequired,
+    startSearching: PropTypes.func.isRequired,
+    stopSearching: PropTypes.func.isRequired,
+    addNewVisitedSuccess: PropTypes.func.isRequired,
+    addFavoriteLocation: PropTypes.func.isRequired,
+    deleteFavoriteLocation: PropTypes.func.isRequired,
+  };
+
   render() {
     const { currentLocation, locationError } = this.props;
     const isNotHome = currentLocation ? true : false;
