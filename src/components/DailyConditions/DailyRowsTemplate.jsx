@@ -5,7 +5,7 @@ import { Row, RowItem } from "components/Table";
 import Icon from "components/Icon";
 import { round, uvClass, tempClass } from "helpers";
 
-const DailyRowsTemplate = ({ forecast }) => {
+const DailyRowsTemplate = ({ forecast, units }) => {
   const notValidTimezone = /GMT/gm.test(forecast.timezone);
   const timeZone = !notValidTimezone ? forecast.timezone : "Europe/Zagreb";
 
@@ -34,25 +34,27 @@ const DailyRowsTemplate = ({ forecast }) => {
         </RowItem>
 
         <RowItem>
-          <span className={tempClass(dataPoint.temperatureMax)}>{`${round(
+          <span className={tempClass(dataPoint.temperatureMax, units.freezingPoint)}>{`${round(
             dataPoint.temperatureMax,
             0
           )}˚`}</span>
         </RowItem>
 
         <RowItem>
-          <span className={tempClass(dataPoint.temperatureMin)}>{`${round(
+          <span className={tempClass(dataPoint.temperatureMin, units.freezingPoint)}>{`${round(
             dataPoint.temperatureMin,
             0
           )}˚`}</span>
         </RowItem>
 
         <RowItem>
-          <span className="precipitation">{round(dataPoint.precipIntensity * 24, 0)}</span>
+          <span className="precipitation">{`${round(dataPoint.precipIntensity * 24, 0)} ${
+            units.precipitation
+          }`}</span>
         </RowItem>
 
         <RowItem>
-          <span>{round(dataPoint.precipProbability * 100, 0)}</span>
+          <span>{round(dataPoint.precipProbability * 100, 0)}%</span>
         </RowItem>
 
         <RowItem>
@@ -60,7 +62,7 @@ const DailyRowsTemplate = ({ forecast }) => {
         </RowItem>
 
         <RowItem>
-          <span>{`${round(dataPoint.pressure, 0)} hPa`}</span>
+          <span>{`${round(dataPoint.pressure, 0)} ${units.pressure}`}</span>
         </RowItem>
 
         <RowItem>
@@ -78,7 +80,7 @@ const DailyRowsTemplate = ({ forecast }) => {
         <RowItem>
           <span>
             <span>{round(dataPoint.windSpeed, 0)}</span>
-            <span> m/s </span>
+            <span> {units.windSpeed} </span>
             <span
               style={{
                 transform: `rotate(${dataPoint.windBearing - 180}deg)`,
@@ -115,6 +117,7 @@ DailyRowsTemplate.propTypes = {
       ),
     }),
   }),
+  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 
 export default DailyRowsTemplate;

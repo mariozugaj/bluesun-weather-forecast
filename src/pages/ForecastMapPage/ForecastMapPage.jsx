@@ -23,6 +23,7 @@ export class ForecastMapPage extends Component {
     getLocation: PropTypes.func.isRequired,
     mapLoaded: PropTypes.func.isRequired,
     startLoadingMap: PropTypes.func.isRequired,
+    currentUnits: PropTypes.oneOf(["metric", "imperial"]),
   };
 
   componentDidMount() {
@@ -37,7 +38,14 @@ export class ForecastMapPage extends Component {
   }
 
   render() {
-    const { locationError, isLoading, currentLocation, isMapLoading, mapLoaded } = this.props;
+    const {
+      locationError,
+      isLoading,
+      currentLocation,
+      isMapLoading,
+      mapLoaded,
+      currentUnits,
+    } = this.props;
 
     if (locationError) {
       return (
@@ -71,17 +79,30 @@ export class ForecastMapPage extends Component {
           zoom={8}
           height="100%"
           onLoad={() => mapLoaded()}
+          units={currentUnits}
         />
       </section>
     );
   }
 }
 
+const mapUnits = currentUnits => {
+  switch (currentUnits) {
+    case "si":
+      return "metric";
+    case "us":
+      return "imperial";
+    default:
+      return "metric";
+  }
+};
+
 const mapState = (state, ownProps) => ({
   currentLocation: state.locations.visited[ownProps.match.params.coordinates],
   locationError: state.locations.error,
   isLoading: state.locations.isLoading,
   isMapLoading: state.map.isLoading,
+  currentUnits: mapUnits(state.units.currentUnits),
 });
 
 const mapDispatch = (dispatch, ownProps) => {

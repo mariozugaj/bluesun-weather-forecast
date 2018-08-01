@@ -26,6 +26,7 @@ export const PrecipitationGraph = ({
   tooltipOpen,
   hideTooltip,
   events,
+  units,
 }) => {
   if (width < 10) return null;
 
@@ -144,20 +145,20 @@ export const PrecipitationGraph = ({
           tickLabelProps={() => ({ fontSize: 12, textAnchor: "end" })}
         />
         <Group left={margin.left} top={height - 4}>
-          <text fontSize={12}>Precipitation mm/hr</text>
+          <text fontSize={12}>{`Precipitation ${units.precipitationPerHour}`}</text>
         </Group>
       </svg>
       {tooltipOpen && (
         <span>
           <Tooltip
             top={0}
-            left={tooltipLeft}
+            left={tooltipLeft + 10}
             style={{
               backgroundColor: "#005bff",
               color: "white",
             }}
           >
-            {`${round(y(tooltipData), 2)} mm`}
+            {round(y(tooltipData), 2)}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
             {formatDate(x(tooltipData))}
@@ -193,6 +194,7 @@ PrecipitationGraph.propTypes = {
   tooltipOpen: PropTypes.bool.isRequired,
   hideTooltip: PropTypes.func.isRequired,
   events: PropTypes.func,
+  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 
 export default withTooltip(PrecipitationGraph, { style: { position: "relative" } });

@@ -2,7 +2,7 @@ import { coordinatesToString } from "helpers";
 import * as API from "api";
 import * as actionTypes from "redux/actionTypes";
 
-export function fetchForecastSuccess(forecast) {
+export function fetchForecastSuccess(forecast, units) {
   const { latitude, longitude, daily, hourly, currently, timezone } = forecast;
   return {
     type: actionTypes.FETCH_FORECAST_SUCCESS,
@@ -14,6 +14,7 @@ export function fetchForecastSuccess(forecast) {
         hourly,
         timezone,
         fetchedAt: Date.now(),
+        units,
       },
     },
   };
@@ -26,12 +27,12 @@ export function fetchForecastFailure(error) {
   };
 }
 
-function fetchForecast(location) {
-  return dispatch => {
+export function fetchForecast(location, units) {
+  return (dispatch, getState) => {
     dispatch({ type: actionTypes.FETCH_FORECAST_BEGIN });
-    API.getForecast(location)
-      .then(response => dispatch(fetchForecastSuccess(response)))
-      .catch(error => dispatch(fetchForecastFailure(error)));
+    API.getForecast(location, units)
+      .then(response => dispatch(fetchForecastSuccess(response, units)))
+      .catch(error => dispatch(fetchForecastFailure(error.response.data.error)));
   };
 }
 
@@ -39,10 +40,15 @@ function shouldFetchForecast(state, coordinates) {
   const forecast = state.forecast.byLocation[coordinates];
   const lastFetchedWithinAnHour =
     forecast && (new Date() - new Date(forecast.fetchedAt)) / 3600000 < 1;
+  const currentUnits = state.units.currentUnits;
 
   if (state.forecast.isFetching) {
     return false;
   } else if (!forecast) {
+    return true;
+  } else if (state.forecast.error) {
+    return true;
+  } else if (forecast.units !== currentUnits) {
     return true;
   } else if (lastFetchedWithinAnHour) {
     return false;
@@ -54,7 +60,7 @@ function shouldFetchForecast(state, coordinates) {
 export function fetchForecastIfNeeded(coordinates) {
   return (dispatch, getState) => {
     if (shouldFetchForecast(getState(), coordinates)) {
-      return dispatch(fetchForecast(coordinates));
+      return dispatch(fetchForecast(coordinates, getState().units.currentUnits));
     } else {
       return Promise.resolve();
     }

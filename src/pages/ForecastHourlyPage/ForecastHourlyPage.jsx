@@ -22,6 +22,8 @@ export class ForecastHourlyPage extends Component {
     forecastError: PropTypes.object,
     fetchForecastIfNeeded: PropTypes.func.isRequired,
     getLocation: PropTypes.func.isRequired,
+    units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    currentUnits: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
@@ -33,17 +35,41 @@ export class ForecastHourlyPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { currentLocation, getLocation, fetchForecastIfNeeded, location } = this.props;
+    const {
+      currentLocation,
+      getLocation,
+      fetchForecastIfNeeded,
+      location,
+      isLoading,
+      currentUnits,
+      locationError,
+    } = this.props;
+
     if (prevProps.location.pathname !== location.pathname) {
       getLocation();
     }
     if (currentLocation) {
       fetchForecastIfNeeded(currentLocation.coordinates);
     }
+
+    if (!currentLocation && !isLoading && !locationError) {
+      getLocation();
+    }
+
+    if (currentLocation && prevProps.currentUnits !== currentUnits) {
+      fetchForecastIfNeeded(currentLocation.coordinates);
+    }
   }
 
   render() {
-    const { locationError, isLoading, currentLocation, forecast, forecastError } = this.props;
+    const {
+      locationError,
+      isLoading,
+      currentLocation,
+      forecast,
+      forecastError,
+      units,
+    } = this.props;
 
     if (locationError || forecastError) {
       return (
@@ -75,7 +101,7 @@ export class ForecastHourlyPage extends Component {
         <Helmet>
           <title>{`BlueSun Weather Forecast | ${currentLocation.label}`}</title>
         </Helmet>
-        <HourlyGraphs forecast={forecast.hourly} />
+        <HourlyGraphs forecast={forecast.hourly} units={units} />
       </section>
     );
   }
@@ -89,6 +115,8 @@ const mapState = (state, ownProps) => {
     isLoading: state.locations.isLoading,
     forecast: state.forecast.byLocation[coordinates],
     forecastError: state.forecast.error,
+    units: state.units.entities[state.units.currentUnits],
+    currentUnits: state.units.currentUnits,
   };
 };
 

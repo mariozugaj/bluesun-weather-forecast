@@ -24,6 +24,7 @@ export const TemperatureGraph = ({
   tooltipOpen,
   hideTooltip,
   events,
+  units,
 }) => {
   if (width < 10) return null;
 
@@ -48,7 +49,7 @@ export const TemperatureGraph = ({
     nice: true,
   });
 
-  const anySubZeroTicks = yScale.ticks()[0] <= 0;
+  const anySubZeroTicks = yScale.ticks()[0] <= units.freezingPoint;
 
   const bisectDate = bisector(d => new Date(d.time * 1000)).left;
   const formatDate = timeFormat("%a %b %d, %H:%M");
@@ -76,11 +77,24 @@ export const TemperatureGraph = ({
       <svg width={width} height={height}>
         <defs>
           <linearGradient
-            id="tempGradient"
+            id="tempGradient-C"
             x1={0}
             y1={yScale(1)}
             x2={0}
             y2={yScale(-1)}
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stopColor="#c60000" />
+            <stop offset="50%" stopColor="#c60000" />
+            <stop offset="50%" stopColor="blue" />
+            <stop offset="100%" stopColor="blue" />
+          </linearGradient>
+          <linearGradient
+            id="tempGradient-F"
+            x1={0}
+            y1={yScale(33.8)}
+            x2={0}
+            y2={yScale(30.2)}
             gradientUnits="userSpaceOnUse"
           >
             <stop offset="0%" stopColor="#c60000" />
@@ -106,7 +120,7 @@ export const TemperatureGraph = ({
             yScale={yScale}
             x={x}
             y={y}
-            stroke="url(#tempGradient)"
+            stroke={`url(#tempGradient-${units.temperature})`}
             strokeWidth={2}
             curve={curveNatural}
           />
@@ -116,15 +130,15 @@ export const TemperatureGraph = ({
             yScale={yScale}
             x={x}
             y={z}
-            stroke="url(#tempGradient)"
+            stroke={`url(#tempGradient-${units.temperature})`}
             strokeWidth={1}
             strokeDasharray="4,3"
             curve={curveNatural}
           />
           {anySubZeroTicks && (
             <Line
-              from={new Point({ x: 0, y: yScale(0) })}
-              to={new Point({ x: xMax, y: yScale(0) })}
+              from={new Point({ x: 0, y: yScale(units.freezingPoint) })}
+              to={new Point({ x: xMax, y: yScale(units.freezingPoint) })}
               strokeDasharray="4,3"
               strokeWidth="1px"
               stroke="#a1a1a1"
@@ -197,7 +211,9 @@ export const TemperatureGraph = ({
           tickLabelProps={() => ({ fontSize: "1em", fontWeight: 400, textAnchor: "middle" })}
         />
         <Group left={margin.left} top={height - 10}>
-          <text fontSize={12}>Temperature °C | Feels like °C</text>
+          <text fontSize={12}>{`Temperature °${units.temperature} | Feels like °${
+            units.temperature
+          }`}</text>
         </Group>
       </svg>
       {tooltipOpen && (
@@ -210,7 +226,7 @@ export const TemperatureGraph = ({
               color: "white",
             }}
           >
-            {`${y(tooltipData)}˚ C | ${z(tooltipData)}˚ C`}
+            {`${y(tooltipData)}˚ | ${z(tooltipData)}˚`}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
             {formatDate(x(tooltipData))}
@@ -248,6 +264,7 @@ TemperatureGraph.propTypes = {
   tooltipOpen: PropTypes.bool.isRequired,
   hideTooltip: PropTypes.func.isRequired,
   events: PropTypes.func,
+  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 
 export default withTooltip(TemperatureGraph, { style: { position: "relative" } });

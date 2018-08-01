@@ -23,6 +23,8 @@ export class ForecastDailyPage extends Component {
     forecastError: PropTypes.object,
     fetchForecastIfNeeded: PropTypes.func.isRequired,
     getLocation: PropTypes.func.isRequired,
+    units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    currentUnits: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
@@ -34,23 +36,42 @@ export class ForecastDailyPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { currentLocation, getLocation, fetchForecastIfNeeded, location, isLoading } = this.props;
+    const {
+      currentLocation,
+      getLocation,
+      fetchForecastIfNeeded,
+      location,
+      isLoading,
+      currentUnits,
+      locationError,
+    } = this.props;
 
     if (prevProps.location.pathname !== location.pathname) {
       getLocation();
     }
 
-    if (!currentLocation && !isLoading) {
+    if (!currentLocation && !isLoading && !locationError) {
       getLocation();
     }
 
     if (currentLocation) {
       fetchForecastIfNeeded(currentLocation.coordinates);
     }
+
+    if (currentLocation && prevProps.currentUnits !== currentUnits) {
+      fetchForecastIfNeeded(currentLocation.coordinates);
+    }
   }
 
   render() {
-    const { locationError, isLoading, currentLocation, forecast, forecastError } = this.props;
+    const {
+      locationError,
+      isLoading,
+      currentLocation,
+      forecast,
+      forecastError,
+      units,
+    } = this.props;
 
     if (locationError || forecastError) {
       return (
@@ -61,7 +82,7 @@ export class ForecastDailyPage extends Component {
             }`}</h2>
           )}
           {forecastError && (
-            <h2>{`There has been an error in fetching forecast: ${forecastError.toString()}`}</h2>
+            <h2>{`There has been an error in fetching forecast: ${forecastError}`}</h2>
           )}
         </div>
       );
@@ -83,8 +104,8 @@ export class ForecastDailyPage extends Component {
           <title>{`BlueSun Weather Forecast | ${currentLocation.label}`}</title>
         </Helmet>
         <section>
-          <CurrentConditions forecast={forecast} />
-          <DailyConditions forecast={forecast} />
+          <CurrentConditions forecast={forecast} units={units} />
+          <DailyConditions forecast={forecast} units={units} />
         </section>
       </React.Fragment>
     );
@@ -99,6 +120,8 @@ const mapState = (state, ownProps) => {
     isLoading: state.locations.isLoading,
     forecast: state.forecast.byLocation[coordinates],
     forecastError: state.forecast.error,
+    units: state.units.entities[state.units.currentUnits],
+    currentUnits: state.units.currentUnits,
   };
 };
 

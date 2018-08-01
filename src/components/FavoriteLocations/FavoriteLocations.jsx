@@ -6,7 +6,12 @@ import Icon from "components/Icon";
 import { nextDays } from "helpers";
 import WeatherSymbol from "components/WeatherSymbol";
 
-const FavoriteLocations = ({ favoriteLocations, forecast, deleteFavoriteLocation }) => {
+const FavoriteLocations = ({
+  favoriteLocations,
+  forecast,
+  deleteFavoriteLocation,
+  units: { freezingPoint },
+}) => {
   const handleDeleteClick = (coordinates, event) => {
     event.preventDefault();
     deleteFavoriteLocation(coordinates);
@@ -25,6 +30,7 @@ const FavoriteLocations = ({ favoriteLocations, forecast, deleteFavoriteLocation
               summary={day.summary}
               temperature={day.apparentTemperatureHigh}
               key={day.time}
+              freezingPoint={freezingPoint}
             />
           ));
 
@@ -77,6 +83,9 @@ FavoriteLocations.propTypes = {
     byLocation: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
   deleteFavoriteLocation: PropTypes.func.isRequired,
+  units: PropTypes.shape({
+    freezingPoint: PropTypes.number.isRequired,
+  }),
 };
 
 export default FavoriteLocations;
