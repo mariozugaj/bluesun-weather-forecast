@@ -21,14 +21,14 @@ const Detail = ({ label = "", value = 0, unit = "", direction = null, className 
   </li>
 );
 
-const CurrentDetails = forecast => {
+const CurrentDetails = ({ forecast, units }) => {
   const details = [
-    ["windSpeed", "m/s"],
+    ["windSpeed", units.windSpeed],
     ["humidity", "%"],
     ["dewPoint", "˚"],
     ["uvIndex", ""],
-    ["visibility", "km"],
-    ["pressure", "hPa"],
+    ["visibility", units.visibility],
+    ["pressure", units.pressure],
   ];
   const currentlyData = details.map(detail => (
     <Detail
@@ -60,6 +60,7 @@ CurrentDetails.propTypes = {
       dewPoint: PropTypes.number,
     }).isRequired,
   }),
+  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 
 Detail.propTypes = {

@@ -7,6 +7,7 @@ import map from "modules/map";
 import currentPosition from "modules/currentPosition";
 import favoriteLocations from "modules/favoriteLocations";
 import recentLocations from "modules/recentLocations";
+import units from "modules/units";
 
 export default combineReducers({
   locations,
@@ -16,4 +17,5 @@ export default combineReducers({
   currentPosition,
   favoriteLocations,
   recentLocations,
+  units,
 });

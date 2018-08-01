@@ -24,6 +24,7 @@ export const WindGraph = ({
   tooltipOpen,
   hideTooltip,
   events,
+  units,
 }) => {
   if (width < 10) return null;
 
@@ -134,7 +135,7 @@ export const WindGraph = ({
           tickLabelProps={() => ({ fontSize: 12, textAnchor: "end" })}
         />
         <Group left={margin.left} top={height - 4}>
-          <text fontSize={12}>Wind speed m/s</text>
+          <text fontSize={12}>{`Wind speed ${units.windSpeed}`}</text>
         </Group>
         />
       </svg>
@@ -142,13 +143,13 @@ export const WindGraph = ({
         <span>
           <Tooltip
             top={0}
-            left={tooltipLeft}
+            left={tooltipLeft + 5}
             style={{
               backgroundColor: "#005bff",
               color: "white",
             }}
           >
-            {`${y(tooltipData)} m/s`}
+            {y(tooltipData)}
           </Tooltip>
           <Tooltip top={height - margin.bottom} left={tooltipLeft - 25}>
             {formatDate(x(tooltipData))}
@@ -184,6 +185,7 @@ WindGraph.propTypes = {
   tooltipOpen: PropTypes.bool.isRequired,
   hideTooltip: PropTypes.func.isRequired,
   events: PropTypes.func,
+  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 
 export default withTooltip(WindGraph, { style: { position: "relative" } });

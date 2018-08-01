@@ -8,7 +8,7 @@ import WindGraph from "./WindGraph";
 import UVIndexGraph from "./UVIndexGraph";
 import CloudCoverGraph from "./CloudCoverGraph";
 
-const HourlyGraphs = ({ forecast }) => {
+const HourlyGraphs = ({ forecast, units }) => {
   const WIDTH = 1235;
   const DEFAULT_MARGINS = { left: 30, top: 20, right: 20, bottom: 20 };
 
@@ -51,6 +51,7 @@ const HourlyGraphs = ({ forecast }) => {
         height={300}
         margin={{ left: 35, top: 40, right: 20, bottom: 30 }}
         data={tempData}
+        units={units}
       />
       {anyCondition("precipIntensity", 0.05) && (
         <PrecipitationGraph
@@ -58,6 +59,7 @@ const HourlyGraphs = ({ forecast }) => {
           height={height("precipIntensity", "small")}
           margin={DEFAULT_MARGINS}
           data={dataFor("precipIntensity")}
+          units={units}
         />
       )}
       {anyCondition("cloudCover", 0) && (
@@ -73,6 +75,7 @@ const HourlyGraphs = ({ forecast }) => {
         height={height("windSpeed", "medium")}
         margin={DEFAULT_MARGINS}
         data={dataFor("windSpeed")}
+        units={units}
       />
       <UVIndexGraph width={WIDTH} height={200} margin={DEFAULT_MARGINS} data={dataFor("uvIndex")} />
     </React.Fragment>
@@ -93,6 +96,7 @@ HourlyGraphs.propTypes = {
       })
     ),
   }),
+  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 
 export default HourlyGraphs;

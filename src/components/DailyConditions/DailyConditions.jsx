@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 import { Table, HeaderRow } from "components/Table";
 import DailyRowsTemplate from "./DailyRowsTemplate";
 
-const DailyConditions = forecast => {
+const DailyConditions = props => {
   const headerRowContent = [
     "Conditions",
     "Temp. max",
     "Temp. min",
-    "Precip. mm",
+    "Precip.",
     "Precip. %",
     "Cloud cover",
     "Pressure",
@@ -23,7 +23,7 @@ const DailyConditions = forecast => {
     <div className="layout-container">
       <Table size={11}>
         <HeaderRow content={headerRowContent} size={11} />
-        <DailyRowsTemplate {...forecast} />
+        <DailyRowsTemplate {...props} />
       </Table>
     </div>
   );
@@ -50,6 +50,7 @@ DailyConditions.propTypes = {
       ),
     }),
   }),
+  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 
 export default DailyConditions;

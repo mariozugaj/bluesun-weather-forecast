@@ -50,6 +50,7 @@ export class HomePage extends Component {
     deleteFavoriteLocation: PropTypes.func.isRequired,
     deleteVisitedLocation: PropTypes.func.isRequired,
     deleteForecastForLocation: PropTypes.func.isRequired,
+    units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
   };
 
   componentDidMount() {
@@ -57,12 +58,23 @@ export class HomePage extends Component {
 
     clearLocation();
     recentLocations.forEach(location => {
-      return fetchForecastIfNeeded(location.coordinates);
+      fetchForecastIfNeeded(location.coordinates);
     });
     favoriteLocations.forEach(location => {
-      return fetchForecastIfNeeded(location.coordinates);
+      fetchForecastIfNeeded(location.coordinates);
     });
     this.tidyUp();
+  }
+
+  componentDidUpdate() {
+    const { recentLocations, favoriteLocations, fetchForecastIfNeeded } = this.props;
+
+    recentLocations.forEach(location => {
+      fetchForecastIfNeeded(location.coordinates);
+    });
+    favoriteLocations.forEach(location => {
+      fetchForecastIfNeeded(location.coordinates);
+    });
   }
 
   tidyUp = () => {
@@ -110,6 +122,7 @@ const mapState = state => {
     visited: state.locations.visited,
     recentListing: state.recentLocations,
     favoriteListing: state.favoriteLocations,
+    units: state.units.entities[state.units.currentUnits],
   };
 };
 

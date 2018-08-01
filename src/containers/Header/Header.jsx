@@ -9,11 +9,13 @@ import Search from "components/Search";
 import CurrentPosition from "components/CurrentPosition";
 import HeaderNav from "./HeaderNav";
 import Favorite from "components/Favorite";
+import UnitsToggle from "components/UnitsToggle";
 
 import { startSearching, stopSearching } from "modules/search";
 import { getCurrentPosition } from "modules/currentPosition";
 import { addNewVisitedSuccess } from "modules/locations";
 import { addFavoriteLocation, deleteFavoriteLocation } from "modules/favoriteLocations";
+import { changeUnits } from "modules/units";
 import { getCurrentLocation } from "redux/selectors";
 
 export class Header extends Component {
@@ -42,6 +44,8 @@ export class Header extends Component {
     addNewVisitedSuccess: PropTypes.func.isRequired,
     addFavoriteLocation: PropTypes.func.isRequired,
     deleteFavoriteLocation: PropTypes.func.isRequired,
+    currentUnits: PropTypes.oneOf(["si", "us"]).isRequired,
+    changeUnits: PropTypes.func.isRequired,
   };
 
   render() {
@@ -55,7 +59,8 @@ export class Header extends Component {
           <LocationInfo {...this.props} />
           {isNotHome && <Favorite {...this.props} />}
           <CurrentPosition {...this.props} />
-          {<Search {...this.props} />}
+          <Search {...this.props} />
+          <UnitsToggle {...this.props} />
         </header>
         {isNotHome && !locationError && <HeaderNav coordinates={currentLocation.coordinates} />}
       </section>
@@ -71,6 +76,7 @@ const mapState = (state, ownProps) => {
     isSearching: state.search.isSearching,
     locationError: state.locations.error,
     favoriteLocations: state.favoriteLocations,
+    currentUnits: state.units.currentUnits,
   };
 };
 const mapDispatch = {
@@ -80,6 +86,7 @@ const mapDispatch = {
   addNewVisitedSuccess,
   addFavoriteLocation,
   deleteFavoriteLocation,
+  changeUnits,
 };
 
 export default withRouter(

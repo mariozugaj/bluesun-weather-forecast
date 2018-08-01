@@ -96,9 +96,9 @@ export function uvClass(uvIndex) {
   });
 }
 
-export function tempClass(temperature) {
+export function tempClass(temperature, freezingPoint) {
   return classNames({
-    "temperature--warm": temperature > 0,
-    "temperature--cold": temperature <= 0,
+    "temperature--warm": temperature > freezingPoint,
+    "temperature--cold": temperature <= freezingPoint,
   });
 }

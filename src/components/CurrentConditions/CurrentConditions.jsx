@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import CurrentDetails from "./CurrentDetails";
 import CurrentHero from "./CurrentHero";
 
-const CurrentConditions = ({ forecast = {} }) => {
+const CurrentConditions = ({ forecast = {}, units }) => {
   return (
     <div className="current-conditions-wrapper">
       <div className="layout-container">
-        <CurrentDetails {...forecast} />
+        <CurrentDetails forecast={forecast} units={units} />
         <CurrentHero {...forecast} />
       </div>
     </div>
@@ -41,7 +41,9 @@ CurrentConditions.propTypes = {
     hourly: PropTypes.shape({
       summary: PropTypes.string.isRequired,
     }).isRequired,
+    units: PropTypes.string.isRequired,
   }),
+  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 
 export default CurrentConditions;

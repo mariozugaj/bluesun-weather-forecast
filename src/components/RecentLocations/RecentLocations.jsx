@@ -6,7 +6,7 @@ import Icon from "components/Icon";
 import { nextDays } from "helpers";
 import WeatherSymbol from "components/WeatherSymbol";
 
-const RecentLocations = ({ recentLocations, forecast, ...props }) => {
+const RecentLocations = ({ recentLocations, forecast, units: { freezingPoint }, ...props }) => {
   const handleStarClick = (coordinates, event) => {
     event.preventDefault();
     props.addFavoriteLocation(coordinates);
@@ -30,6 +30,7 @@ const RecentLocations = ({ recentLocations, forecast, ...props }) => {
               summary={day.summary}
               temperature={day.apparentTemperatureHigh}
               key={day.time}
+              freezingPoint={freezingPoint}
             />
           ));
 
@@ -90,6 +91,9 @@ RecentLocations.propTypes = {
   }).isRequired,
   deleteRecentLocation: PropTypes.func.isRequired,
   addFavoriteLocation: PropTypes.func.isRequired,
+  units: PropTypes.shape({
+    freezingPoint: PropTypes.number.isRequired,
+  }),
 };
 
 export default RecentLocations;

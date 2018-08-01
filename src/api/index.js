@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export function getForecast(coordinates) {
+export function getForecast(coordinates, units) {
   const url = `/darkskyproxy/${
     process.env.REACT_APP_DARK_SKY_API_SECRET
-  }/${coordinates}?units=si&exclude=minutely,flags,alerts&extend=hourly`;
+  }/${coordinates}?units=${units}&exclude=minutely,flags,alerts&extend=hourly`;
 
   return axios
     .get(url)
