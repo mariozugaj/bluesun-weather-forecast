@@ -20,12 +20,12 @@ const DailyConditions = forecast => {
   ];
 
   return (
-    <section className="layout-container">
+    <div className="layout-container">
       <Table size={11}>
         <HeaderRow content={headerRowContent} size={11} />
         <DailyRowsTemplate {...forecast} />
       </Table>
-    </section>
+    </div>
   );
 };
 
