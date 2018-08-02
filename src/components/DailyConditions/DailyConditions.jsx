@@ -20,12 +20,12 @@ const DailyConditions = props => {
   ];
 
   return (
-    <div className="layout-container">
+    <section className="layout-container">
       <Table size={11}>
         <HeaderRow content={headerRowContent} size={11} />
         <DailyRowsTemplate {...props} />
       </Table>
-    </div>
+    </section>
   );
 };
 

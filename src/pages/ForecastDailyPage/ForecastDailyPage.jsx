@@ -103,10 +103,8 @@ export class ForecastDailyPage extends Component {
         <Helmet>
           <title>{`BlueSun Weather Forecast | ${currentLocation.label}`}</title>
         </Helmet>
-        <section>
-          <CurrentConditions forecast={forecast} units={units} />
-          <DailyConditions forecast={forecast} units={units} />
-        </section>
+        <CurrentConditions forecast={forecast} units={units} />
+        <DailyConditions forecast={forecast} units={units} />
       </React.Fragment>
     );
   }
