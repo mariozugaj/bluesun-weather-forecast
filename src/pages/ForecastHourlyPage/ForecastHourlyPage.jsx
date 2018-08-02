@@ -80,7 +80,13 @@ export class ForecastHourlyPage extends Component {
             }`}</h2>
           )}
           {forecastError && (
-            <h2>{`There has been an error in fetching forecast: ${forecastError.message}`}</h2>
+            <React.Fragment>
+              <h2>{`There has been an error in fetching forecast: ${
+                forecastError.response.statusText
+              }`}</h2>
+              <br />
+              <h3>Try reloading the page.</h3>
+            </React.Fragment>
           )}
         </div>
       );

@@ -69,10 +69,7 @@ export class HomePage extends Component {
   componentDidUpdate() {
     const { recentLocations, favoriteLocations, fetchForecastIfNeeded } = this.props;
 
-    recentLocations.forEach(location => {
-      fetchForecastIfNeeded(location.coordinates);
-    });
-    favoriteLocations.forEach(location => {
+    [...recentLocations, ...favoriteLocations].forEach(location => {
       fetchForecastIfNeeded(location.coordinates);
     });
   }
@@ -97,6 +94,18 @@ export class HomePage extends Component {
   render() {
     const anyRecent = this.props.recentLocations.length !== 0;
     const anyFavorite = this.props.favoriteLocations.length !== 0;
+
+    if (this.props.forecastError) {
+      return (
+        <div className="center-page-text-wrapper">
+          <h2>{`There has been an error in fetching forecast: ${
+            this.props.forecastError.response.statusText
+          }`}</h2>
+          <br />
+          <h3>Try reloading the page.</h3>
+        </div>
+      );
+    }
 
     return (
       <React.Fragment>
@@ -123,6 +132,7 @@ const mapState = state => {
     recentListing: state.recentLocations,
     favoriteListing: state.favoriteLocations,
     units: state.units.entities[state.units.currentUnits],
+    forecastError: state.forecast.error,
   };
 };
 
