@@ -6,12 +6,12 @@ import CurrentHero from "./CurrentHero";
 
 const CurrentConditions = ({ forecast = {}, units }) => {
   return (
-    <div className="current-conditions-wrapper">
+    <section className="current-conditions-wrapper">
       <div className="layout-container">
         <CurrentDetails forecast={forecast} units={units} />
         <CurrentHero {...forecast} />
       </div>
-    </div>
+    </section>
   );
 };
 
