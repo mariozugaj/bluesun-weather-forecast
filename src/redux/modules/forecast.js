@@ -28,11 +28,11 @@ export function fetchForecastFailure(error) {
 }
 
 export function fetchForecast(location, units) {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch({ type: actionTypes.FETCH_FORECAST_BEGIN });
     API.getForecast(location, units)
       .then(response => dispatch(fetchForecastSuccess(response, units)))
-      .catch(error => dispatch(fetchForecastFailure(error.response.data.error)));
+      .catch(error => dispatch(fetchForecastFailure(error)));
   };
 }
 
