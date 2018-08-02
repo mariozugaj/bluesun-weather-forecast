@@ -1,0 +1,13 @@
+[build]
+  publish = "build"
+  command = "yarn run build"
+
+[[redirects]]
+  from = "/darkskyproxy/*"
+  to = "https://api.darksky.net/forecast/:splat"
+  status = 200
+
+[[redirects]]
+  from = "https://bluesun.netlify.com/*"
+  to = "https://bluesun.chanjman.me/:splat"
+  status = 301
