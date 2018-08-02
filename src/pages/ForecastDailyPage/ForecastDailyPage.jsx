@@ -41,16 +41,10 @@ export class ForecastDailyPage extends Component {
       getLocation,
       fetchForecastIfNeeded,
       location,
-      isLoading,
       currentUnits,
-      locationError,
     } = this.props;
 
     if (prevProps.location.pathname !== location.pathname) {
-      getLocation();
-    }
-
-    if (!currentLocation && !isLoading && !locationError) {
       getLocation();
     }
 
