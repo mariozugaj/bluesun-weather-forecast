@@ -141,10 +141,16 @@ a:any-link {
 }
 
 select {
-  padding: 5px;
+  padding: 5px 3px;
   border: none;
   background-color: var(--border-color);
-  height: 30px;
+  height: 25px;
   appearance: none;
   outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+select:hover {
+  background-color: rgb(220, 220, 220);
 }
