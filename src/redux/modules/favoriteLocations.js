@@ -1,5 +1,5 @@
 import * as actionTypes from "redux/actionTypes";
-import { moveRecentToFavorite } from "modules/recentLocations";
+import { deleteRecentLocation } from "modules/recentLocations";
 
 export function addFavoriteLocation(coordinates) {
   return dispatch => {
@@ -9,18 +9,23 @@ export function addFavoriteLocation(coordinates) {
         coordinates,
       },
     });
-    dispatch(moveRecentToFavorite(coordinates));
+    dispatch(deleteRecentLocation(coordinates));
   };
 }
 
 export function deleteFavoriteLocation(coordinates) {
   return (dispatch, getState) => {
-    dispatch({
-      type: actionTypes.DELETE_FAVORITE_LOCATION,
-      payload: {
-        coordinates,
-      },
-    });
+    const favoriteExists = getState().favoriteLocations.includes(coordinates);
+    if (favoriteExists) {
+      return dispatch({
+        type: actionTypes.DELETE_FAVORITE_LOCATION,
+        payload: {
+          coordinates,
+        },
+      });
+    } else {
+      return Promise.resolve();
+    }
   };
 }
 
@@ -32,7 +37,6 @@ export default function reducer(state = initialState, action) {
       return [...state, action.payload.coordinates];
     case actionTypes.DELETE_FAVORITE_LOCATION:
       const index = state.findIndex(location => location === action.payload.coordinates);
-      if (index === -1) return state;
       return [...state.slice(0, index), ...state.slice(index + 1)];
     default:
       return state;
