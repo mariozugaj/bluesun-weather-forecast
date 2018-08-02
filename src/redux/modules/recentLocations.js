@@ -10,22 +10,18 @@ export function addRecentLocation(coordinates) {
 }
 
 export function deleteRecentLocation(coordinates) {
-  return dispatch => {
-    dispatch({
-      type: actionTypes.DELETE_RECENT_LOCATION,
-      payload: {
-        coordinates,
-      },
-    });
-  };
-}
-
-export function moveRecentToFavorite(coordinates) {
-  return {
-    type: actionTypes.DELETE_RECENT_LOCATION,
-    payload: {
-      coordinates,
-    },
+  return (dispatch, getState) => {
+    const recentExists = getState().recentLocations.includes(coordinates);
+    if (recentExists) {
+      return dispatch({
+        type: actionTypes.DELETE_RECENT_LOCATION,
+        payload: {
+          coordinates,
+        },
+      });
+    } else {
+      return Promise.resolve();
+    }
   };
 }
 
@@ -37,7 +33,6 @@ export default function reducer(state = initialState, action) {
       return [...state, action.payload.coordinates];
     case actionTypes.DELETE_RECENT_LOCATION:
       const index = state.findIndex(location => location === action.payload.coordinates);
-      if (index === -1) return state;
       return [...state.slice(0, index), ...state.slice(index + 1)];
     default:
       return state;
