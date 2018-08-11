@@ -28,11 +28,7 @@ export class ForecastDailyPage extends Component {
   };
 
   componentDidMount() {
-    const { currentLocation, getLocation, fetchForecastIfNeeded } = this.props;
-    getLocation();
-    if (currentLocation) {
-      fetchForecastIfNeeded(currentLocation.coordinates);
-    }
+    this.props.getLocation();
   }
 
   componentDidUpdate(prevProps) {
