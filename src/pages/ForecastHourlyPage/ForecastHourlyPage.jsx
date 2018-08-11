@@ -27,11 +27,7 @@ export class ForecastHourlyPage extends Component {
   };
 
   componentDidMount() {
-    const { currentLocation, getLocation, fetchForecastIfNeeded } = this.props;
-    getLocation();
-    if (currentLocation) {
-      fetchForecastIfNeeded(currentLocation.coordinates);
-    }
+    this.props.getLocation();
   }
 
   componentDidUpdate(prevProps) {
@@ -40,20 +36,15 @@ export class ForecastHourlyPage extends Component {
       getLocation,
       fetchForecastIfNeeded,
       location,
-      isLoading,
       currentUnits,
-      locationError,
     } = this.props;
 
     if (prevProps.location.pathname !== location.pathname) {
       getLocation();
     }
+
     if (currentLocation) {
       fetchForecastIfNeeded(currentLocation.coordinates);
-    }
-
-    if (!currentLocation && !isLoading && !locationError) {
-      getLocation();
     }
 
     if (currentLocation && prevProps.currentUnits !== currentUnits) {
