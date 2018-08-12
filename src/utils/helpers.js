@@ -69,11 +69,11 @@ export function nextDays(n) {
     const days = ["Today"];
     const names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const today = new Date().toLocaleDateString("en-GB", { weekday: "long" });
-    let index = names.indexOf(today) + 1;
+    let index = names.indexOf(today);
 
     for (let i = 1; i < n; i++) {
-      days.push(names[index]);
       index === names.length - 1 ? (index = 0) : index++;
+      days.push(names[index]);
     }
     return days;
   };
