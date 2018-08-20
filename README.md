@@ -32,11 +32,12 @@
 * Routing done using [React Router](https://github.com/ReactTraining/react-router)
 * State management done using [Redux](https://github.com/reduxjs/redux) (following duck / module system), [Redux Thunk](https://github.com/reduxjs/redux-thunk) for middleware, [React Redux](https://github.com/reduxjs/react-redux) to connect React with Redux, [Reselect](https://github.com/reduxjs/reselect) to select specific parts of the state
 * [Redux persist](https://github.com/rt2zz/redux-persist) used to persist data to Local Storage (visited locations, favorite locations, units preference, etc.)
-* Location searching and geocoding is done using [Google Places API](https://developers.google.com/places/web-service/intro); [React Geosuggest library](https://github.com/ubilabs/react-geosuggest) is used for autosuggestions
+* Location searching and geocoding is done using [Google Places API](https://developers.google.com/places/web-service/intro); [React Geosuggest library](https://github.com/ubilabs/react-geosuggest) is used for auto-suggestions
 * Data visualization is accomplished using [vx](https://github.com/hshoff/vx), React wrapper for d3
 * Forecast data and map embed are from [Dark Sky](https://darksky.net)
 * All icons are `svg` (sprites)
 * ESLint is used as a source code styling guide
+* Site deployed on [Netlify](https://www.netlify.com)
 
 ## Credits
 
