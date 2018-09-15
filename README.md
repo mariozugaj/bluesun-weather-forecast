@@ -1,12 +1,12 @@
 <h1 align="center">
   <br>
-  <a href="http://bluesun.chanjman.me"><img src="https://raw.githubusercontent.com/chanjman/bluesun-weather-forecast/master/public/favicon.png" alt="BlueSun Weather Forecast" width="200"></a>
+  <a href="http://bluesun.mariozugaj.com"><img src="https://raw.githubusercontent.com/mariozugaj/bluesun-weather-forecast/master/public/favicon.png" alt="BlueSun Weather Forecast" width="200"></a>
   <br>
   BlueSun Weather Forecast
   <br>
 </h1>
 
-<h4 align="center">A <a href="http://bluesun.chanjman.me">demo</a> project built while learning React and Redux.</h4>
+<h4 align="center">A <a href="http://bluesun.mariozugaj.com">demo</a> project built while learning React and Redux.</h4>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
