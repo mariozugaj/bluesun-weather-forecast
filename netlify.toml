@@ -9,5 +9,5 @@
 
 [[redirects]]
   from = "https://bluesun.netlify.com/*"
-  to = "https://bluesun.chanjman.me/:splat"
+  to = "https://bluesun.mariozugaj.com/:splat"
   status = 301
