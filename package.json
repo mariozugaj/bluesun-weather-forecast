@@ -43,13 +43,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": {
-    "/darkskyproxy": {
-      "target": "https://api.darksky.net/forecast",
-      "pathRewrite": {
-        "^/darkskyproxy": ""
-      },
-      "changeOrigin": true
-    }
   }
 }
