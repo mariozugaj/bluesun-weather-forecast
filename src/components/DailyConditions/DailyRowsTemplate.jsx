@@ -26,7 +26,7 @@ const DailyRowsTemplate = ({ forecast, units }) => {
     };
 
     return (
-      <Row key={dataPoint.time} size={11}>
+      <Row key={dataPoint.time} size={12}>
         <h3 title={date}>{date}</h3>
 
         <RowItem>
@@ -71,6 +71,10 @@ const DailyRowsTemplate = ({ forecast, units }) => {
 
         <RowItem>
           <span>{dataPoint.sunsetTime ? time(dataPoint.sunsetTime * 1000) : "N/A"}</span>
+        </RowItem>
+
+        <RowItem>
+          <span>{(dataPoint.sunriseTime && dataPoint.sunsetTime) ? time(dataPoint.sunsetTime * 1000 - dataPoint.sunriseTime * 1000) : "N/A"}</span>
         </RowItem>
 
         <RowItem>

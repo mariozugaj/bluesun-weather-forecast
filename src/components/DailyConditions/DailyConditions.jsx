@@ -15,14 +15,15 @@ const DailyConditions = props => {
     "Humidity",
     "Sunrise",
     "Sunset",
+    "Daylight",
     "UV index",
     "Wind speed",
   ];
 
   return (
     <section className="layout-container">
-      <Table size={11}>
-        <HeaderRow content={headerRowContent} size={11} />
+      <Table size={12}>
+        <HeaderRow content={headerRowContent} size={12} />
         <DailyRowsTemplate {...props} />
       </Table>
     </section>
