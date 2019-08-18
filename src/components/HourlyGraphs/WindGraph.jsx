@@ -23,7 +23,6 @@ export const WindGraph = ({
   tooltipTop,
   tooltipOpen,
   hideTooltip,
-  events,
   units,
 }) => {
   if (width < 10) return null;
@@ -184,7 +183,6 @@ WindGraph.propTypes = {
   tooltipTop: PropTypes.number,
   tooltipOpen: PropTypes.bool.isRequired,
   hideTooltip: PropTypes.func.isRequired,
-  events: PropTypes.func,
   units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 };
 

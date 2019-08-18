@@ -23,7 +23,6 @@ export const UVIndexGraph = ({
   tooltipTop,
   tooltipOpen,
   hideTooltip,
-  events,
 }) => {
   if (width < 10) return null;
 
@@ -205,7 +204,6 @@ UVIndexGraph.propTypes = {
   tooltipTop: PropTypes.number,
   tooltipOpen: PropTypes.bool.isRequired,
   hideTooltip: PropTypes.func.isRequired,
-  events: PropTypes.func,
 };
 
 export default withTooltip(UVIndexGraph, { style: { position: "relative" } });

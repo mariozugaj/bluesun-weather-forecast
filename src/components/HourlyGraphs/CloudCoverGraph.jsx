@@ -23,7 +23,6 @@ export const CloudCoverGraph = ({
   tooltipTop,
   tooltipOpen,
   hideTooltip,
-  events,
 }) => {
   if (width < 10) return null;
 
@@ -198,7 +197,6 @@ CloudCoverGraph.propTypes = {
   tooltipTop: PropTypes.number,
   tooltipOpen: PropTypes.bool.isRequired,
   hideTooltip: PropTypes.func.isRequired,
-  events: PropTypes.func,
 };
 
 export default withTooltip(CloudCoverGraph, { style: { position: "relative" } });
