@@ -62,7 +62,7 @@ const DailyRowsTemplate = ({ forecast, units }) => {
         </RowItem>
 
         <RowItem>
-          <span>{`${round(dataPoint.pressure, 0)} ${units.pressure}`}</span>
+          <span>{`${round(dataPoint.humidity * 100, 0)}%`}</span>
         </RowItem>
 
         <RowItem>
