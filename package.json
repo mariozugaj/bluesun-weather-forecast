@@ -12,7 +12,7 @@
     "@vx/scale": "^0.0.165",
     "@vx/shape": "^0.0.170",
     "@vx/tooltip": "^0.0.165",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
