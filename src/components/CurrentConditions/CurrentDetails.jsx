@@ -21,7 +21,7 @@ const Detail = ({ label = "", value = 0, unit = "", direction = null, className 
   </li>
 );
 
-const CurrentDetails = ({ forecast, units }) => {
+export const CurrentDetails = ({ forecast, units }) => {
   const details = [
     ["windSpeed", units.windSpeed],
     ["humidity", "%"],

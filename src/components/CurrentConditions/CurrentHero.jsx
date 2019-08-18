@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Icon from "components/Icon";
 import { round } from "helpers";
 
-const CurrentHero = props => (
+export const CurrentHero = props => (
   <article className="current-hero">
     <div className="current-hero__conditions">
       <Icon
