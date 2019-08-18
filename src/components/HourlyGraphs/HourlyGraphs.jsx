@@ -7,6 +7,7 @@ import PrecipitationGraph from "./PrecipitationGraph";
 import WindGraph from "./WindGraph";
 import UVIndexGraph from "./UVIndexGraph";
 import CloudCoverGraph from "./CloudCoverGraph";
+import HumidityGraph from "./HumidityGraph";
 
 const HourlyGraphs = ({ forecast, units }) => {
   const WIDTH = 1235;
@@ -70,6 +71,12 @@ const HourlyGraphs = ({ forecast, units }) => {
           data={dataFor("cloudCover")}
         />
       )}
+      <HumidityGraph
+        width={WIDTH}
+        height={height("humidity", "large")}
+        margin={DEFAULT_MARGINS}
+        data={dataFor("humidity")}
+      />
       <WindGraph
         width={WIDTH}
         height={height("windSpeed", "medium")}
