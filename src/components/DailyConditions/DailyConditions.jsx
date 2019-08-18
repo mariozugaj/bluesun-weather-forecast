@@ -51,7 +51,9 @@ DailyConditions.propTypes = {
       ),
     }),
   }),
-  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  units: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
 export default DailyConditions;

@@ -36,7 +36,9 @@ export default function reducer(state = initialState, action) {
     case actionTypes.ADD_FAVORITE_LOCATION:
       return [...state, action.payload.coordinates];
     case actionTypes.DELETE_FAVORITE_LOCATION:
-      const index = state.findIndex(location => location === action.payload.coordinates);
+      const index = state.findIndex(
+        location => location === action.payload.coordinates
+      );
       return [...state.slice(0, index), ...state.slice(index + 1)];
     default:
       return state;

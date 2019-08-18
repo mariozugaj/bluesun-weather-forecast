@@ -7,17 +7,26 @@ const HeaderNav = ({ coordinates = "" }) => {
     <nav>
       <ol className="page-header__nav">
         <li className="page-header__nav__item">
-          <NavLink to={`/forecast/daily/${coordinates}`} className="page-header__nav__anchor">
+          <NavLink
+            to={`/forecast/daily/${coordinates}`}
+            className="page-header__nav__anchor"
+          >
             Overview
           </NavLink>
         </li>
         <li className="page-header__nav__item">
-          <NavLink to={`/forecast/hourly/${coordinates}`} className="page-header__nav__anchor">
+          <NavLink
+            to={`/forecast/hourly/${coordinates}`}
+            className="page-header__nav__anchor"
+          >
             Details
           </NavLink>
         </li>
         <li className="page-header__nav__item">
-          <NavLink to={`/forecast/map/${coordinates}`} className="page-header__nav__anchor">
+          <NavLink
+            to={`/forecast/map/${coordinates}`}
+            className="page-header__nav__anchor"
+          >
             Map
           </NavLink>
         </li>

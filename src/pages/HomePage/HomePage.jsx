@@ -8,8 +8,14 @@ import FavoriteLocations from "components/FavoriteLocations";
 import PoweredBy from "components/PoweredBy";
 
 import { clearLocation, deleteVisitedLocation } from "modules/locations";
-import { fetchForecastIfNeeded, deleteForecastForLocation } from "modules/forecast";
-import { addFavoriteLocation, deleteFavoriteLocation } from "modules/favoriteLocations";
+import {
+  fetchForecastIfNeeded,
+  deleteForecastForLocation,
+} from "modules/forecast";
+import {
+  addFavoriteLocation,
+  deleteFavoriteLocation,
+} from "modules/favoriteLocations";
 import { deleteRecentLocation } from "modules/recentLocations";
 import { getFavoriteLocations, getRecentLocations } from "selectors";
 
@@ -50,11 +56,18 @@ export class HomePage extends Component {
     deleteFavoriteLocation: PropTypes.func.isRequired,
     deleteVisitedLocation: PropTypes.func.isRequired,
     deleteForecastForLocation: PropTypes.func.isRequired,
-    units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    units: PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ).isRequired,
   };
 
   componentDidMount() {
-    const { clearLocation, recentLocations, favoriteLocations, fetchForecastIfNeeded } = this.props;
+    const {
+      clearLocation,
+      recentLocations,
+      favoriteLocations,
+      fetchForecastIfNeeded,
+    } = this.props;
 
     clearLocation();
     [...recentLocations, ...favoriteLocations].forEach(location => {
@@ -64,7 +77,11 @@ export class HomePage extends Component {
   }
 
   componentDidUpdate() {
-    const { recentLocations, favoriteLocations, fetchForecastIfNeeded } = this.props;
+    const {
+      recentLocations,
+      favoriteLocations,
+      fetchForecastIfNeeded,
+    } = this.props;
 
     [...recentLocations, ...favoriteLocations].forEach(location => {
       fetchForecastIfNeeded(location.coordinates);
@@ -80,7 +97,9 @@ export class HomePage extends Component {
       deleteForecastForLocation,
     } = this.props;
     Object.keys(visited).forEach(location => {
-      const isRedundant = !recentListing.includes(location) && !favoriteListing.includes(location);
+      const isRedundant =
+        !recentListing.includes(location) &&
+        !favoriteListing.includes(location);
       if (isRedundant) {
         deleteVisitedLocation(location);
         deleteForecastForLocation(location);
@@ -95,9 +114,7 @@ export class HomePage extends Component {
     if (this.props.forecastError) {
       return (
         <div className="center-page-text-wrapper">
-          <h2>{`There has been an error in fetching forecast: ${
-            this.props.forecastError.response.statusText
-          }`}</h2>
+          <h2>{`There has been an error in fetching forecast: ${this.props.forecastError.response.statusText}`}</h2>
         </div>
       );
     }

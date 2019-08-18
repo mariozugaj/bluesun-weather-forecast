@@ -199,4 +199,6 @@ CloudCoverGraph.propTypes = {
   hideTooltip: PropTypes.func.isRequired,
 };
 
-export default withTooltip(CloudCoverGraph, { style: { position: "relative" } });
+export default withTooltip(CloudCoverGraph, {
+  style: { position: "relative" },
+});

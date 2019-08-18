@@ -7,7 +7,9 @@ export const HeaderRow = ({ size = 5, content = [], extra = false }) => {
   };
   return (
     <header className="table__header-row" style={styles}>
-      {content.map(item => <h4 key={item}>{item}</h4>)}
+      {content.map(item => (
+        <h4 key={item}>{item}</h4>
+      ))}
     </header>
   );
 };

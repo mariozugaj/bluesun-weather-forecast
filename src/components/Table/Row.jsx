@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
 
-export const Row = ({ size = 5, to = null, children, extra = false, ...props }) => {
+export const Row = ({
+  size = 5,
+  to = null,
+  children,
+  extra = false,
+  ...props
+}) => {
   const styles = {
     gridTemplateColumns: `3fr repeat(${size}, 1fr) ${extra ? "40px" : ""}`,
   };

@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 
 import { titleize, round, uvClass } from "helpers";
 
-const Detail = ({ label = "", value = 0, unit = "", direction = null, className = "" }) => (
+const Detail = ({
+  label = "",
+  value = 0,
+  unit = "",
+  direction = null,
+  className = "",
+}) => (
   <li className="current-details__item">
     <span className="current-details__label">{`${titleize(label)}:`}</span>
     <span className="current-details__value">
@@ -40,8 +46,12 @@ export const CurrentDetails = ({ forecast, units }) => {
       }
       unit={detail[1]}
       key={detail[0]}
-      direction={detail[0] === "windSpeed" ? forecast.currently.windBearing - 180 : null}
-      className={detail[0] === "uvIndex" ? uvClass(forecast.currently[detail[0]]) : ""}
+      direction={
+        detail[0] === "windSpeed" ? forecast.currently.windBearing - 180 : null
+      }
+      className={
+        detail[0] === "uvIndex" ? uvClass(forecast.currently[detail[0]]) : ""
+      }
     />
   ));
 
@@ -60,7 +70,9 @@ CurrentDetails.propTypes = {
       dewPoint: PropTypes.number,
     }).isRequired,
   }),
-  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  units: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
 Detail.propTypes = {

@@ -15,9 +15,10 @@ export const CurrentHero = props => (
       />
 
       <span className="current-hero__description">
-        <h2 className="current-hero__summary">{`${round(props.currently.temperature, 0)}˚ ${
-          props.currently.summary
-        }`}</h2>
+        <h2 className="current-hero__summary">{`${round(
+          props.currently.temperature,
+          0
+        )}˚ ${props.currently.summary}`}</h2>
 
         <p className="summary-high-low">
           <span className="current-hero__value">

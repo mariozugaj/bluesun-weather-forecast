@@ -8,7 +8,11 @@ export function round(number, precision = 6) {
       precision = -precision;
     }
     const numArray = ("" + number).split("e");
-    return +(numArray[0] + "e" + (numArray[1] ? +numArray[1] + precision : precision));
+    return +(
+      numArray[0] +
+      "e" +
+      (numArray[1] ? +numArray[1] + precision : precision)
+    );
   };
   return shift(Math.round(shift(number, precision, false)), precision, true);
 }
@@ -67,7 +71,15 @@ export function extractCoordinates(coordinates) {
 export function nextDays(n) {
   return function() {
     const days = ["Today"];
-    const names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const names = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
     const today = new Date().toLocaleDateString("en-GB", { weekday: "long" });
     let index = names.indexOf(today);
 

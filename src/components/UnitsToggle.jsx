@@ -7,7 +7,12 @@ const UnitsToggle = ({ currentUnits, changeUnits }) => {
   };
 
   return (
-    <select name="units" id="units" onChange={handleChange} defaultValue={currentUnits}>
+    <select
+      name="units"
+      id="units"
+      onChange={handleChange}
+      defaultValue={currentUnits}
+    >
       <option value="si">˚C, m/s</option>
       <option value="us">˚F, mph</option>
     </select>

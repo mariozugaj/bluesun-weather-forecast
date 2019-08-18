@@ -23,7 +23,9 @@ const LocationInfo = ({ currentLocation, locations, locationError }) => {
 
   if (!currentLocation || locationError) return null;
 
-  return <h1 className="page-header__location-heading">{currentLocation.label}</h1>;
+  return (
+    <h1 className="page-header__location-heading">{currentLocation.label}</h1>
+  );
 };
 
 LocationInfo.propTypes = {

@@ -35,7 +35,10 @@ const Search = ({ startSearching, stopSearching, isSearching, ...props }) => {
         onClick={changeSearchMode}
       />
       {isSearching && (
-        <SearchInput onSuggestSelect={onSuggestSelect} changeSearchMode={changeSearchMode} />
+        <SearchInput
+          onSuggestSelect={onSuggestSelect}
+          changeSearchMode={changeSearchMode}
+        />
       )}
     </React.Fragment>
   );

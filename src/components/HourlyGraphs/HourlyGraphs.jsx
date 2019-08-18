@@ -84,7 +84,12 @@ const HourlyGraphs = ({ forecast, units }) => {
         data={dataFor("windSpeed")}
         units={units}
       />
-      <UVIndexGraph width={WIDTH} height={200} margin={DEFAULT_MARGINS} data={dataFor("uvIndex")} />
+      <UVIndexGraph
+        width={WIDTH}
+        height={200}
+        margin={DEFAULT_MARGINS}
+        data={dataFor("uvIndex")}
+      />
     </React.Fragment>
   );
 };
@@ -103,7 +108,9 @@ HourlyGraphs.propTypes = {
       })
     ),
   }),
-  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  units: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
 export default HourlyGraphs;

@@ -207,12 +207,16 @@ export const TemperatureGraph = ({
           scale={xScale}
           hideTicks={true}
           hideAxisLine={true}
-          tickLabelProps={() => ({ fontSize: "1em", fontWeight: 400, textAnchor: "middle" })}
+          tickLabelProps={() => ({
+            fontSize: "1em",
+            fontWeight: 400,
+            textAnchor: "middle",
+          })}
         />
         <Group left={margin.left} top={height - 10}>
-          <text fontSize={12}>{`Temperature °${units.temperature} | Feels like °${
-            units.temperature
-          }`}</text>
+          <text
+            fontSize={12}
+          >{`Temperature °${units.temperature} | Feels like °${units.temperature}`}</text>
         </Group>
       </svg>
       {tooltipOpen && (
@@ -262,7 +266,11 @@ TemperatureGraph.propTypes = {
   tooltipTop: PropTypes.arrayOf(PropTypes.number),
   tooltipOpen: PropTypes.bool.isRequired,
   hideTooltip: PropTypes.func.isRequired,
-  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  units: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
-export default withTooltip(TemperatureGraph, { style: { position: "relative" } });
+export default withTooltip(TemperatureGraph, {
+  style: { position: "relative" },
+});

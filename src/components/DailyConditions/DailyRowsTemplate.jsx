@@ -30,27 +30,31 @@ const DailyRowsTemplate = ({ forecast, units }) => {
         <h3 title={date}>{date}</h3>
 
         <RowItem>
-          <Icon name={dataPoint.icon} alt={dataPoint.summary} title={dataPoint.summary} size={50} />
+          <Icon
+            name={dataPoint.icon}
+            alt={dataPoint.summary}
+            title={dataPoint.summary}
+            size={50}
+          />
         </RowItem>
 
         <RowItem>
-          <span className={tempClass(dataPoint.temperatureMax, units.freezingPoint)}>{`${round(
-            dataPoint.temperatureMax,
+          <span
+            className={tempClass(dataPoint.temperatureMax, units.freezingPoint)}
+          >{`${round(dataPoint.temperatureMax, 0)}˚`}</span>
+        </RowItem>
+
+        <RowItem>
+          <span
+            className={tempClass(dataPoint.temperatureMin, units.freezingPoint)}
+          >{`${round(dataPoint.temperatureMin, 0)}˚`}</span>
+        </RowItem>
+
+        <RowItem>
+          <span className="precipitation">{`${round(
+            dataPoint.precipIntensity * 24,
             0
-          )}˚`}</span>
-        </RowItem>
-
-        <RowItem>
-          <span className={tempClass(dataPoint.temperatureMin, units.freezingPoint)}>{`${round(
-            dataPoint.temperatureMin,
-            0
-          )}˚`}</span>
-        </RowItem>
-
-        <RowItem>
-          <span className="precipitation">{`${round(dataPoint.precipIntensity * 24, 0)} ${
-            units.precipitation
-          }`}</span>
+          )} ${units.precipitation}`}</span>
         </RowItem>
 
         <RowItem>
@@ -66,19 +70,29 @@ const DailyRowsTemplate = ({ forecast, units }) => {
         </RowItem>
 
         <RowItem>
-          <span>{dataPoint.sunriseTime ? time(dataPoint.sunriseTime * 1000) : "N/A"}</span>
+          <span>
+            {dataPoint.sunriseTime ? time(dataPoint.sunriseTime * 1000) : "N/A"}
+          </span>
         </RowItem>
 
         <RowItem>
-          <span>{dataPoint.sunsetTime ? time(dataPoint.sunsetTime * 1000) : "N/A"}</span>
+          <span>
+            {dataPoint.sunsetTime ? time(dataPoint.sunsetTime * 1000) : "N/A"}
+          </span>
         </RowItem>
 
         <RowItem>
-          <span>{(dataPoint.sunriseTime && dataPoint.sunsetTime) ? time(dataPoint.sunsetTime * 1000 - dataPoint.sunriseTime * 1000) : "N/A"}</span>
+          <span>
+            {dataPoint.sunriseTime && dataPoint.sunsetTime
+              ? time(dataPoint.sunsetTime * 1000 - dataPoint.sunriseTime * 1000)
+              : "N/A"}
+          </span>
         </RowItem>
 
         <RowItem>
-          <span className={uvClass(dataPoint.uvIndex)}>{dataPoint.uvIndex}</span>
+          <span className={uvClass(dataPoint.uvIndex)}>
+            {dataPoint.uvIndex}
+          </span>
         </RowItem>
 
         <RowItem>
@@ -121,7 +135,9 @@ DailyRowsTemplate.propTypes = {
       ),
     }),
   }),
-  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  units: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
 export default DailyRowsTemplate;

@@ -1,6 +1,9 @@
 import * as actionTypes from "redux/actionTypes";
 import { geocode } from "helpers";
-import { addRecentLocation, deleteRecentLocation } from "modules/recentLocations";
+import {
+  addRecentLocation,
+  deleteRecentLocation,
+} from "modules/recentLocations";
 
 export function clearLocation() {
   return {
@@ -36,9 +39,9 @@ function checkLocationCount() {
 
 export function addNewVisitedSuccess(locationData) {
   return (dispatch, getState) => {
-    const locationAlreadyVisited = Object.keys(getState().locations.visited).includes(
-      locationData.coordinates
-    );
+    const locationAlreadyVisited = Object.keys(
+      getState().locations.visited
+    ).includes(locationData.coordinates);
     if (locationAlreadyVisited) return null;
     dispatch({
       type: actionTypes.ADD_NEW_VISITED_SUCCESS,
@@ -86,7 +89,9 @@ export function getLocation(coordinates) {
   return (dispatch, getState) => {
     dispatch({ type: actionTypes.GET_LOCATION_BEGIN });
 
-    const locationAlreadyVisited = Object.keys(getState().locations.visited).includes(coordinates);
+    const locationAlreadyVisited = Object.keys(
+      getState().locations.visited
+    ).includes(coordinates);
     if (locationAlreadyVisited) {
       return dispatch(getLocationSuccess(coordinates));
     }

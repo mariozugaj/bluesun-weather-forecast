@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 import Icon from "components/Icon";
 import LoadingModal from "components/LoadingModal";
 
-const CurrentPosition = ({ getCurrentPosition, currentPosition: { isLocating } }) => {
+const CurrentPosition = ({
+  getCurrentPosition,
+  currentPosition: { isLocating },
+}) => {
   return (
     <React.Fragment>
       {isLocating && <LoadingModal text="We are trying to locate you..." />}

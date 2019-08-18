@@ -60,7 +60,9 @@ function shouldFetchForecast(state, coordinates) {
 export function fetchForecastIfNeeded(coordinates) {
   return (dispatch, getState) => {
     if (shouldFetchForecast(getState(), coordinates)) {
-      return dispatch(fetchForecast(coordinates, getState().units.currentUnits));
+      return dispatch(
+        fetchForecast(coordinates, getState().units.currentUnits)
+      );
     } else {
       return Promise.resolve();
     }

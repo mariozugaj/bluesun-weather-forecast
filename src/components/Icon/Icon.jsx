@@ -3,7 +3,14 @@ import PropTypes from "prop-types";
 
 import Icons from "icons.svg";
 
-const Icon = ({ name = "", className = "", size = 100, title = "", alt = "", onClick }) => (
+const Icon = ({
+  name = "",
+  className = "",
+  size = 100,
+  title = "",
+  alt = "",
+  onClick,
+}) => (
   <svg
     className={`icon ${className}`}
     width={size}

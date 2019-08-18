@@ -6,7 +6,12 @@ import Icon from "components/Icon";
 import { nextDays } from "helpers";
 import WeatherSymbol from "components/WeatherSymbol";
 
-const RecentLocations = ({ recentLocations, forecast, units: { freezingPoint }, ...props }) => {
+const RecentLocations = ({
+  recentLocations,
+  forecast,
+  units: { freezingPoint },
+  ...props
+}) => {
   const handleStarClick = (coordinates, event) => {
     event.preventDefault();
     props.addFavoriteLocation(coordinates);

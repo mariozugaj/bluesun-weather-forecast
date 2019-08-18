@@ -72,7 +72,13 @@ export const PrecipitationGraph = ({
     <figure className="graph-wrapper">
       <svg width={width} height={height}>
         <defs>
-          <linearGradient id="precipGradient" x1={"0%"} y1="0%" x2="0%" y2="100%">
+          <linearGradient
+            id="precipGradient"
+            x1={"0%"}
+            y1="0%"
+            x2="0%"
+            y2="100%"
+          >
             <stop offset="0%" stopColor="#0b4d93" stopOpacity={1} />
             <stop offset="50%" stopColor="#0f65c1" stopOpacity={1} />
             <stop offset="100%" stopColor="#4196f2" stopOpacity={1} />
@@ -144,7 +150,9 @@ export const PrecipitationGraph = ({
           tickLabelProps={() => ({ fontSize: 12, textAnchor: "end" })}
         />
         <Group left={margin.left} top={height - 4}>
-          <text fontSize={12}>{`Precipitation ${units.precipitationPerHour}`}</text>
+          <text
+            fontSize={12}
+          >{`Precipitation ${units.precipitationPerHour}`}</text>
         </Group>
       </svg>
       {tooltipOpen && (
@@ -192,7 +200,11 @@ PrecipitationGraph.propTypes = {
   tooltipTop: PropTypes.number,
   tooltipOpen: PropTypes.bool.isRequired,
   hideTooltip: PropTypes.func.isRequired,
-  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  units: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
-export default withTooltip(PrecipitationGraph, { style: { position: "relative" } });
+export default withTooltip(PrecipitationGraph, {
+  style: { position: "relative" },
+});

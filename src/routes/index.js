@@ -13,8 +13,14 @@ const routes = (
     <Header />
     <Switch>
       <Route exact path="/" component={HomePage} />
-      <Route path="/forecast/daily/:coordinates" component={ForecastDailyPage} />
-      <Route path="/forecast/hourly/:coordinates" component={ForecastHourlyPage} />
+      <Route
+        path="/forecast/daily/:coordinates"
+        component={ForecastDailyPage}
+      />
+      <Route
+        path="/forecast/hourly/:coordinates"
+        component={ForecastHourlyPage}
+      />
       <Route path="/forecast/map/:coordinates" component={ForecastMapPage} />
       <Route component={NotFoundPage} />
     </Switch>

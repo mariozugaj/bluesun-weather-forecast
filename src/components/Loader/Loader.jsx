@@ -5,7 +5,8 @@ const Loader = () => {
     <div
       className="loader-inner"
       title="Loader by Jack Rugile"
-      data-link="https://codepen.io/jackrugile/pen/JddmaX">
+      data-link="https://codepen.io/jackrugile/pen/JddmaX"
+    >
       <div className="loader-line-wrap">
         <div className="loader-line" />
       </div>

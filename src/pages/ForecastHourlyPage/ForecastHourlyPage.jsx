@@ -22,7 +22,9 @@ export class ForecastHourlyPage extends Component {
     forecastError: PropTypes.object,
     fetchForecastIfNeeded: PropTypes.func.isRequired,
     getLocation: PropTypes.func.isRequired,
-    units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    units: PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ).isRequired,
     currentUnits: PropTypes.string.isRequired,
   };
 
@@ -66,15 +68,11 @@ export class ForecastHourlyPage extends Component {
       return (
         <div className="center-page-text-wrapper">
           {locationError && (
-            <h2>{`There has been an error in determining desired location: ${
-              locationError.message
-            }`}</h2>
+            <h2>{`There has been an error in determining desired location: ${locationError.message}`}</h2>
           )}
           {forecastError && (
             <React.Fragment>
-              <h2>{`There has been an error in fetching forecast: ${
-                forecastError.response.statusText
-              }`}</h2>
+              <h2>{`There has been an error in fetching forecast: ${forecastError.response.statusText}`}</h2>
               <br />
               <h3>Try reloading the page.</h3>
             </React.Fragment>
@@ -85,12 +83,20 @@ export class ForecastHourlyPage extends Component {
 
     if (isLoading || !currentLocation) {
       return (
-        <LoadingModal text="Loading location parameters..." className="center-page-text-wrapper" />
+        <LoadingModal
+          text="Loading location parameters..."
+          className="center-page-text-wrapper"
+        />
       );
     }
 
     if (!forecast) {
-      return <LoadingModal text="Fetching forecast..." className="center-page-text-wrapper" />;
+      return (
+        <LoadingModal
+          text="Fetching forecast..."
+          className="center-page-text-wrapper"
+        />
+      );
     }
 
     return (
@@ -121,7 +127,8 @@ const mapDispatch = (dispatch, ownProps) => {
   const { coordinates } = ownProps.match.params;
   return {
     getLocation: () => dispatch(getLocation(coordinates)),
-    fetchForecastIfNeeded: location => dispatch(fetchForecastIfNeeded(location)),
+    fetchForecastIfNeeded: location =>
+      dispatch(fetchForecastIfNeeded(location)),
   };
 };
 

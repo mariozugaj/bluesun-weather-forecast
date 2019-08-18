@@ -51,9 +51,7 @@ export class ForecastMapPage extends Component {
       return (
         <div className="center-page-text-wrapper">
           {locationError && (
-            <h2>{`There has been an error in determining desired location: ${
-              locationError.message
-            }`}</h2>
+            <h2>{`There has been an error in determining desired location: ${locationError.message}`}</h2>
           )}
         </div>
       );
@@ -61,14 +59,20 @@ export class ForecastMapPage extends Component {
 
     if (isLoading || !currentLocation) {
       return (
-        <LoadingModal text="Loading location parameters..." className="center-page-text-wrapper" />
+        <LoadingModal
+          text="Loading location parameters..."
+          className="center-page-text-wrapper"
+        />
       );
     }
     const coordinates = trimCoordinates(currentLocation.coordinates);
     return (
       <section className="map-wrapper">
         {isMapLoading && (
-          <LoadingModal text="Loading map... " className="center-page-text-wrapper" />
+          <LoadingModal
+            text="Loading map... "
+            className="center-page-text-wrapper"
+          />
         )}
         <Helmet>
           <title>{`BlueSun Weather Forecast | ${currentLocation.label}`}</title>

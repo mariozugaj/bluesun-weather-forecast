@@ -43,7 +43,9 @@ CurrentConditions.propTypes = {
     }).isRequired,
     units: PropTypes.string.isRequired,
   }),
-  units: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  units: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 };
 
 export default CurrentConditions;

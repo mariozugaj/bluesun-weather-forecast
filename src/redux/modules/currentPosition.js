@@ -27,7 +27,9 @@ export function getCurrentPosition() {
         return geocode(coordinates)
           .then(locationData => {
             dispatch(getCurrentPositionSuccess());
-            return browserHistory.push(`/forecast/daily/${locationData.coordinates}`);
+            return browserHistory.push(
+              `/forecast/daily/${locationData.coordinates}`
+            );
           })
           .catch(error => dispatch(getCurrentPositionFailure(error)));
       },

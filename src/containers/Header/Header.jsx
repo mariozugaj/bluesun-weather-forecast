@@ -14,7 +14,10 @@ import UnitsToggle from "components/UnitsToggle";
 import { startSearching, stopSearching } from "modules/search";
 import { getCurrentPosition } from "modules/currentPosition";
 import { addNewVisitedSuccess } from "modules/locations";
-import { addFavoriteLocation, deleteFavoriteLocation } from "modules/favoriteLocations";
+import {
+  addFavoriteLocation,
+  deleteFavoriteLocation,
+} from "modules/favoriteLocations";
 import { changeUnits } from "modules/units";
 import { getCurrentLocation } from "redux/selectors";
 
@@ -62,7 +65,9 @@ export class Header extends Component {
           <Search {...this.props} />
           <UnitsToggle {...this.props} />
         </header>
-        {isNotHome && !locationError && <HeaderNav coordinates={currentLocation.coordinates} />}
+        {isNotHome && !locationError && (
+          <HeaderNav coordinates={currentLocation.coordinates} />
+        )}
       </section>
     );
   }
