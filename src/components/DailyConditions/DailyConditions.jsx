@@ -12,7 +12,7 @@ const DailyConditions = props => {
     "Precip.",
     "Precip. %",
     "Cloud cover",
-    "Pressure",
+    "Humidity",
     "Sunrise",
     "Sunset",
     "UV index",
@@ -45,7 +45,7 @@ DailyConditions.propTypes = {
           sunsetTime: PropTypes.number,
           sunriseTime: PropTypes.number,
           precipProbability: PropTypes.number,
-          pressure: PropTypes.number,
+          humidity: PropTypes.number,
         })
       ),
     }),
