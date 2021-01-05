@@ -12,7 +12,7 @@
     "@vx/scale": "^0.0.165",
     "@vx/shape": "^0.0.170",
     "@vx/tooltip": "^0.0.165",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "http-proxy-middleware": "^0.19.1",
     "prop-types": "^15.7.2",
