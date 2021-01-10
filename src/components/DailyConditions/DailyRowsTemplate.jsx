@@ -84,7 +84,7 @@ const DailyRowsTemplate = ({ forecast, units }) => {
         <RowItem>
           <span>
             {dataPoint.sunriseTime && dataPoint.sunsetTime
-              ? time(dataPoint.sunsetTime * 1000 - dataPoint.sunriseTime * 1000)
+              ? new Date((dataPoint.sunsetTime - dataPoint.sunriseTime) * 1000).toISOString().substr(11, 5)
               : "N/A"}
           </span>
         </RowItem>
