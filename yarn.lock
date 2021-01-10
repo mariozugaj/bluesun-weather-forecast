@@ -1336,14 +1336,14 @@
     "@vx/shape" "0.0.170"
     classnames "^2.2.5"
 
-"@vx/group@0.0.170", "@vx/group@^0.0.170":
+"@vx/group@0.0.170":
   version "0.0.170"
   resolved "https://registry.yarnpkg.com/@vx/group/-/group-0.0.170.tgz#8b30b3ea07c348fe22253812fe7cb6d4200d725d"
   integrity sha512-RnDdRoy0YI5hokk+YWXc8t39Kp51i4BdCpiwkDJU4YypGycTYnDFjicam6jigUmZ/6wyMirDf/aQboWviFLt2Q==
   dependencies:
     classnames "^2.2.5"
 
-"@vx/group@0.0.198":
+"@vx/group@^0.0.198":
   version "0.0.198"
   resolved "https://registry.yarnpkg.com/@vx/group/-/group-0.0.198.tgz#acfd16953a39eac8f9901dcfaaf3936f4b05eb9c"
   integrity sha512-0PivE+fWZlPkSzFO/is5m4VSSv3pg+sS1yxYAZHbNffUvn472WDWptriHvoUIPQe0lOXhTSrc73UQzew9GtW/g==
